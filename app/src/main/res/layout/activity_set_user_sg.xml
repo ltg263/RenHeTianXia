@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/color_ffffff"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <TextView
+            android:id="@+id/tv1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="60dp"
+            android:text="你的身高与体重"
+            android:textColor="@color/black"
+            android:textSize="18sp" />
+
+
+        <TextView
+            android:id="@+id/tv2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tv1"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="10dp"
+            android:text="Height and weight"
+            android:textColor="@color/color_999999"
+            android:textSize="14sp" />
+
+        <com.jxxx.rhtx.utils.view.SquareRelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@id/tv2"
+            android:padding="@dimen/dp_10"
+            android:rotation="90">
+
+            <com.jxxx.rhtx.utils.view.RulerView_xz
+                android:id="@+id/ruler_height"
+                android:layout_width="match_parent"
+                android:layout_height="58.0dip"
+                app:alphaEnable="false"
+                app:lineColor="#AAAAAA"
+                app:lineMaxHeight="30dp"
+                app:lineMidHeight="30dp"
+                app:lineMinHeight="15dp"
+                app:lineSpaceWidth="7dp"
+                app:lineWidth="1dip"
+                app:maxValue="300.0"
+                app:minValue="40.0"
+                app:perValue="1"
+                app:selectorValue="60.0"
+                app:textColor="#AAAAAA"
+                app:textSize="12sp" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="-5dp"
+                android:src="@mipmap/cursor_weight" />
+
+            <ImageView
+                android:layout_width="120dp"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="90dp"
+                android:rotation="-90"
+                android:src="@mipmap/ic_line" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="180dp"
+                android:rotation="-90">
+
+                <TextView
+                    android:id="@+id/tv_sg"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="160"
+                    android:textColor="@color/color_333333"
+                    android:textSize="26sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=" cm"
+                    android:textColor="@color/color_333333"
+                    android:textSize="16sp" />
+
+            </LinearLayout>
+
+
+            <!--            <ImageView-->
+            <!--                android:id="@+id/iv_xb"-->
+            <!--                android:layout_width="wrap_content"-->
+            <!--                android:layout_height="170dp"-->
+            <!--                android:layout_alignParentEnd="true"-->
+            <!--                android:layout_centerVertical="true"-->
+            <!--                android:rotation="-90"-->
+            <!--                android:src="@mipmap/ic_ren_nv" />-->
+        </com.jxxx.rhtx.utils.view.SquareRelativeLayout>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="25dp"
+        android:layout_marginTop="25dp">
+
+        <TextView
+            android:id="@+id/tv_tz"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:text="60.0"
+            android:textColor="@color/color_333333"
+            android:textSize="26sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@id/tv_tz"
+            android:layout_toEndOf="@id/tv_tz"
+            android:gravity="bottom"
+            android:paddingBottom="2dp"
+            android:text=" kg"
+            android:textColor="@color/color_333333"
+            android:textSize="16sp" />
+
+        <com.zkk.view.rulerview.RulerView
+            android:id="@+id/ruler_weight"
+            android:layout_width="match_parent"
+            android:layout_height="58.0dip"
+            android:layout_below="@id/tv_tz"
+            android:layout_marginTop="15dp"
+            app:alphaEnable="false"
+            app:lineColor="#AAAAAA"
+            app:lineMaxHeight="30dp"
+            app:lineMidHeight="30dp"
+            app:lineMinHeight="15dp"
+            app:lineSpaceWidth="7dp"
+            app:lineWidth="1dip"
+            app:maxValue="300.0"
+            app:minValue="40.0"
+            app:perValue="1"
+            app:selectorValue="60.0"
+            app:textColor="#AAAAAA"
+            app:textSize="12sp" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tv_tz"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="@dimen/dp_10"
+            android:src="@mipmap/cursor_weight" />
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/tv_go_xyb"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginHorizontal="30dp"
+        android:layout_marginVertical="20dp"
+        android:background="@drawable/shape_radius_th"
+        android:gravity="center"
+        android:paddingTop="@dimen/dp_10"
+        android:paddingBottom="@dimen/dp_10"
+        android:text="完成"
+        android:textColor="@color/color_ffffff"
+        android:textSize="16sp" />
+</LinearLayout>

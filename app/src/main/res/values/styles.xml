@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/white</item>
+        <item name="colorPrimaryDark">@color/white</item>
+        <item name="colorAccent">@color/white</item>
+        <item name="android:textColorTertiary">@color/color_000000</item>
+        <item name="android:windowIsTranslucent">false</item>
+    </style>
+
+    <!--loading样式-->
+    <style name="ProgressHUD" parent="@android:style/Theme.Dialog">
+        <item name="android:windowFrame">@null</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowAnimationStyle">@android:style/Animation.Dialog</item>
+        <item name="android:windowSoftInputMode">stateUnspecified|adjustPan</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowNoTitle">true</item>
+    </style>
+
+    <style name="Toolbar">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:minHeight">?attr/actionBarSize</item>
+        <item name="android:background">@color/white</item>
+        <item name="android:theme">@style/ThemeOverlay.AppCompat.Light</item>
+        <item name="popupTheme">@style/ThemeOverlay.AppCompat.Light</item>
+    </style>
+
+    <declare-styleable name="RulerView">
+    <attr name="rvTextColor" format="color" />
+    <attr name="rvTextSize" format="dimension" />
+    <attr name="rvLineColor" format="color" />
+    <attr name="lineSpaceWidth" format="dimension" />
+    <attr name="lineWidth" format="dimension" />
+    <attr name="lineMaxHeight" format="dimension" />
+    <attr name="lineMidHeight" format="dimension" />
+    <attr name="lineMinHeight" format="dimension" />
+    <attr name="lineMax" format="dimension" />
+    <attr name="textMarginTop" format="dimension" />
+    <attr name="alphaEnable" format="boolean" />
+    <attr name="minValue" format="float"/>
+    <attr name="maxValue" format="float"/>
+    <attr name="selectorValue" format="float"/>
+    <attr name="perValue" format="float"/>
+    </declare-styleable>
+</resources>
