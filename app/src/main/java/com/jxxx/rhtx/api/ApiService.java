@@ -2,8 +2,12 @@ package com.jxxx.rhtx.api;
 
 
 import com.jxxx.rhtx.base.Result;
+import com.jxxx.rhtx.base.ResultList;
 import com.jxxx.rhtx.bean.AddChangeList;
 import com.jxxx.rhtx.bean.AddOrderData;
+import com.jxxx.rhtx.bean.DeviceTypeListAll;
+import com.jxxx.rhtx.bean.DeviceUseLogList;
+import com.jxxx.rhtx.bean.HomeInfoBean;
 import com.jxxx.rhtx.bean.LoginBean;
 
 import java.util.Map;
@@ -84,6 +88,27 @@ public interface ApiService {
      */
     @POST("api/v1/user/device/addChangeList")
     Observable<Result> addChangeList(@Body AddChangeList addOrderData);
+
+    /**
+     *
+     * 用户首页
+     */
+    @GET("api/v1/user/index/home")
+    Observable<Result<HomeInfoBean>> getHome();
+
+    /**
+     *
+     * 用户设备历史记录
+     */
+    @GET("api/v1/deviceType/listAll")
+    Observable<ResultList<DeviceTypeListAll>> getDeviceTypeListAll();
+
+    /**
+     *
+     * 用户设备历史记录
+     */
+    @GET("api/v1/user/device/useLogList")
+    Observable<Result<DeviceUseLogList>> getDeviceUseLogList(@Query("pageSize") int pageSize);
 
     /**
      *

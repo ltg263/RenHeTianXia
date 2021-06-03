@@ -85,17 +85,21 @@ public abstract class BaseFragment extends Fragment {
         }
     }
 
-    public void ifNotLoginTurnToLogin(int status) {
+    public boolean ifNotLoginTurnToLogin(int status) {
         if (status == 101) {
             StringUtil.loginNo(getActivity());
             SharedUtils.singleton().clear();
-            return;
+            return true;
         }
+        return false;
     }
 
     public boolean isDataInfoSucceed(Result result){
         if(result.getStatus()==0){
             return true;
+        }
+        if(ifNotLoginTurnToLogin(result.getStatus())){
+            return false;
         }
         ToastUtil.showLongStrToast(getContext(),result.getError());
         return false;

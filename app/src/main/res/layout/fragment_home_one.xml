@@ -51,6 +51,7 @@
                         android:src="@mipmap/ic_head" />
 
                     <TextView
+                        android:id="@+id/tv_user_name"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
@@ -62,6 +63,7 @@
                         android:textSize="16sp" />
 
                     <TextView
+                        android:id="@+id/tv_updata_info"
                         android:layout_width="50dp"
                         android:layout_height="22dp"
                         android:layout_alignParentEnd="true"
@@ -85,6 +87,7 @@
                         android:padding="@dimen/dp_10">
 
                         <TextView
+                            android:id="@+id/tv_user_xb"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
@@ -95,12 +98,13 @@
                             android:textSize="@dimen/sp_14" />
 
                         <TextView
+                            android:id="@+id/tv_user_sg"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:drawableStart="@mipmap/icon_index_3"
                             android:drawablePadding="@dimen/dp_10"
-                            android:text="身高 丨 162cm"
+                            android:text="身高 丨 0cm"
                             android:textColor="@color/white"
                             android:textSize="@dimen/sp_14" />
 
@@ -113,22 +117,24 @@
                         android:padding="@dimen/dp_10">
 
                         <TextView
+                            android:id="@+id/tv_user_nl"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:drawableStart="@mipmap/icon_index_2"
                             android:drawablePadding="@dimen/dp_10"
-                            android:text="年龄 丨 26"
+                            android:text="年龄 丨 0"
                             android:textColor="@color/white"
                             android:textSize="@dimen/sp_14" />
 
                         <TextView
+                            android:id="@+id/tv_user_tz"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:drawableStart="@mipmap/icon_index_4"
                             android:drawablePadding="@dimen/dp_10"
-                            android:text="体重 丨 51kg"
+                            android:text="体重 丨 0kg"
                             android:textColor="@color/white"
                             android:textSize="@dimen/sp_14" />
 
@@ -166,7 +172,7 @@
                         android:src="@mipmap/icon_index_4" />
 
                     <TextView
-                        android:id="@+id/tv_name"
+                        android:id="@+id/tv_sb_name"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/dp_10"
@@ -176,17 +182,18 @@
                         android:textSize="@dimen/sp_14" />
 
                     <TextView
-                        android:id="@+id/tv_name_b"
+                        android:id="@+id/tv_sb_lx"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_below="@id/tv_name"
-                        android:layout_alignStart="@id/tv_name"
+                        android:layout_below="@id/tv_sb_name"
+                        android:layout_alignStart="@id/tv_sb_name"
                         android:layout_marginTop="5dp"
                         android:text="呼吸波形 丨 呼吸频率"
                         android:textColor="@color/white"
                         android:textSize="@dimen/sp_12" />
 
                     <TextView
+                        android:id="@+id/tv_sb_select"
                         android:layout_width="50dp"
                         android:layout_height="22dp"
                         android:layout_alignParentEnd="true"
@@ -200,7 +207,7 @@
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:layout_below="@id/tv_name_b"
+                        android:layout_below="@id/tv_sb_lx"
                         android:layout_marginTop="@dimen/dp_10"
                         android:background="@color/red40" />
 
@@ -208,7 +215,7 @@
 
                 <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="95dp"
+                    android:layout_height="wrap_content"
                     android:layout_margin="10dp"
                     android:background="@drawable/ic_shade_img"
                     android:padding="15dp">
@@ -227,6 +234,7 @@
                         android:textStyle="bold" />
 
                     <TextView
+                        android:id="@+id/tv_2"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_below="@id/tv_1"
@@ -234,6 +242,13 @@
                         android:text="使用时间 丨 设备名称 丨 识别码(MAC) 丨 使用时长"
                         android:textColor="@color/color_999999" />
 
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rv_sbls_list"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/tv_2"
+                        android:layout_marginTop="@dimen/dp_10"
+                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
                 </RelativeLayout>
 
                 <RelativeLayout
@@ -266,6 +281,7 @@
                         android:layout_height="wrap_content"
                         android:layout_below="@id/tv_add_sb"
                         android:layout_marginTop="@dimen/dp_10"
+                        android:orientation="horizontal"
                         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
 
                 </RelativeLayout>
