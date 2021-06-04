@@ -133,8 +133,7 @@ public interface ApiService {
     Observable<Result<LoginBean>> getDetail();
 
     /**
-     *
-     * 用户详情
+     * 设置默认设备
      */
     @POST("api/v1/user/updateDefaultShow")
     Observable<Result> updateDefaultShow(@Query("defaultShow") String defaultShow);

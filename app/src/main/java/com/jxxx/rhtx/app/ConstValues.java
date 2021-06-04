@@ -28,7 +28,7 @@ public class ConstValues {
     public static final String PHONE = "phone";
     public static final String LAT = "lat";
     public static final String LON = "lon";
-    public static final String NICKNAME = "nickname";
+    public static final String DEFAULT_SHOW = "default_show";
     public static final String AVATAR = "avatar";
     public static final String IS_REALNAME = "is_realname";
     public static final String INTEGRALJUMP = "integral_jump";

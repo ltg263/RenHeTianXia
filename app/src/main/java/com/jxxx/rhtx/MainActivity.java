@@ -11,12 +11,23 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.jxxx.rhtx.api.RetrofitUtil;
 import com.jxxx.rhtx.base.BaseActivity;
+import com.jxxx.rhtx.base.Result;
+import com.jxxx.rhtx.bean.DeviceUseLogList;
+import com.jxxx.rhtx.bean.LoginBean;
+import com.jxxx.rhtx.view.adapter.HomeCenAdapter;
 import com.jxxx.rhtx.view.fragment.HomeOneFragment;
 import com.jxxx.rhtx.view.fragment.HomeThreeFragment;
 import com.jxxx.rhtx.view.fragment.HomeTwoFragment;
 
+import java.util.List;
+
 import butterknife.BindView;
+import io.reactivex.Observer;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
 
 public class MainActivity extends BaseActivity {
     @BindView(R.id.bnv_home_navigation)
@@ -42,7 +53,31 @@ public class MainActivity extends BaseActivity {
 
     @Override
     public void initData() {
+        RetrofitUtil.getInstance().apiService()
+                .getDetail()
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.io())
+                .subscribe(new Observer<Result<LoginBean>>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
 
+                    }
+
+                    @Override
+                    public void onNext(Result<LoginBean> result) {
+                        if (isDataInfoSucceed(result)) {
+                        }
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+
+                    }
+
+                    @Override
+                    public void onComplete() {
+                    }
+                });
     }
     private void initBottomBar() {
         openLocation();

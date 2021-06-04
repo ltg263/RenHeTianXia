@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
@@ -81,6 +82,10 @@ public class HomeOneFragment extends BaseFragment {
     RecyclerView mRvSblsList;
     @BindView(R.id.ll_bj)
     LinearLayout ll_bj;
+    @BindView(R.id.tv_mrym)
+    TextView tv_mrym;
+    @BindView(R.id.ll_mrym)
+    RelativeLayout ll_mrym;
     @BindView(R.id.line_chart)
     LineChart mLineChart;
 
@@ -115,6 +120,7 @@ public class HomeOneFragment extends BaseFragment {
                                 GlideImgLoader.loadImageViewWithCirclr(getActivity(), userInfo.getAvatar(),  mIvHead);
                                 SharedUtils.singleton().put(ConstValues.USER_NAME,userInfo.getNickName());
                                 SharedUtils.singleton().put(ConstValues.USER_AVATAR,userInfo.getAvatar());
+                                SharedUtils.singleton().put(ConstValues.DEFAULT_SHOW,userInfo.getDefaultShow());
                                 mTvUserName.setText(userInfo.getNickName());
                                 mTvUserXb.setText(userInfo.getSex()==1?"性别 丨 男":"性别 丨 女");
                                 mTvUserSg.setText("身高 丨 "+userInfo.getHeight()+"cm");
@@ -123,6 +129,8 @@ public class HomeOneFragment extends BaseFragment {
 
                             HomeInfoBean.DeviceBean device = result.getData().getDevice();
                             if(device!=null) {
+                                ll_mrym.setVisibility(View.VISIBLE);
+                                tv_mrym.setVisibility(View.VISIBLE);
                                 GlideImgLoader.loadImageAndDefault(getActivity(), device.getImgUrl(), mIvSb);
                                 mTvSbName.setText(device.getTypeStr());
                                 inivLine(device.getChangeList());

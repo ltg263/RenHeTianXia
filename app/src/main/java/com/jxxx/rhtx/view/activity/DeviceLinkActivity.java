@@ -46,7 +46,7 @@ public class DeviceLinkActivity extends BaseActivity {
     TextView mTvSbType;
     @BindView(R.id.tv_details)
     TextView mTvDetails;
-
+    int id,defaultShowId;
     @Override
     public int intiLayout() {
         return R.layout.activity_device_link;
@@ -59,7 +59,8 @@ public class DeviceLinkActivity extends BaseActivity {
 
     @Override
     public void initData() {
-        int id = getIntent().getIntExtra("id", 0);
+        id = getIntent().getIntExtra("id", 0);
+        defaultShowId = SharedUtils.singleton().get(ConstValues.DEFAULT_SHOW, 0);
         GlideImageLoader.loadImageAndDefault(this, SharedUtils.singleton().get(ConstValues.USER_BACK_IMG, ""), iv_bj);
         RetrofitUtil.getInstance().apiService()
                 .getDeviceDetails(id)
@@ -80,7 +81,7 @@ public class DeviceLinkActivity extends BaseActivity {
                             if(StringUtil.isNotBlank(result.getData().getRemark())){
                                 mTvSbSm.setText(result.getData().getRemark());
                             }
-                            mTvSzmr.setText(result.getData().getStatus()==1?"设为模式":"取消默认");
+                            mTvSzmr.setText(defaultShowId==id?"取消默认":"设为默认");
                             if(StringUtil.isNotBlank(result.getData().getDetails())) {
                                 mTvDetails.setText(Html.fromHtml(result.getData().getDetails()));
                             }
@@ -103,9 +104,49 @@ public class DeviceLinkActivity extends BaseActivity {
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.tv_szmr:
+                if(mTvSzmr.getText().toString().equals("设为默认")){
+                    getDeviceDetails(id);
+                }else{
+                    getDeviceDetails(0);
+                }
                 break;
             case R.id.tv_bnt:
                 break;
         }
+    }
+
+    private void getDeviceDetails(int id) {
+        RetrofitUtil.getInstance().apiService()
+                .updateDefaultShow(id+"")
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.io())
+                .subscribe(new Observer<Result>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onNext(Result result) {
+                        if (isDataInfoSucceed(result)) {
+                            SharedUtils.singleton().put(ConstValues.DEFAULT_SHOW,id);
+                            defaultShowId = id;
+                            if(defaultShowId==0){
+                                mTvSzmr.setText("设为默认");
+                            }else{
+                                mTvSzmr.setText("取消默认");
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+
+                    }
+
+                    @Override
+                    public void onComplete() {
+                    }
+                });
     }
 }
