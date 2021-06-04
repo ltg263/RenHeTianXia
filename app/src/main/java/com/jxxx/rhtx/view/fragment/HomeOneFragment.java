@@ -55,6 +55,8 @@ public class HomeOneFragment extends BaseFragment {
     TextView mTvUserXb;
     @BindView(R.id.tv_2)
     TextView tv_2;
+    @BindView(R.id.tv_notsb)
+    TextView tv_notsb;
     @BindView(R.id.tv_user_sg)
     TextView mTvUserSg;
     @BindView(R.id.tv_user_nl)
@@ -126,7 +128,11 @@ public class HomeOneFragment extends BaseFragment {
                                 inivLine(device.getChangeList());
                             }
                             List<HomeInfoBean.HistroyDeviceBean> histroyDevice = result.getData().getHistroyDevice();
-                            mRvSbList.setAdapter(new HomeBelowAdapter(histroyDevice));
+                            if(histroyDevice!=null && histroyDevice.size()>0){
+                                tv_notsb.setVisibility(View.GONE);
+                                mRvSbList.setVisibility(View.VISIBLE);
+                                mRvSbList.setAdapter(new HomeBelowAdapter(histroyDevice));
+                            }
                         }
 
                     }
