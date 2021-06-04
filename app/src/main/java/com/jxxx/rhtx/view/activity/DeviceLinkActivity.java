@@ -1,5 +1,6 @@
 package com.jxxx.rhtx.view.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.Html;
 import android.view.View;
@@ -111,6 +112,9 @@ public class DeviceLinkActivity extends BaseActivity {
                 }
                 break;
             case R.id.tv_bnt:
+                Intent mIntent = new Intent(this,DeviceLinkJcActivity.class);
+                mIntent.putExtra("id",id);
+                startActivity(mIntent);
                 break;
         }
     }

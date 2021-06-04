@@ -65,6 +65,7 @@
         <activity android:name=".view.activity.DeviceHistroyActivity" />
         <activity android:name=".view.activity.SetUserSgActivity" />
         <activity android:name=".view.activity.MineSetActivity" />
+        <activity android:name=".view.activity.DeviceLinkJcActivity" />
         <activity android:name=".MainActivity" />
     </application>
 
