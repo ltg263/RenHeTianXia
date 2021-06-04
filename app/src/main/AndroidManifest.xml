@@ -59,8 +59,10 @@
             </intent-filter>
         </activity>
         <activity android:name=".view.activity.LoginActivity" />
+        <activity android:name=".view.activity.DeviceLinkActivity" />
         <activity android:name=".view.activity.LoginWjmmActivity" />
         <activity android:name=".view.activity.SetUserXbActivity" />
+        <activity android:name=".view.activity.DeviceHistroyActivity" />
         <activity android:name=".view.activity.SetUserSgActivity" />
         <activity android:name=".view.activity.MineSetActivity" />
         <activity android:name=".MainActivity" />

@@ -1,6 +1,7 @@
 package com.jxxx.rhtx.view.fragment;
 
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.util.Log;
 import android.view.View;
@@ -26,14 +27,13 @@ import com.jxxx.rhtx.bean.ParamValueBean;
 import com.jxxx.rhtx.utils.GlideImgLoader;
 import com.jxxx.rhtx.utils.SharedUtils;
 import com.jxxx.rhtx.utils.view.ChartHelper;
+import com.jxxx.rhtx.view.activity.DeviceHistroyActivity;
 import com.jxxx.rhtx.view.adapter.HomeBelowAdapter;
 import com.jxxx.rhtx.view.adapter.HomeCenAdapter;
 
-import java.sql.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Random;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -192,6 +192,7 @@ public class HomeOneFragment extends BaseFragment {
                     @Override
                     public void onNext(Result<ParamValueBean> result) {
                         if (isDataInfoSucceed(result)) {
+                            SharedUtils.singleton().put(ConstValues.USER_BACK_IMG,result.getData().getBackgeround());
                             GlideImgLoader.setViewImg(getActivity(),result.getData().getBackgeround(),ll_bj);
                         }
                     }
@@ -263,10 +264,14 @@ public class HomeOneFragment extends BaseFragment {
         mLineChart.invalidate();
     }
 
-    @OnClick({R.id.tv_updata_info, R.id.tv_sb_select,R.id.tv_add_sb})
+    @OnClick({R.id.tv_updata_info, R.id.tv_sb_select,R.id.tv_add_sb,R.id.rl_sb_log})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.tv_updata_info:
+
+                break;
+            case R.id.rl_sb_log:
+                startActivity(new Intent(getActivity(), DeviceHistroyActivity.class));
                 break;
             case R.id.tv_sb_select:
 

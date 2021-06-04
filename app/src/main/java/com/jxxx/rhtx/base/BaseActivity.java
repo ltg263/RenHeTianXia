@@ -73,7 +73,7 @@ public abstract class BaseActivity extends AppCompatActivity {
         TextView mViewToolBarTitle = mToolbar.findViewById(R.id.toolbar_title);
         mViewToolBarTitle.setText(title);
         if (isBack) {
-            mToolbar.setNavigationIcon(R.mipmap.icon_common_back);
+            mToolbar.setNavigationIcon(R.mipmap.back_b);
             mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {

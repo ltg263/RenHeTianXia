@@ -24,7 +24,7 @@ public class ConstValues {
     public static final String USER_PHONE = "user_phone";
     public static final String USER_NAME = "user_name";
     public static final String USER_AVATAR = "user_avatar";
-    public static final String USER_PORTRAIT = "user_portrait";
+    public static final String USER_BACK_IMG = "user_back_img";
     public static final String PHONE = "phone";
     public static final String LAT = "lat";
     public static final String LON = "lon";

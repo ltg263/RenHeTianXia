@@ -5,6 +5,7 @@ import com.jxxx.rhtx.base.Result;
 import com.jxxx.rhtx.base.ResultList;
 import com.jxxx.rhtx.bean.AddChangeList;
 import com.jxxx.rhtx.bean.AddOrderData;
+import com.jxxx.rhtx.bean.DeviceDetailsBaen;
 import com.jxxx.rhtx.bean.DeviceTypeListAll;
 import com.jxxx.rhtx.bean.DeviceUseLogList;
 import com.jxxx.rhtx.bean.HomeInfoBean;
@@ -105,10 +106,17 @@ public interface ApiService {
 
     /**
      *
-     * 用户设备历史记录
+     * 用户设备
      */
     @GET("api/v1/deviceType/listAll")
     Observable<ResultList<DeviceTypeListAll>> getDeviceTypeListAll();
+
+    /**
+     *
+     * 用户设备详情
+     */
+    @GET("api/v1/deviceType/details")
+    Observable<Result<DeviceDetailsBaen>> getDeviceDetails(@Query("id") int id);
 
     /**
      *
