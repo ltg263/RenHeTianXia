@@ -4,8 +4,7 @@
     android:layout_height="wrap_content"
     android:orientation="vertical"
     android:paddingTop="@dimen/dp_10"
-    android:paddingEnd="@dimen/dp_10"
-    android:paddingBottom="@dimen/dp_10">
+    android:paddingEnd="@dimen/dp_10">
 
     <ImageView
         android:id="@+id/iv_icon"
@@ -27,12 +26,12 @@
         android:id="@+id/tv_adrrass"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="@dimen/sp_12"
-        android:textColor="@color/color_666666"
         android:layout_below="@id/tv_name"
         android:layout_marginTop="5dp"
         android:layout_toEndOf="@id/iv_icon"
-        android:text="蓝牙地址" />
+        android:text="蓝牙地址"
+        android:textColor="@color/color_666666"
+        android:textSize="@dimen/sp_12" />
 
     <TextView
         android:id="@+id/tv_end_1"
@@ -57,10 +56,11 @@
     <View
         android:id="@+id/view"
         android:layout_width="match_parent"
-        android:layout_height="0.8dp"
+        android:layout_height="5dp"
         android:layout_below="@id/tv_end_2"
-        android:layout_marginVertical="5dp"
-        android:background="@color/color_eeeeee" />
+        android:layout_marginHorizontal="@dimen/dp_10"
+        android:background="@drawable/line_stroke"
+        android:layerType="software" />
 
     <TextView
         android:id="@+id/tv_sysj"
@@ -68,6 +68,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/view"
         android:layout_marginStart="@dimen/dp_10"
+        android:layout_marginTop="5dp"
         android:text="使用时间：2020-20-20 12:12:00"
         android:textColor="@color/color_666666"
         android:textSize="@dimen/sp_14" />
@@ -79,8 +80,16 @@
         android:layout_below="@id/view"
         android:layout_alignParentEnd="true"
         android:layout_marginStart="@dimen/dp_10"
+        android:layout_marginTop="5dp"
         android:text="使用时长：20分"
         android:textColor="@color/color_666666"
         android:textSize="@dimen/sp_14" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.8dp"
+        android:layout_below="@id/tv_sysc"
+        android:layout_marginTop="10dp"
+        android:background="@color/color_999999" />
 
 </RelativeLayout>

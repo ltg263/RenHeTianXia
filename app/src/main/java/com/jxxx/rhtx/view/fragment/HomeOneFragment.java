@@ -1,12 +1,20 @@
 package com.jxxx.rhtx.view.fragment;
 
 
+import android.graphics.Color;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.github.mikephil.charting.charts.LineChart;
+import com.github.mikephil.charting.data.Entry;
+import com.github.mikephil.charting.data.LineData;
+import com.github.mikephil.charting.data.LineDataSet;
+import com.jxxx.rhtx.MainActivity;
 import com.jxxx.rhtx.R;
 import com.jxxx.rhtx.api.RetrofitUtil;
 import com.jxxx.rhtx.app.ConstValues;
@@ -14,12 +22,18 @@ import com.jxxx.rhtx.base.BaseFragment;
 import com.jxxx.rhtx.base.Result;
 import com.jxxx.rhtx.bean.DeviceUseLogList;
 import com.jxxx.rhtx.bean.HomeInfoBean;
+import com.jxxx.rhtx.bean.ParamValueBean;
 import com.jxxx.rhtx.utils.GlideImgLoader;
 import com.jxxx.rhtx.utils.SharedUtils;
+import com.jxxx.rhtx.utils.view.ChartHelper;
 import com.jxxx.rhtx.view.adapter.HomeBelowAdapter;
 import com.jxxx.rhtx.view.adapter.HomeCenAdapter;
 
+import java.sql.Array;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.Random;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -63,6 +77,10 @@ public class HomeOneFragment extends BaseFragment {
     RecyclerView mRvSbList;
     @BindView(R.id.rv_sbls_list)
     RecyclerView mRvSblsList;
+    @BindView(R.id.ll_bj)
+    LinearLayout ll_bj;
+    @BindView(R.id.line_chart)
+    LineChart mLineChart;
 
     @Override
     protected int setLayoutResourceID() {
@@ -71,7 +89,7 @@ public class HomeOneFragment extends BaseFragment {
 
     @Override
     protected void initView() {
-
+        ChartHelper.initChart(new ArrayList<>(), mLineChart, 100);
     }
 
     @Override
@@ -105,6 +123,7 @@ public class HomeOneFragment extends BaseFragment {
                             if(device!=null) {
                                 GlideImgLoader.loadImageAndDefault(getActivity(), device.getImgUrl(), mIvSb);
                                 mTvSbName.setText(device.getTypeStr());
+                                inivLine(device.getChangeList());
                             }
                             List<HomeInfoBean.HistroyDeviceBean> histroyDevice = result.getData().getHistroyDevice();
                             mRvSbList.setAdapter(new HomeBelowAdapter(histroyDevice));
@@ -138,7 +157,7 @@ public class HomeOneFragment extends BaseFragment {
                         if (isDataInfoSucceed(result)) {
                             List<DeviceUseLogList.ListBean> useLogList = result.getData().getList();
                             if(useLogList!=null && useLogList.size()>0){
-                                tv_2.setVisibility(View.GONE);
+//                                tv_2.setVisibility(View.GONE);
                                 mRvSblsList.setAdapter(new HomeCenAdapter(useLogList));
                             }
                         }
@@ -154,14 +173,100 @@ public class HomeOneFragment extends BaseFragment {
                     }
                 });
 
+        RetrofitUtil.getInstance().apiService()
+                .appointParamValue()
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.io())
+                .subscribe(new Observer<Result<ParamValueBean>>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onNext(Result<ParamValueBean> result) {
+                        if (isDataInfoSucceed(result)) {
+                            GlideImgLoader.setViewImg(getActivity(),result.getData().getBackgeround(),ll_bj);
+                        }
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+
+                    }
+
+                    @Override
+                    public void onComplete() {
+                    }
+                });
+
     }
 
-    @OnClick({R.id.tv_updata_info, R.id.tv_sb_select})
+    private static LineDataSet getSet(List<Entry> mData, int pos) {
+        LineDataSet set = new LineDataSet(mData, "");
+        set.setDrawFilled(true);
+        if(pos==0){
+            set.setFillColor( Color.parseColor("#00ffffff"));
+            set.setColor(Color.parseColor("#ffffff"));
+//            set.setValueTextColor(Color.parseColor("#00ffffff"));
+        }
+        if(pos==1){
+            set.setFillColor( Color.parseColor("#004A90E2"));
+            set.setColor(Color.parseColor("#4A90E2"));
+//            set.setValueTextColor(Color.parseColor("#00ffffff"));
+        }
+        if(pos==2){
+            set.setFillColor( Color.parseColor("#00F65532"));
+            set.setColor(Color.parseColor("#F65532"));
+//            set.setValueTextColor(Color.parseColor("#00ffffff"));
+        }
+        if(pos==3){
+            set.setFillColor( Color.parseColor("#00F65532"));
+            set.setColor(Color.parseColor("#F65532"));
+//            set.setValueTextColor(Color.parseColor("#00ffffff"));
+        }
+        if(pos==4){
+            set.setFillColor( Color.parseColor("#009C51E7"));
+            set.setColor(Color.parseColor("#9C51E7"));
+//            set.setValueTextColor(Color.parseColor("#00ffffff"));
+        }
+        set.setDrawCircles(false);
+        set.setMode(LineDataSet.Mode.CUBIC_BEZIER);
+        return set;
+    }
+    private void inivLine(List<HomeInfoBean.DeviceBean.ChangeListBean> changeList) {
+        if(changeList==null || changeList.size()==0){
+            return;
+        }
+        String value = changeList.get(0).getValue()
+                .replace("[","").replace("]","");
+        String[] arr = value.split(","); // 用,分割
+        Log.w("value_arr","arr:"+ Arrays.toString(arr));
+        LineData lineData = new LineData();
+        for(int i=0;i<arr.length;i++){
+            List<Entry> mData = new ArrayList<>();
+            for (int j=0;j<changeList.size();j++){
+                String value_z = changeList.get(j).getValue().replace("[", "").replace("]", "");
+                String[] value_arr = value_z.split(",");
+                mData.add(new Entry(j, Integer.valueOf(value_arr[i])));
+            }
+            lineData.addDataSet(getSet(mData,i));
+        }
+        lineData.setDrawValues(false);
+        mLineChart.setData(lineData);
+        mLineChart.invalidate();
+    }
+
+    @OnClick({R.id.tv_updata_info, R.id.tv_sb_select,R.id.tv_add_sb})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.tv_updata_info:
                 break;
             case R.id.tv_sb_select:
+
+                break;
+            case R.id.tv_add_sb:
+                ((MainActivity)getActivity()).getBnvHomeNavigation().setSelectedItemId(R.id.menu_home_2);
                 break;
         }
     }

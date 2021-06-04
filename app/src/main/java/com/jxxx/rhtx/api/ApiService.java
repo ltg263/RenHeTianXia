@@ -9,6 +9,7 @@ import com.jxxx.rhtx.bean.DeviceTypeListAll;
 import com.jxxx.rhtx.bean.DeviceUseLogList;
 import com.jxxx.rhtx.bean.HomeInfoBean;
 import com.jxxx.rhtx.bean.LoginBean;
+import com.jxxx.rhtx.bean.ParamValueBean;
 
 import java.util.Map;
 
@@ -95,6 +96,12 @@ public interface ApiService {
      */
     @GET("api/v1/user/index/home")
     Observable<Result<HomeInfoBean>> getHome();
+    /**
+     *
+     * 用户首页背景图
+     */
+    @GET("api/v1/paramter/appointParamValue")
+    Observable<Result<ParamValueBean>> appointParamValue();
 
     /**
      *

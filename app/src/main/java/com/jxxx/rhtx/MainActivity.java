@@ -25,6 +25,11 @@ public class MainActivity extends BaseActivity {
     private HomeTwoFragment mHomeTwoFragment;
     private HomeOneFragment mHomeOneFragment;
     private HomeThreeFragment mHomeThreeFragment;
+
+    public BottomNavigationView getBnvHomeNavigation() {
+        return mBnvHomeNavigation;
+    }
+
     @Override
     public int intiLayout() {
         return R.layout.activity_main;
@@ -70,6 +75,7 @@ public class MainActivity extends BaseActivity {
         mBnvHomeNavigation.setSelectedItemId(R.id.menu_home_1);
 
     }
+
     public void switchFragment(Fragment fragment) {
         //判断当前显示的Fragment是不是切换的Fragment
         if (mFragment != fragment) {
