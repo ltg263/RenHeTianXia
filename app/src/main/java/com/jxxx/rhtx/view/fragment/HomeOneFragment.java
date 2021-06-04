@@ -276,7 +276,7 @@ public class HomeOneFragment extends BaseFragment {
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.tv_updata_info:
-
+                getDeviceDetails(0);
                 break;
             case R.id.rl_sb_log:
                 startActivity(new Intent(getActivity(), DeviceHistroyActivity.class));
@@ -288,6 +288,36 @@ public class HomeOneFragment extends BaseFragment {
                 ((MainActivity)getActivity()).getBnvHomeNavigation().setSelectedItemId(R.id.menu_home_2);
                 break;
         }
+    }
+    private void getDeviceDetails(int id) {
+        RetrofitUtil.getInstance().apiService()
+                .updateDefaultShow(id+"")
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.io())
+                .subscribe(new Observer<Result>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onNext(Result result) {
+                        if (isDataInfoSucceed(result)) {
+                            SharedUtils.singleton().put(ConstValues.DEFAULT_SHOW,id);
+                            ll_mrym.setVisibility(View.GONE);
+                            tv_mrym.setVisibility(View.INVISIBLE);
+                        }
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+
+                    }
+
+                    @Override
+                    public void onComplete() {
+                    }
+                });
     }
 }
 
