@@ -1,32 +1,62 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/color_ffffff"
     android:orientation="vertical">
 
-    <include layout="@layout/my_toolbar" />
+    <!--    <include layout="@layout/my_toolbar" />-->
+
+    <ImageView
+        android:id="@+id/iv_login"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:adjustViewBounds="true"
+        android:src="@mipmap/ic_login_logo" />
 
 
     <ImageView
         android:id="@+id/iv"
         android:layout_width="80dp"
         android:layout_height="80dp"
+        android:layout_centerHorizontal="true"
         android:layout_gravity="center_horizontal"
+        android:layout_marginTop="50dp"
         android:layout_marginBottom="20dp"
         android:src="@mipmap/ic_icon_img" />
 
-
-    <net.lucode.hackware.magicindicator.MagicIndicator
-        android:id="@+id/magic_indicator"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="45dp"
-        android:layout_margin="@dimen/dp_10" />
+        android:layout_height="wrap_content"
+        android:layout_below="@id/iv"
+        android:layout_marginHorizontal="10dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginBottom="10dp"
+        android:background="@drawable/ic_shade_img">
+
+        <net.lucode.hackware.magicindicator.MagicIndicator
+            android:id="@+id/magic_indicator"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:layout_margin="@dimen/dp_10" />
+
+        <TextView
+            android:id="@+id/tv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/magic_indicator"
+            android:gravity="center"
+            android:textSize="@dimen/sp_14"
+            android:textColor="@color/color_666666"
+            android:paddingHorizontal="@dimen/dp_10"
+            android:text="欢迎来到韧和天下，请使用手机号登陆" />
+
+        <androidx.viewpager.widget.ViewPager
+            android:id="@+id/view_pager"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tv" />
+    </RelativeLayout>
 
 
-    <androidx.viewpager.widget.ViewPager
-        android:id="@+id/view_pager"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
-
-</LinearLayout>
+</RelativeLayout>
