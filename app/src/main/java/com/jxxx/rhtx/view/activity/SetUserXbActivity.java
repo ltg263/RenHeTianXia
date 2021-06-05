@@ -12,10 +12,10 @@ import android.widget.NumberPicker;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-
 import com.jxxx.rhtx.R;
 import com.jxxx.rhtx.app.MainApplication;
 import com.jxxx.rhtx.base.BaseActivity;
+import com.jxxx.rhtx.utils.StatusBarUtil;
 import com.jxxx.rhtx.utils.StringUtil;
 
 import java.lang.reflect.Field;
@@ -56,28 +56,28 @@ public class SetUserXbActivity extends BaseActivity {
             case R.id.ll_nan:
                 if (sbType == 2) {
                     sbType = 1;
-                    mLlNan.setBackground(getResources().getDrawable(R.drawable.shape_radius_th));
-                    mLlNv.setBackground(getResources().getDrawable(R.drawable.shape_eee_line_5));
+                    mLlNan.setBackground(getResources().getDrawable(R.drawable.btn_shape_theme));
+                    mLlNv.setBackground(getResources().getDrawable(R.drawable.shape_fff_line_5));
                     mTvNan.setTextColor(getResources().getColor(R.color.color_ffffff));
                     mTvNv.setTextColor(getResources().getColor(R.color.color_999999));
-                    mIv1.setImageDrawable(getResources().getDrawable(R.mipmap.gender_1));
-                    mIv2.setImageDrawable(getResources().getDrawable(R.mipmap.gender_2_h));
+                    mIv1.setImageDrawable(getResources().getDrawable(R.mipmap.ic_nan_2));
+                    mIv2.setImageDrawable(getResources().getDrawable(R.mipmap.ic_nv_1));
                 }
                 break;
             case R.id.ll_nv:
                 if (sbType == 1) {
                     sbType = 2;
-                    mLlNan.setBackground(getResources().getDrawable(R.drawable.shape_eee_line_5));
-                    mLlNv.setBackground(getResources().getDrawable(R.drawable.shape_radius_th));
+                    mLlNan.setBackground(getResources().getDrawable(R.drawable.shape_fff_line_5));
+                    mLlNv.setBackground(getResources().getDrawable(R.drawable.btn_shape_theme));
                     mTvNan.setTextColor(getResources().getColor(R.color.color_999999));
                     mTvNv.setTextColor(getResources().getColor(R.color.color_ffffff));
-                    mIv1.setImageDrawable(getResources().getDrawable(R.mipmap.gender_1_h));
-                    mIv2.setImageDrawable(getResources().getDrawable(R.mipmap.gender_2));
+                    mIv1.setImageDrawable(getResources().getDrawable(R.mipmap.ic_nan_1));
+                    mIv2.setImageDrawable(getResources().getDrawable(R.mipmap.ic_nv_2));
                 }
                 break;
             case R.id.tv_go_xyb:
                 String sex = sbType==2?"女":"男";
-                Intent mIntent = new Intent(SetUserXbActivity.this, SetUserSgActivity.class);
+                Intent mIntent = new Intent(SetUserXbActivity.this,SetUserSgActivity.class);
                 mIntent.putExtra("sex",sex);
                 mIntent.putExtra("age",age);
                 startActivity(mIntent);
@@ -120,6 +120,7 @@ public class SetUserXbActivity extends BaseActivity {
 
     @Override
     public int intiLayout() {
+        StatusBarUtil.setStatusBarMode(this, true, R.color.white);
         return R.layout.activity_set_user_xb;
     }
 

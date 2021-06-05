@@ -1,6 +1,7 @@
 package com.jxxx.rhtx.view.fragment;
 
 
+import android.content.Intent;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -11,6 +12,7 @@ import com.jxxx.rhtx.base.BaseFragment;
 import com.jxxx.rhtx.utils.GlideImgLoader;
 import com.jxxx.rhtx.utils.SharedUtils;
 import com.jxxx.rhtx.view.activity.LoginActivity;
+import com.jxxx.rhtx.view.activity.SetUserXbActivity;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -47,6 +49,7 @@ public class HomeThreeFragment extends BaseFragment {
                 LoginActivity.startActivityIntent(getActivity());
                 break;
             case R.id.tv_bnt_2:
+                startActivity(new Intent(getActivity(),SetUserXbActivity.class));
                 break;
             case R.id.tv_bnt_3:
                 break;

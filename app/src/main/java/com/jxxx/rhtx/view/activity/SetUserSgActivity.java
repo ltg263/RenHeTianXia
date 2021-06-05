@@ -10,6 +10,7 @@ import com.jxxx.rhtx.api.RetrofitUtil;
 import com.jxxx.rhtx.app.MainApplication;
 import com.jxxx.rhtx.base.BaseActivity;
 import com.jxxx.rhtx.base.Result;
+import com.jxxx.rhtx.utils.StatusBarUtil;
 import com.jxxx.rhtx.utils.ToastUtil;
 import com.jxxx.rhtx.utils.view.RulerView_xz;
 import com.zkk.view.rulerview.RulerView;
@@ -64,6 +65,7 @@ public class SetUserSgActivity extends BaseActivity {
                             ToastUtil.showLongStrToast(SetUserSgActivity.this, "修改成功");
                             Intent mIntent = new Intent(SetUserSgActivity.this, MainActivity.class);
                             startActivity(mIntent);
+                            finish();
                         }
                     }
 
@@ -81,6 +83,7 @@ public class SetUserSgActivity extends BaseActivity {
 
     @Override
     public int intiLayout() {
+        StatusBarUtil.setStatusBarMode(this, true, R.color.white);
         return R.layout.activity_set_user_sg;
     }
 
