@@ -1,7 +1,6 @@
 package com.jxxx.rhtx.view.activity;
 
 import android.content.Intent;
-import android.os.Bundle;
 import android.text.Html;
 import android.view.View;
 import android.widget.ImageView;
@@ -20,13 +19,11 @@ import com.jxxx.rhtx.utils.SharedUtils;
 import com.jxxx.rhtx.utils.StringUtil;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
-import retrofit2.http.HTTP;
 
 public class DeviceLinkActivity extends BaseActivity {
     @BindView(R.id.my_toolbar)
@@ -48,6 +45,8 @@ public class DeviceLinkActivity extends BaseActivity {
     @BindView(R.id.tv_details)
     TextView mTvDetails;
     int id,defaultShowId;
+    private DeviceDetailsBaen data;
+
     @Override
     public int intiLayout() {
         return R.layout.activity_device_link;
@@ -76,6 +75,7 @@ public class DeviceLinkActivity extends BaseActivity {
                     @Override
                     public void onNext(Result<DeviceDetailsBaen> result) {
                         if (isDataInfoSucceed(result)) {
+                            data = result.getData();
                             GlideImageLoader.loadImageAndDefault(DeviceLinkActivity.this,result.getData().getImgUrl(),mIvSbImg);
                             mTvSbType.setText(result.getData().getDeviceName());
                             mTvSortName.setText(result.getData().getSortName());
@@ -113,7 +113,7 @@ public class DeviceLinkActivity extends BaseActivity {
                 break;
             case R.id.tv_bnt:
                 Intent mIntent = new Intent(this,DeviceLinkJcActivity.class);
-                mIntent.putExtra("id",id);
+                mIntent.putExtra("data",data);
                 startActivity(mIntent);
                 break;
         }

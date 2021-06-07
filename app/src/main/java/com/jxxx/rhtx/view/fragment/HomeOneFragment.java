@@ -27,7 +27,7 @@ import com.jxxx.rhtx.bean.HomeInfoBean;
 import com.jxxx.rhtx.bean.ParamValueBean;
 import com.jxxx.rhtx.utils.GlideImgLoader;
 import com.jxxx.rhtx.utils.SharedUtils;
-import com.jxxx.rhtx.utils.view.ChartHelper;
+import com.jxxx.rhtx.utils.view.ChartHelperHome;
 import com.jxxx.rhtx.view.activity.DeviceHistroyActivity;
 import com.jxxx.rhtx.view.adapter.HomeBelowAdapter;
 import com.jxxx.rhtx.view.adapter.HomeCenAdapter;
@@ -96,7 +96,7 @@ public class HomeOneFragment extends BaseFragment {
 
     @Override
     protected void initView() {
-        ChartHelper.initChart(new ArrayList<>(), mLineChart, 100);
+        ChartHelperHome.initChart(new ArrayList<>(), mLineChart, 100);
     }
 
     @Override

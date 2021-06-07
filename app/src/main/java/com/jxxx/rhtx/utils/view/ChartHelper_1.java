@@ -19,7 +19,7 @@ import java.util.Random;
 /**
  * create by hj on 2020/4/25
  **/
-public class ChartHelper {
+public class ChartHelper_1 {
 
     public static float getRandom(Float seed) {
         DecimalFormat mDecimalFormat = new DecimalFormat("#.00");
@@ -27,7 +27,7 @@ public class ChartHelper {
         return Float.valueOf(mDecimalFormat.format(mRandom.nextFloat() * seed));
     }
 
-    private static int maxCount = 60; //集合最大存储数量
+    private static int maxCount = 1000; //集合最大存储数量
 
     public static void addEntry(List<Entry> mData, LineChart lineChart, float yValues) {
         if (lineChart != null
@@ -83,6 +83,7 @@ public class ChartHelper {
         axisLeft.setAxisMinimum(0);
         axisLeft.setLabelCount(5);
         if(maxYValue>0){
+            maxCount = 50;
             axisLeft.setAxisMaximum(maxYValue);
         }
         axisLeft.setGridColor(lineColor);

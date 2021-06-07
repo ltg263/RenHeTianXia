@@ -1,6 +1,8 @@
 package com.jxxx.rhtx.view.activity;
 
 import android.bluetooth.BluetoothGatt;
+import android.content.Intent;
+import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
 import android.widget.ImageView;
@@ -10,15 +12,25 @@ import android.widget.TextView;
 import androidx.appcompat.widget.Toolbar;
 
 import com.jxxx.rhtx.R;
+import com.jxxx.rhtx.api.RetrofitUtil;
+import com.jxxx.rhtx.app.ConstValues;
 import com.jxxx.rhtx.base.BaseActivity;
+import com.jxxx.rhtx.base.Result;
+import com.jxxx.rhtx.bean.AddOrderData;
+import com.jxxx.rhtx.bean.DeviceDetailsBaen;
 import com.jxxx.rhtx.lanya.Ble4_0Util;
 import com.jxxx.rhtx.lanya.BluetoothLjUtils;
 import com.jxxx.rhtx.utils.GlideImageLoader;
 import com.jxxx.rhtx.utils.GlideImgLoader;
+import com.jxxx.rhtx.utils.SharedUtils;
 import com.jxxx.rhtx.utils.ToastUtil;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import io.reactivex.Observer;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
 
 public class DeviceLinkJcActivity extends BaseActivity {
     @BindView(R.id.my_toolbar)
@@ -52,7 +64,7 @@ public class DeviceLinkJcActivity extends BaseActivity {
     @BindView(R.id.iv_lj_n)
     ImageView iv_lj_n;
 
-    int id;
+    DeviceDetailsBaen data;
 
     @Override
     public int intiLayout() {
@@ -61,7 +73,7 @@ public class DeviceLinkJcActivity extends BaseActivity {
 
     @Override
     public void initView() {
-        id = getIntent().getIntExtra("id", 0);
+        data = (DeviceDetailsBaen) getIntent().getSerializableExtra("data");
         setToolbar(myToolbar, "设备链接", true);
     }
 
@@ -109,7 +121,7 @@ public class DeviceLinkJcActivity extends BaseActivity {
                 GlideImgLoader.setImgAnimation(this, iv_lj_s);
                 GlideImgLoader.setImgAnimationN(this, iv_lj_n);
                 GlideImgLoader.setImgAnimation(this, iv_refresh);
-                BluetoothLjUtils.sousuo(this, new BluetoothLjUtils.BluetoothLjInterface() {
+                BluetoothLjUtils.sousuo(this, data.getSortName(),new BluetoothLjUtils.BluetoothLjInterface() {
                     @Override
                     public void linkState(int state) {
                         //1搜索成功//2链接成功//3链接中//4断开连接中
@@ -121,7 +133,8 @@ public class DeviceLinkJcActivity extends BaseActivity {
                                 GlideImgLoader.loadImage(DeviceLinkJcActivity.this, R.mipmap.ic_duih, iv_refresh);
                                 break;
                             case 2:
-                                finish();
+                                deviceAdd();
+                                startActivityType();
                                 break;
                             case 3:
                                 GlideImgLoader.setImgAnimation(DeviceLinkJcActivity.this, iv_refresh_lj);
@@ -134,4 +147,57 @@ public class DeviceLinkJcActivity extends BaseActivity {
             }
         }
     }
+
+    private void startActivityType() {
+        Intent mIntent = null;
+        switch (data.getId()){
+            case 1:
+                break;
+            case 2:
+                mIntent = new Intent(DeviceLinkJcActivity.this,DeviceLink1Activity.class);
+                break;
+            case 3:
+                break;
+        }
+        if(mIntent!=null){
+            mIntent.putExtra("data",data);
+            startActivity(mIntent);
+        }else{
+            ToastUtil.showToast("暂无此设备");
+        }
+    }
+
+    private void deviceAdd() {
+        AddOrderData data = new AddOrderData();
+        data.setDeviceName(data.getDeviceName());
+        data.setDeviceNo(BluetoothLjUtils.ble4Util.getBlemac());
+        data.setDeviceType(data.getId());
+        RetrofitUtil.getInstance().apiService()
+                .userAddDevice(data)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.io())
+                .subscribe(new Observer<Result>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onNext(Result result) {
+                        if (isDataInfoSucceed(result)) {
+                            Log.w("---》》》","添加成功");
+                        }
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+
+                    }
+
+                    @Override
+                    public void onComplete() {
+                    }
+                });
+    }
+
 }

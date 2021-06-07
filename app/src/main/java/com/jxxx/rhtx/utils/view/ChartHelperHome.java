@@ -19,20 +19,12 @@ import java.util.Random;
 /**
  * create by hj on 2020/4/25
  **/
-public class ChartHelper {
+public class ChartHelperHome {
 
-    public static float getRandom(Float seed) {
-        DecimalFormat mDecimalFormat = new DecimalFormat("#.00");
-        Random mRandom = new Random();
-        return Float.valueOf(mDecimalFormat.format(mRandom.nextFloat() * seed));
-    }
-
-    private static int maxCount = 60; //集合最大存储数量
+    private static int maxCount = 9; //集合最大存储数量
 
     public static void addEntry(List<Entry> mData, LineChart lineChart, float yValues) {
-        if (lineChart != null
-                && lineChart.getData() != null &&
-                lineChart.getData().getDataSetCount() > 0) {
+        if (lineChart != null&& lineChart.getData() != null && lineChart.getData().getDataSetCount() > 0) {
             int size = mData.size();
             if (size == 0) {
                 Entry entry = new Entry(maxCount, yValues);
@@ -52,7 +44,9 @@ public class ChartHelper {
                 Entry entry = new Entry(maxCount, yValues);
                 mData.add(entry);
             }
-            LineData lineData = new LineData(getSet(mData));
+            LineData lineData = new LineData();
+            lineData.addDataSet(getSet(mData));
+            lineData.addDataSet(getSet(mData));
             lineData.setDrawValues(false);
             lineChart.setData(lineData);
             lineChart.invalidate();
@@ -64,13 +58,6 @@ public class ChartHelper {
     }
 
     public static void initChart(List<Entry> mData, LineChart lineChart, long maxYValue,String color1,String color2) {
-
-        int lineColor = Color.parseColor("#ebebeb");
-        int textColor = Color.parseColor("#999999");
-        if(StringUtil.isNotBlank(color1)){
-            lineColor = Color.parseColor(color1);
-            textColor = Color.parseColor(color2);
-        }
 
         lineChart.setDragEnabled(false);
         lineChart.setScaleEnabled(false);
@@ -85,9 +72,9 @@ public class ChartHelper {
         if(maxYValue>0){
             axisLeft.setAxisMaximum(maxYValue);
         }
-        axisLeft.setGridColor(lineColor);
-        axisLeft.setTextColor(textColor);
-        axisLeft.setAxisLineColor(lineColor);
+        axisLeft.setGridColor(Color.parseColor("#ffffff"));
+        axisLeft.setTextColor(Color.parseColor("#999999"));
+        axisLeft.setAxisLineColor(Color.parseColor("#00000000"));
 
         axisLeft.setDrawLabels(false);//不显示数值
         if(StringUtil.isNotBlank(color1)){
@@ -109,7 +96,7 @@ public class ChartHelper {
         xAxis.setAxisMinimum(0f);
         xAxis.setAxisMaximum(maxCount);
         xAxis.setLabelCount(maxCount);
-        xAxis.setTextColor(textColor);
+        xAxis.setTextColor(Color.parseColor("#333333"));
         Collections.sort(mData, new EntryXComparator());
         LineData lineData = new LineData(getSet(mData));
 
@@ -128,10 +115,11 @@ public class ChartHelper {
         LineDataSet set = new LineDataSet(mData, "");
         set.setDrawFilled(true);
         set.setFillColor(valueColor);
-        set.setColor(valueColor);
+        set.setColor(Color.parseColor("#ffffff"));
         set.setValueTextColor(valueColor);
         set.setDrawCircles(false);
         set.setMode(LineDataSet.Mode.CUBIC_BEZIER);
+
         return set;
     }
 }

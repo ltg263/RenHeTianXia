@@ -56,6 +56,7 @@ public class Ble4_0Util implements BleUtil {
     private BluetoothAdapter.LeScanCallback leScanCallback;
     private BluetoothDevice curConnectDev;
     int newStates = -1;
+    private String blemac;
 
 
     public void setUuidStr(String[] uuidStr) {
@@ -111,10 +112,15 @@ public class Ble4_0Util implements BleUtil {
         return mBluetoothGatt != null;
     }
 
+    public String getBlemac() {
+        return blemac;
+    }
+
     @Override
     public boolean connect(String blemac, final CallBack callback) {
         callback.StateChange(0, BluetoothGatt.STATE_CONNECTING);
         curConnectDev = mBluetoothAdapter.getRemoteDevice(blemac);
+        this.blemac = blemac;
         if (curConnectDev == null) {
             Log.e("BLE", "蓝牙" + blemac + "未找到");
             return false;

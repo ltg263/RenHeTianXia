@@ -1,6 +1,8 @@
 package com.jxxx.rhtx.bean;
 
-public class DeviceDetailsBaen {
+import java.io.Serializable;
+
+public class DeviceDetailsBaen implements Serializable {
 
     /**
      * createTime : 1620985432000

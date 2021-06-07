@@ -5,6 +5,7 @@ import com.jxxx.rhtx.base.Result;
 import com.jxxx.rhtx.base.ResultList;
 import com.jxxx.rhtx.bean.AddChangeList;
 import com.jxxx.rhtx.bean.AddOrderData;
+import com.jxxx.rhtx.bean.DeviceAddBean;
 import com.jxxx.rhtx.bean.DeviceDetailsBaen;
 import com.jxxx.rhtx.bean.DeviceTypeListAll;
 import com.jxxx.rhtx.bean.DeviceUseLogList;
@@ -137,6 +138,7 @@ public interface ApiService {
      */
     @POST("api/v1/user/updateDefaultShow")
     Observable<Result> updateDefaultShow(@Query("defaultShow") String defaultShow);
+
 
 
     /**

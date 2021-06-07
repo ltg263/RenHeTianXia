@@ -3,26 +3,29 @@ package com.jxxx.rhtx.lanya;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothGatt;
+import android.content.Intent;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
 import android.widget.TextView;
 
+import com.jxxx.rhtx.app.MainApplication;
 import com.jxxx.rhtx.base.BaseActivity;
 import com.jxxx.rhtx.utils.ToastUtil;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 public class BluetoothLjUtils {
     public static Ble4_0Util ble4Util;
-    public static void sousuo(BaseActivity mBaseActivity,BluetoothLjInterface lineInterface){
+    public static void sousuo(BaseActivity mBaseActivity,String name,BluetoothLjInterface lineInterface){
         ble4Util.startScan(new BluetoothAdapter.LeScanCallback() {
             @Override
             public void onLeScan(BluetoothDevice bluetoothDevice, int rssi, byte[] bytes) {
                 if (bluetoothDevice.getName() != null && bluetoothDevice.getName().length() > 0){
                     Log.w("---》》》","bluetoothDevice.getName():"+bluetoothDevice.getName());
-                    if(bluetoothDevice.getName().equals("Smart-H")){
+                    if(bluetoothDevice.getName().equals(name)){
                         lineInterface.linkState(1);
                         goLianJie(mBaseActivity,bluetoothDevice.getAddress(),lineInterface);
                     }
@@ -97,6 +100,7 @@ public class BluetoothLjUtils {
                     for (int i = 0; i < resultData.length; i++) {
                         resultData_0xff += Integer.toHexString(resultData[i] & 0xFF)+",";
                     }
+                    startBroadcast(resultData);
                     Log.w("---》》》","接收resultData_0xff："+resultData_0xff);
                     break;
             }
@@ -106,5 +110,15 @@ public class BluetoothLjUtils {
     public interface BluetoothLjInterface{
         //1搜索成功//2链接成功//3链接中//4断开连接中
         void linkState(int state);
+    }
+
+    private static void startBroadcast(byte[] resultData){
+        //开启广播
+        //创建一个意图对象
+        Intent intent = new Intent("com.jxxx.rhtx");
+        //发送广播的数据
+        intent.putExtra("resultData", resultData);
+        //发送
+        MainApplication.getContext().sendBroadcast(intent);
     }
 }
