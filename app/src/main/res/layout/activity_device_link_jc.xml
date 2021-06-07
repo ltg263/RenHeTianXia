@@ -135,8 +135,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                android:orientation="vertical"
-                android:visibility="gone">
+                android:visibility="gone"
+                android:orientation="vertical">
 
                 <RelativeLayout
                     android:layout_width="155dp"
@@ -146,11 +146,13 @@
                     android:background="@drawable/bj_circle_three">
 
                     <ImageView
+                        android:id="@+id/iv_lj_s"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:src="@mipmap/circle" />
 
                     <ImageView
+                        android:id="@+id/iv_lj_n"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerInParent="true"
@@ -231,9 +233,10 @@
                         android:text="蓝牙设备搜索" />
 
                     <ImageView
+                        android:id="@+id/iv_refresh"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:src="@mipmap/ic_duih" />
+                        android:src="@mipmap/ic_refresh" />
 
                 </LinearLayout>
 
@@ -258,9 +261,10 @@
                         android:text="链接蓝牙设备" />
 
                     <ImageView
+                        android:id="@+id/iv_refresh_lj"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:src="@mipmap/ic_duih" />
+                        android:src="@mipmap/ic_refresh" />
 
                 </LinearLayout>
 

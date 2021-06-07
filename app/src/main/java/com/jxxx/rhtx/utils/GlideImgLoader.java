@@ -7,6 +7,9 @@ import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.view.animation.LinearInterpolator;
 import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
@@ -18,6 +21,7 @@ import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.bumptech.glide.request.RequestOptions;
 import com.bumptech.glide.request.target.SimpleTarget;
 import com.bumptech.glide.request.transition.Transition;
+import com.jxxx.rhtx.R;
 import com.youth.banner.loader.ImageLoader;
 
 import java.util.SimpleTimeZone;
@@ -188,5 +192,24 @@ public class GlideImgLoader extends ImageLoader {
                         view.setBackground(drawable);
                     }
                 });
+    }
+
+    public static void setImgAnimation(Context mContext,View view){
+        if(true){
+           return;
+        }
+        Animation anim = AnimationUtils.loadAnimation(mContext, R.anim.my_rotate);
+        LinearInterpolator lir = new LinearInterpolator();
+        anim.setInterpolator(lir);
+        view.startAnimation(anim);
+    }
+    public static void setImgAnimationN(Context mContext,View view){
+        if(true){
+            return;
+        }
+        Animation anim = AnimationUtils.loadAnimation(mContext, R.anim.my_rotate_n);
+        LinearInterpolator lir = new LinearInterpolator();
+        anim.setInterpolator(lir);
+        view.startAnimation(anim);
     }
 }

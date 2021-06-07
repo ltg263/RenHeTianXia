@@ -4,6 +4,8 @@ import android.content.Context;
 import android.view.Gravity;
 import android.widget.Toast;
 
+import com.jxxx.rhtx.app.MainApplication;
+
 /**
  * author : LiuJie
  * date   : 2020/5/2915:01
@@ -31,6 +33,16 @@ public class ToastUtil {
             mToast = Toast.makeText(mContext, null, Toast.LENGTH_SHORT);
             mToast.setGravity(Gravity.CENTER, 0, 0);
         }
+    }
+    public static void showToast(String message){
+        if (mToast == null){
+            mToast = Toast.makeText(MainApplication.getContext(), message, Toast.LENGTH_SHORT);
+            mToast.setGravity(Gravity.CENTER, 0, 0);
+        }else{
+            mToast.setText(message);
+            mToast.setDuration(Toast.LENGTH_SHORT);
+        }
+        mToast.show();
     }
 
     public static void showShortToast(final Context context, final String message){
