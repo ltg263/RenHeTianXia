@@ -5,37 +5,11 @@
     android:background="@color/color_ffffff"
     android:orientation="vertical">
 
-
-    <RelativeLayout
-        android:id="@+id/rl_actionbar"
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:layout_gravity="center"
-        android:background="@mipmap/ic_tab_bj">
-
-        <ImageView
-            android:id="@+id/iv_back"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:padding="@dimen/dp_10"
-            android:src="@mipmap/back_b" />
-
-        <TextView
-            android:id="@+id/tv_title"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center"
-            android:text="设置中心"
-            android:textColor="@color/color_ffffff"
-            android:textSize="16sp" />
-
-
-    </RelativeLayout>
-
+    <include layout="@layout/include_toolbar" />
 
     <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="65dp"
+        android:layout_height="65dp"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="70dp"
         android:src="@mipmap/ic_icon_img" />
@@ -45,7 +19,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="15dp"
-        android:text="中科研APP"
+        android:text="@string/app_name"
         android:textColor="@color/color_333333"
         android:textSize="14sp" />
 

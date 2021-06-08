@@ -79,7 +79,7 @@ public class LoginBean {
     private String infoFlag;
     private String userType;
     private String vipLevel;
-    private String sex;
+    private int sex;
     private String birthday;
     private String region;
     private String height;
@@ -267,11 +267,11 @@ public class LoginBean {
         this.vipLevel = vipLevel;
     }
 
-    public String getSex() {
+    public int getSex() {
         return sex;
     }
 
-    public void setSex(String sex) {
+    public void setSex(int sex) {
         this.sex = sex;
     }
 

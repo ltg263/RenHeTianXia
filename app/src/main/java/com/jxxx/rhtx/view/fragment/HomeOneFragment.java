@@ -30,6 +30,7 @@ import com.jxxx.rhtx.utils.SharedUtils;
 import com.jxxx.rhtx.utils.StringUtil;
 import com.jxxx.rhtx.utils.view.ChartHelperHome;
 import com.jxxx.rhtx.view.activity.DeviceHistroyActivity;
+import com.jxxx.rhtx.view.activity.SetUserInfoActivity;
 import com.jxxx.rhtx.view.adapter.HomeBelowAdapter;
 import com.jxxx.rhtx.view.adapter.HomeCenAdapter;
 
@@ -287,13 +288,13 @@ public class HomeOneFragment extends BaseFragment {
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.tv_updata_info:
-                getDeviceDetails(0);
+                startActivity(new Intent(getActivity(), SetUserInfoActivity.class));
                 break;
             case R.id.rl_sb_log:
                 startActivity(new Intent(getActivity(), DeviceHistroyActivity.class));
                 break;
             case R.id.tv_sb_select:
-
+                getDeviceDetails(0);
                 break;
             case R.id.tv_add_sb:
                 ((MainActivity)getActivity()).getBnvHomeNavigation().setSelectedItemId(R.id.menu_home_2);

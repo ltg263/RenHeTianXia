@@ -4,6 +4,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
+    <include layout="@layout/include_toolbar" />
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
@@ -118,8 +119,9 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="30dp"
                     android:text="你的出生年月"
+                    android:textStyle="bold"
                     android:textColor="@color/color_333333"
-                    android:textSize="20sp" />
+                    android:textSize="18sp" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -148,7 +150,7 @@
                     android:gravity="center"
                     android:paddingTop="@dimen/dp_10"
                     android:paddingBottom="@dimen/dp_10"
-                    android:text="下一步"
+                    android:text="完成"
                     android:textColor="@color/color_ffffff"
                     android:textSize="16sp" />
             </LinearLayout>

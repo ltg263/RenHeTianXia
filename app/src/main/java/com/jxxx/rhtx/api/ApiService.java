@@ -70,14 +70,16 @@ public interface ApiService {
 
 
     /**
-     * 忘记密码
+     * 更新用户信息
      */
     @POST("api/v1/user/update")
     Observable<Result> updateUserInfo(@Query("avatar") String avatar,
-                                            @Query("sex") String sex,
-                                            @Query("age") String age,
+                                            @Query("birthday") String birthday,
+                                            @Query("sex") int sex,
                                             @Query("weight") String weight,
-                                        @Query("height") String mobileCode);
+                                            @Query("height") String height,
+                                        @Query("nickName") String nickName,
+                                        @Query("region") String region);
 
 
     /**

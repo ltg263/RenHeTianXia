@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.view.View;
 import android.widget.TextView;
 
+import androidx.appcompat.widget.Toolbar;
+
 import com.jxxx.rhtx.MainActivity;
 import com.jxxx.rhtx.R;
 import com.jxxx.rhtx.api.RetrofitUtil;
@@ -25,6 +27,8 @@ import io.reactivex.schedulers.Schedulers;
 public class SetUserSgActivity extends BaseActivity {
 
 
+    @BindView(R.id.my_toolbar)
+    Toolbar myToolbar;
     @BindView(R.id.tv_sg)
     TextView mTvSg;
     @BindView(R.id.tv_tz)
@@ -41,44 +45,47 @@ public class SetUserSgActivity extends BaseActivity {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.tv_go_xyb:
-                setUserInfo();
+                SetUserInfoActivity.tz = Double.parseDouble(mTvTz.getText().toString());
+                SetUserInfoActivity.sg = Double.parseDouble(mTvSg.getText().toString());
+//                setUserInfo();
+                finish();
                 break;
         }
     }
 
     private void setUserInfo() {
         showLoading();//0未知 1 男 2 女
-
-        RetrofitUtil.getInstance().apiService()
-                .updateUserInfo(null,sex.equals("男")?"1":"2",age,mTvTz.getText().toString(),mTvSg.getText().toString()+".0")
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribeOn(Schedulers.io())
-                .subscribe(new Observer<Result>() {
-                    @Override
-                    public void onSubscribe(Disposable d) {
-
-                    }
-
-                    @Override
-                    public void onNext(Result result) {
-                        if(isDataInfoSucceed(result)){
-                            ToastUtil.showLongStrToast(SetUserSgActivity.this, "修改成功");
-                            Intent mIntent = new Intent(SetUserSgActivity.this, MainActivity.class);
-                            startActivity(mIntent);
-                            finish();
-                        }
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-
-                    }
-
-                    @Override
-                    public void onComplete() {
-                        hideLoading();
-                    }
-                });
+//
+//        RetrofitUtil.getInstance().apiService()
+//                .updateUserInfo(null,sex.equals("男")?"1":"2",age,mTvTz.getText().toString(),mTvSg.getText().toString()+".0")
+//                .observeOn(AndroidSchedulers.mainThread())
+//                .subscribeOn(Schedulers.io())
+//                .subscribe(new Observer<Result>() {
+//                    @Override
+//                    public void onSubscribe(Disposable d) {
+//
+//                    }
+//
+//                    @Override
+//                    public void onNext(Result result) {
+//                        if(isDataInfoSucceed(result)){
+//                            ToastUtil.showLongStrToast(SetUserSgActivity.this, "修改成功");
+//                            Intent mIntent = new Intent(SetUserSgActivity.this, MainActivity.class);
+//                            startActivity(mIntent);
+//                            finish();
+//                        }
+//                    }
+//
+//                    @Override
+//                    public void onError(Throwable e) {
+//
+//                    }
+//
+//                    @Override
+//                    public void onComplete() {
+//                        hideLoading();
+//                    }
+//                });
     }
 
     @Override
@@ -90,6 +97,7 @@ public class SetUserSgActivity extends BaseActivity {
     @Override
     public void initView() {
         MainApplication.addActivity(this);
+        setToolbar(myToolbar, "修改信息", true);
         sex = getIntent().getStringExtra("sex");
         age = getIntent().getStringExtra("age");
         mRulerWeight.setOnValueChangeListener(value -> mTvTz.setText(value + ""));

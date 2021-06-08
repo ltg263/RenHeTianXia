@@ -35,6 +35,7 @@ dependencies {
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
+    implementation files('libs/fastjson-1.2.62.jar')
 
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     //网络请求
@@ -61,4 +62,11 @@ dependencies {
     implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0'
     implementation 'com.zkk.view:ZkkRulerView:1.0.0'
 //    implementation project(':wheelview')
+
+    /*检查权限*/
+    implementation 'pub.devrel:easypermissions:2.0.1'
+    //图片选择
+    implementation 'com.github.LuckSiege.PictureSelector:picture_library:v2.2.3'
+    implementation 'org.greenrobot:eventbus:3.1.1'
+    implementation 'com.github.addappcn:android-pickers:1.0.3'
 }

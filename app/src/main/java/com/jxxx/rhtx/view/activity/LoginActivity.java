@@ -69,7 +69,6 @@ public class LoginActivity extends BaseActivity {
 
     @Override
     public void initView() {
-
         MainApplication.addActivity(this);
         initVP();
         MagicIndicatorUtils.initMagicIndicator6(this, mDataList, mMagicIndicator, mViewPager);

@@ -1,6 +1,5 @@
 package com.jxxx.rhtx.view.activity;
 
-import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -12,11 +11,12 @@ import android.widget.NumberPicker;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import androidx.appcompat.widget.Toolbar;
+
 import com.jxxx.rhtx.R;
 import com.jxxx.rhtx.app.MainApplication;
 import com.jxxx.rhtx.base.BaseActivity;
 import com.jxxx.rhtx.utils.StatusBarUtil;
-import com.jxxx.rhtx.utils.StringUtil;
 
 import java.lang.reflect.Field;
 import java.text.ParseException;
@@ -42,6 +42,8 @@ public class SetUserXbActivity extends BaseActivity {
     TextView mTvNan;
     @BindView(R.id.tv_nv)
     TextView mTvNv;
+    @BindView(R.id.my_toolbar)
+    Toolbar myToolbar;
     int sbType = 2;//2女
     String age = "";
 
@@ -76,11 +78,14 @@ public class SetUserXbActivity extends BaseActivity {
                 }
                 break;
             case R.id.tv_go_xyb:
-                String sex = sbType==2?"女":"男";
-                Intent mIntent = new Intent(SetUserXbActivity.this,SetUserSgActivity.class);
-                mIntent.putExtra("sex",sex);
-                mIntent.putExtra("age",age);
-                startActivity(mIntent);
+                  SetUserInfoActivity.xb = sbType;
+                  SetUserInfoActivity.rq = age;
+                  finish();
+//                String sex = sbType==2?"女":"男";
+//                Intent mIntent = new Intent(SetUserXbActivity.this,SetUserSgActivity.class);
+//                mIntent.putExtra("sex",sex);
+//                mIntent.putExtra("age",age);
+//                startActivity(mIntent);
                 break;
         }
     }
@@ -120,13 +125,14 @@ public class SetUserXbActivity extends BaseActivity {
 
     @Override
     public int intiLayout() {
-        StatusBarUtil.setStatusBarMode(this, true, R.color.white);
+//        StatusBarUtil.setStatusBarMode(this, true, R.color.white);
         return R.layout.activity_set_user_xb;
     }
 
     @Override
     public void initView() {
         MainApplication.addActivity(this);
+        setToolbar(myToolbar, "修改信息", true);
         setDatePickerDividerColor(mDatePicker);
         Calendar calendar = Calendar.getInstance();
         int year = calendar.get(Calendar.YEAR);
@@ -141,13 +147,17 @@ public class SetUserXbActivity extends BaseActivity {
                 if(month + 1<10){
                     mm = "0"+mm;
                 }
-                age=year + "-" + mm + "-" + day;
-                try {
-                    age = StringUtil.getAge(parse(age))+"";
-                } catch (Exception e) {
-                    age = "0";
-                    e.printStackTrace();
+                String dd = day+"";
+                if(month + 1<10){
+                    dd = "0"+day;
                 }
+                age=year + "-" + mm + "-" + dd;
+//                try {
+//                    age = StringUtil.getAge(parse(age))+"";
+//                } catch (Exception e) {
+//                    age = "0";
+//                    e.printStackTrace();
+//                }
 //                Toast.makeText(SetUserXbActivity.this, "您选择的日期是：" + year + "年" + (month + 1) + "月" + day + "日!", Toast
 //                        .LENGTH_SHORT).show();
             }

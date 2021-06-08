@@ -53,31 +53,7 @@ public class MainActivity extends BaseActivity {
 
     @Override
     public void initData() {
-        RetrofitUtil.getInstance().apiService()
-                .getDetail()
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribeOn(Schedulers.io())
-                .subscribe(new Observer<Result<LoginBean>>() {
-                    @Override
-                    public void onSubscribe(Disposable d) {
 
-                    }
-
-                    @Override
-                    public void onNext(Result<LoginBean> result) {
-                        if (isDataInfoSucceed(result)) {
-                        }
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-
-                    }
-
-                    @Override
-                    public void onComplete() {
-                    }
-                });
     }
     private void initBottomBar() {
         openLocation();

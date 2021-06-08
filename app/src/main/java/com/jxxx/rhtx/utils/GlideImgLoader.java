@@ -121,7 +121,8 @@ public class GlideImgLoader extends ImageLoader {
 
     //加载圆形图片
     public static void loadImageViewWithCirclr(Context mContext, String path, ImageView mImageView) {
-        Glide.with(mContext).load(path).thumbnail(0.1f).apply(bitmapTransform(new CropCircleTransformation())).into(mImageView);
+        RequestOptions options = bitmapTransform(new CropCircleTransformation()).error(R.mipmap.ic_head);
+        Glide.with(mContext).load(path).thumbnail(0.1f).apply(options).into(mImageView);
     }
 
     //加载高斯模糊图片
