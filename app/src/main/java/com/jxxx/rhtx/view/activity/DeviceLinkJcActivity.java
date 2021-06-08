@@ -116,6 +116,7 @@ public class DeviceLinkJcActivity extends BaseActivity {
             } else {
                 ll_jiao_cheng.setVisibility(View.GONE);
                 ll_lianjie.setVisibility(View.VISIBLE);
+                tv_bnt.setVisibility(View.INVISIBLE);
                 GlideImgLoader.setImgAnimation(this, iv_lj_s);
                 GlideImgLoader.setImgAnimationN(this, iv_lj_n);
                 GlideImgLoader.setImgAnimation(this, iv_refresh);
