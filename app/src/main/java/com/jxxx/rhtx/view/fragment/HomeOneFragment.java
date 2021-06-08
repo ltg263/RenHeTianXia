@@ -27,6 +27,7 @@ import com.jxxx.rhtx.bean.HomeInfoBean;
 import com.jxxx.rhtx.bean.ParamValueBean;
 import com.jxxx.rhtx.utils.GlideImgLoader;
 import com.jxxx.rhtx.utils.SharedUtils;
+import com.jxxx.rhtx.utils.StringUtil;
 import com.jxxx.rhtx.utils.view.ChartHelperHome;
 import com.jxxx.rhtx.view.activity.DeviceHistroyActivity;
 import com.jxxx.rhtx.view.adapter.HomeBelowAdapter;
@@ -118,8 +119,8 @@ public class HomeOneFragment extends BaseFragment {
                             HomeInfoBean.UserBean userInfo = result.getData().getUser();
                             if(userInfo!=null){
                                 GlideImgLoader.loadImageViewWithCirclr(getActivity(), userInfo.getAvatar(),  mIvHead);
-                                SharedUtils.singleton().put(ConstValues.USER_NAME,userInfo.getNickName());
-                                SharedUtils.singleton().put(ConstValues.USER_AVATAR,userInfo.getAvatar());
+                                SharedUtils.singleton().put(ConstValues.USER_NAME, StringUtil.isBlank(userInfo.getNickName())?"":userInfo.getNickName());
+                                SharedUtils.singleton().put(ConstValues.USER_AVATAR,StringUtil.isBlank(userInfo.getAvatar())?"":userInfo.getAvatar());
                                 SharedUtils.singleton().put(ConstValues.DEFAULT_SHOW,userInfo.getDefaultShow());
                                 mTvUserName.setText(userInfo.getNickName());
                                 mTvUserXb.setText(userInfo.getSex()==1?"性别 丨 男":"性别 丨 女");

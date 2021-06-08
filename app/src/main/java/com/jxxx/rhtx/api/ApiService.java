@@ -87,10 +87,16 @@ public interface ApiService {
     Observable<Result<AddOrderData>> userAddDevice(@Body AddOrderData addOrderData);
 
     /**
-     * 添加设备记录列表
+     * 开始使用设备
      */
-    @POST("api/v1/user/device/addChangeList")
-    Observable<Result> addChangeList(@Body AddChangeList addOrderData);
+    @POST("api/v1/user/device/startUse")
+    Observable<Result> startUseDevice(@Query("deviceId") int deviceId);
+
+    /**
+     * 结束使用设备
+     */
+    @POST("api/v1/user/device/endUse")
+    Observable<Result> endUseDevice(@Query("deviceId") int deviceId);
 
     /**
      *

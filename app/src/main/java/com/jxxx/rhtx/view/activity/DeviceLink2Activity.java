@@ -41,7 +41,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 
-public class DeviceLink1Activity extends BaseActivity {
+public class DeviceLink2Activity extends BaseActivity {
     @BindView(R.id.my_toolbar)
     Toolbar myToolbar;
     private MyReceiver mMyReceiver;
@@ -108,7 +108,7 @@ public class DeviceLink1Activity extends BaseActivity {
                     public void btnConfirm() {
                         endUseDevice();
                         BluetoothLjUtils.ble4Util.disconnect();
-                        startActivity(new Intent(DeviceLink1Activity.this,MainActivity.class));
+                        startActivity(new Intent(DeviceLink2Activity.this,MainActivity.class));
                         finish();
                     }
                 });
@@ -169,7 +169,7 @@ public class DeviceLink1Activity extends BaseActivity {
             public void btnConfirm() {
                 endUseDevice();
                 BluetoothLjUtils.ble4Util.disconnect();
-                startActivity(new Intent(DeviceLink1Activity.this,MainActivity.class));
+                startActivity(new Intent(DeviceLink2Activity.this,MainActivity.class));
                 finish();
             }
         });

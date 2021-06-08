@@ -67,6 +67,7 @@
         <activity android:name=".view.activity.MineSetActivity" />
         <activity android:name=".view.activity.DeviceLinkJcActivity" />
         <activity android:name=".view.activity.DeviceLink1Activity" />
+        <activity android:name=".view.activity.DeviceLink2Activity" />
         <activity android:name=".MainActivity" />
     </application>
 

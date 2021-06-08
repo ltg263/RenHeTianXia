@@ -134,7 +134,6 @@ public class DeviceLinkJcActivity extends BaseActivity {
                                 break;
                             case 2:
                                 deviceAdd();
-                                startActivityType();
                                 break;
                             case 3:
                                 GlideImgLoader.setImgAnimation(DeviceLinkJcActivity.this, iv_refresh_lj);
@@ -152,9 +151,10 @@ public class DeviceLinkJcActivity extends BaseActivity {
         Intent mIntent = null;
         switch (data.getId()){
             case 1:
+                mIntent = new Intent(DeviceLinkJcActivity.this,DeviceLink1Activity.class);
                 break;
             case 2:
-                mIntent = new Intent(DeviceLinkJcActivity.this,DeviceLink1Activity.class);
+                mIntent = new Intent(DeviceLinkJcActivity.this,DeviceLink2Activity.class);
                 break;
             case 3:
                 break;
@@ -172,6 +172,7 @@ public class DeviceLinkJcActivity extends BaseActivity {
         data.setDeviceName(data.getDeviceName());
         data.setDeviceNo(BluetoothLjUtils.ble4Util.getBlemac());
         data.setDeviceType(data.getId());
+        showLoading();
         RetrofitUtil.getInstance().apiService()
                 .userAddDevice(data)
                 .observeOn(AndroidSchedulers.mainThread())
@@ -186,12 +187,47 @@ public class DeviceLinkJcActivity extends BaseActivity {
                     public void onNext(Result result) {
                         if (isDataInfoSucceed(result)) {
                             Log.w("---》》》","添加成功");
+                            startUseDevice();
+                        }else{
+                            hideLoading();
                         }
                     }
 
                     @Override
                     public void onError(Throwable e) {
+                        hideLoading();
+                    }
 
+                    @Override
+                    public void onComplete() {
+                    }
+                });
+    }
+
+    private void startUseDevice() {
+        RetrofitUtil.getInstance().apiService()
+                .startUseDevice(data.getId())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.io())
+                .subscribe(new Observer<Result>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onNext(Result result) {
+                        if (isDataInfoSucceed(result)) {
+                            startActivityType();
+                        }else{
+
+                            hideLoading();
+                        }
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        hideLoading();
                     }
 
                     @Override
