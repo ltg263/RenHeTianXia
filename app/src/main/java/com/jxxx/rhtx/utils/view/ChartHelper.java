@@ -124,7 +124,7 @@ public class ChartHelper {
     }
 
     private static LineDataSet getSet(List<Entry> mData) {
-        int valueColor = Color.parseColor("#999999");
+        int valueColor = Color.parseColor("#4A90E2");
         LineDataSet set = new LineDataSet(mData, "");
         set.setDrawFilled(true);
         set.setFillColor(valueColor);

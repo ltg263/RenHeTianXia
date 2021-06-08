@@ -67,7 +67,7 @@ public class DeviceLink2Activity extends BaseActivity {
 
     @Override
     public int intiLayout() {
-        return R.layout.activity_device_link_1;
+        return R.layout.activity_device_link_2;
     }
 
     @Override
@@ -108,6 +108,7 @@ public class DeviceLink2Activity extends BaseActivity {
                     public void btnConfirm() {
                         endUseDevice();
                         BluetoothLjUtils.ble4Util.disconnect();
+                        MainApplication.getContext().finishAllActivity();
                         startActivity(new Intent(DeviceLink2Activity.this,MainActivity.class));
                         finish();
                     }
@@ -163,12 +164,13 @@ public class DeviceLink2Activity extends BaseActivity {
 
     @Override
     public void onBackPressed() {
-        super.onBackPressed();
+//        super.onBackPressed();
         DialogUtils.showDialogHint(this, "确定要断开本次链接吗？", false, new DialogUtils.ErrorDialogInterface() {
             @Override
             public void btnConfirm() {
                 endUseDevice();
                 BluetoothLjUtils.ble4Util.disconnect();
+                MainApplication.getContext().finishAllActivity();
                 startActivity(new Intent(DeviceLink2Activity.this,MainActivity.class));
                 finish();
             }

@@ -11,6 +11,7 @@ import androidx.appcompat.widget.Toolbar;
 import com.jxxx.rhtx.R;
 import com.jxxx.rhtx.api.RetrofitUtil;
 import com.jxxx.rhtx.app.ConstValues;
+import com.jxxx.rhtx.app.MainApplication;
 import com.jxxx.rhtx.base.BaseActivity;
 import com.jxxx.rhtx.base.Result;
 import com.jxxx.rhtx.bean.DeviceDetailsBaen;
@@ -54,6 +55,7 @@ public class DeviceLinkActivity extends BaseActivity {
 
     @Override
     public void initView() {
+        MainApplication.addActivity(this);
         setToolbar(myToolbar, "智能设备", true);
     }
 

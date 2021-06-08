@@ -1,10 +1,8 @@
 package com.jxxx.rhtx.view.activity;
 
-import android.bluetooth.BluetoothGatt;
 import android.content.Intent;
 import android.util.Log;
 import android.view.View;
-import android.view.animation.Animation;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -13,7 +11,7 @@ import androidx.appcompat.widget.Toolbar;
 
 import com.jxxx.rhtx.R;
 import com.jxxx.rhtx.api.RetrofitUtil;
-import com.jxxx.rhtx.app.ConstValues;
+import com.jxxx.rhtx.app.MainApplication;
 import com.jxxx.rhtx.base.BaseActivity;
 import com.jxxx.rhtx.base.Result;
 import com.jxxx.rhtx.bean.AddOrderData;
@@ -22,7 +20,6 @@ import com.jxxx.rhtx.lanya.Ble4_0Util;
 import com.jxxx.rhtx.lanya.BluetoothLjUtils;
 import com.jxxx.rhtx.utils.GlideImageLoader;
 import com.jxxx.rhtx.utils.GlideImgLoader;
-import com.jxxx.rhtx.utils.SharedUtils;
 import com.jxxx.rhtx.utils.ToastUtil;
 
 import butterknife.BindView;
@@ -73,6 +70,7 @@ public class DeviceLinkJcActivity extends BaseActivity {
 
     @Override
     public void initView() {
+        MainApplication.addActivity(this);
         data = (DeviceDetailsBaen) getIntent().getSerializableExtra("data");
         setToolbar(myToolbar, "设备链接", true);
     }
