@@ -9,6 +9,7 @@ import com.jxxx.rhtx.bean.DeviceAddBean;
 import com.jxxx.rhtx.bean.DeviceDetailsBaen;
 import com.jxxx.rhtx.bean.DeviceTypeListAll;
 import com.jxxx.rhtx.bean.DeviceUseLogList;
+import com.jxxx.rhtx.bean.HistroyDeviceLogBean;
 import com.jxxx.rhtx.bean.HomeInfoBean;
 import com.jxxx.rhtx.bean.LoginBean;
 import com.jxxx.rhtx.bean.ParamValueBean;
@@ -119,6 +120,13 @@ public interface ApiService {
      */
     @GET("api/v1/deviceType/listAll")
     Observable<ResultList<DeviceTypeListAll>> getDeviceTypeListAll();
+
+    /**
+     *
+     * 获取设备列表
+     */
+    @GET("api/v1/user/device/list")
+    Observable<Result<HistroyDeviceLogBean>> getUseLogList(@Query("pageSize") int pageSize);
 
     /**
      *

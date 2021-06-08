@@ -2,32 +2,22 @@ package com.jxxx.rhtx.view.fragment;
 
 
 import android.content.Intent;
-import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
-
-import androidx.annotation.Nullable;
 
 import com.jxxx.rhtx.R;
 import com.jxxx.rhtx.app.ConstValues;
 import com.jxxx.rhtx.base.BaseFragment;
 import com.jxxx.rhtx.utils.GlideImgLoader;
 import com.jxxx.rhtx.utils.SharedUtils;
-import com.jxxx.rhtx.utils.view.MatisseUtils;
-import com.jxxx.rhtx.view.activity.LoginActivity;
+import com.jxxx.rhtx.utils.view.DialogUtils;
 import com.jxxx.rhtx.view.activity.MineSetActivity;
+import com.jxxx.rhtx.view.activity.SetUserDeviceActivity;
 import com.jxxx.rhtx.view.activity.SetUserInfoActivity;
-import com.luck.picture.lib.PictureSelector;
-import com.luck.picture.lib.config.PictureConfig;
-import com.luck.picture.lib.entity.LocalMedia;
-
-import java.util.List;
 
 import butterknife.BindView;
 import butterknife.OnClick;
-
-import static android.app.Activity.RESULT_OK;
 
 public class HomeThreeFragment extends BaseFragment {
 
@@ -58,7 +48,7 @@ public class HomeThreeFragment extends BaseFragment {
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.tv_bnt_1:
-                LoginActivity.startActivityIntent(getActivity());
+                startActivity(new Intent(getActivity(), SetUserDeviceActivity.class));
                 break;
             case R.id.tv_bnt_2:
                 startActivity(new Intent(getActivity(), SetUserInfoActivity.class));
@@ -71,6 +61,7 @@ public class HomeThreeFragment extends BaseFragment {
                 startActivity(new Intent(getActivity(), MineSetActivity.class));
                 break;
             case R.id.tv_bnt_6:
+                DialogUtils.showDialogHint(getActivity(), "企宸软件", true, null);
                 break;
         }
     }
