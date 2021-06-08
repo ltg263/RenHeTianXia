@@ -97,12 +97,12 @@ public class HomeOneFragment extends BaseFragment {
 
     @Override
     protected void initView() {
+        showLoading();
         ChartHelperHome.initChart(new ArrayList<>(), mLineChart, 100);
     }
 
     @Override
     protected void initData() {
-        showLoading();
         RetrofitUtil.getInstance().apiService()
                 .getHome()
                 .observeOn(AndroidSchedulers.mainThread())
@@ -115,6 +115,7 @@ public class HomeOneFragment extends BaseFragment {
 
                     @Override
                     public void onNext(Result<HomeInfoBean> result) {
+                        hideLoading();
                         if (isDataInfoSucceed(result)) {
                             HomeInfoBean.UserBean userInfo = result.getData().getUser();
                             if(userInfo!=null){
@@ -216,6 +217,15 @@ public class HomeOneFragment extends BaseFragment {
                     }
                 });
 
+    }
+
+    @Override
+    public void onHiddenChanged(boolean hidden) {
+        super.onHiddenChanged(hidden);
+        Log.w("--->>>","onHiddenChanged:"+hidden);
+        if(!hidden){
+            initData();
+        }
     }
 
     private static LineDataSet getSet(List<Entry> mData, int pos) {
