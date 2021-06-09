@@ -82,6 +82,11 @@ public interface ApiService {
                                         @Query("nickName") String nickName,
                                         @Query("region") String region);
 
+    /**
+     * 添加设备记录列表
+     */
+    @POST("api/v1/user/device/addChangeList")
+    Observable<Result> addChangeList(@Body AddChangeList addOrderData);
 
     /**
      * 添加设备

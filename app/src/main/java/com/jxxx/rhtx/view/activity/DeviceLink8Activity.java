@@ -26,6 +26,7 @@ import com.jxxx.rhtx.base.Result;
 import com.jxxx.rhtx.bean.AddChangeList;
 import com.jxxx.rhtx.bean.DeviceDetailsBaen;
 import com.jxxx.rhtx.lanya.BluetoothLjUtils;
+import com.jxxx.rhtx.utils.StringUtil;
 import com.jxxx.rhtx.utils.ToastUtil;
 import com.jxxx.rhtx.utils.view.ChartHelper;
 import com.jxxx.rhtx.utils.view.ChartHelperHome;
@@ -189,34 +190,14 @@ public class DeviceLink8Activity extends BaseActivity {
                     ToastUtil.showToast("您还没有测试数据");
                     return;
                 }
-                showLoading();
-                new Thread(new Runnable() {
+                DialogUtils.showDialogHint(this, "确定要结束本次链接吗？", false, new DialogUtils.ErrorDialogInterface() {
                     @Override
-                    public void run() {
-                        if (state == 2) {
-                            try {
-                                Thread.sleep(3000);
-                            } catch (InterruptedException e) {
-                                e.printStackTrace();
-                            }
-                        }
-                        runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                state = 2;
-                                hideLoading();
-//                                AddChangeList data = new AddChangeList();
-//                                data.setId(data.getId());
-//                                data.setChangeList(changeList);
-//                                Intent intent = new Intent(DeviceLink1Activity.this, null);
-//                                intent.putExtra("data", data);
-//                                intent.putExtra("mixV", mixV);
-//                                intent.putParcelableArrayListExtra("mData1", (ArrayList<? extends Parcelable>) mData1);
-//                                startActivity(intent);
-                            }
-                        });
+                    public void btnConfirm() {
+                        endUseDevice();
+                        state = 2;
+                        lianJieSheBei();
                     }
-                }).start();
+                });
                 break;
         }
     }
@@ -261,11 +242,19 @@ public class DeviceLink8Activity extends BaseActivity {
             // -6, 3, 0, 8, -86
             String[] resultSrt = getResultSrt(resultData);
             Log.w("---》》》", "resultSrt:"+ Arrays.toString(resultSrt));
+            AddChangeList.ChangeListBean bean = new AddChangeList.ChangeListBean();
+            bean.setValue(Arrays.toString(resultSrt));
+            bean.setChangeTime(StringUtil.getTimeToYMD(System.currentTimeMillis(), "yyyy-MM-dd HH:mm:ss"));
+            changeList.add(bean);
             ChartHelper.addEntryYs(mData1,mData2,mData3,resultSrt,mLineChart,isSelectDr1,isSelectDr2,isSelectDr3);
             return;
         }
         String[] resultSrt = BluetoothLjUtils.constructTest(resultData);
         if(resultData.length > 10 && resultSrt!=null && resultSrt.length==3){
+            AddChangeList.ChangeListBean bean = new AddChangeList.ChangeListBean();
+            bean.setValue(Arrays.toString(resultSrt));
+            bean.setChangeTime(StringUtil.getTimeToYMD(System.currentTimeMillis(), "yyyy-MM-dd HH:mm:ss"));
+            changeList.add(bean);
             ChartHelper.addEntryYs(mData1,mData2,mData3,resultSrt,mLineChart,isSelectDr1,isSelectDr2,isSelectDr3);
         }
 
@@ -308,6 +297,43 @@ public class DeviceLink8Activity extends BaseActivity {
                     @Override
                     public void onError(Throwable e) {
                         hideLoading();
+                    }
+
+                    @Override
+                    public void onComplete() {
+                    }
+                });
+    }
+
+    private void lianJieSheBei() {
+        showLoading();
+        AddChangeList dataT = new AddChangeList();
+        dataT.setId(data.getId());
+        dataT.setChangeList(changeList);
+        RetrofitUtil.getInstance().apiService()
+                .addChangeList(dataT)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.io())
+                .subscribe(new Observer<Result>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onNext(Result result) {
+                        hideLoading();
+                        if (isDataInfoSucceed(result)) {
+                            BluetoothLjUtils.ble4Util.disconnect();
+                            MainApplication.getContext().finishAllActivity();
+                            startActivity(new Intent(DeviceLink8Activity.this,MainActivity.class));
+                            finish();
+                        }
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+
                     }
 
                     @Override

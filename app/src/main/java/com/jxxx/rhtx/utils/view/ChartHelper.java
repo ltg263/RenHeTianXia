@@ -62,8 +62,7 @@ public class ChartHelper {
 
     public static void addEntryYs(List<Entry> mData1, List<Entry> mData2, List<Entry> mData3, String[] resultSrt,
                                   LineChart lineChart,boolean is1,boolean is2, boolean is3) {
-        if (lineChart != null&& lineChart.getData() != null &&lineChart.getData().getDataSetCount() > 0) {
-            Log.w("Float.parseFloat(resultSrt[0])","Float.parseFloat(resultSrt[0]):"+Float.parseFloat(resultSrt[0]));
+        if (lineChart != null&& lineChart.getData() != null) {
             if (mData1.size() == 0) {
                 Entry entry1 = new Entry(maxCount, Float.parseFloat(resultSrt[0]));
                 mData1.add(entry1);

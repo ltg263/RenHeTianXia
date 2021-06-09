@@ -155,6 +155,15 @@ public class DeviceLink1Activity extends BaseActivity {
 //                Intent intent = new Intent(this, ShopActivity_1.class);
 //                intent.putExtra("data", data);
 //                startActivity(intent);
+
+                DialogUtils.showDialogHint(this, "确定要结束本次链接吗？", false, new DialogUtils.ErrorDialogInterface() {
+                    @Override
+                    public void btnConfirm() {
+                        state = 2;
+                        endUseDevice();
+                        lianJieSheBei();
+                    }
+                });
                 break;
         }
     }
@@ -270,6 +279,43 @@ public class DeviceLink1Activity extends BaseActivity {
                     @Override
                     public void onError(Throwable e) {
                         hideLoading();
+                    }
+
+                    @Override
+                    public void onComplete() {
+                    }
+                });
+    }
+
+    private void lianJieSheBei() {
+        showLoading();
+        AddChangeList dataT = new AddChangeList();
+        dataT.setId(data.getId());
+        dataT.setChangeList(changeList);
+        RetrofitUtil.getInstance().apiService()
+                .addChangeList(dataT)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.io())
+                .subscribe(new Observer<Result>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onNext(Result result) {
+                        hideLoading();
+                        if (isDataInfoSucceed(result)) {
+                            BluetoothLjUtils.ble4Util.disconnect();
+                            MainApplication.getContext().finishAllActivity();
+                            startActivity(new Intent(DeviceLink1Activity.this,MainActivity.class));
+                            finish();
+                        }
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+
                     }
 
                     @Override

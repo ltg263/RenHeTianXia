@@ -131,33 +131,16 @@ public class DeviceLink2Activity extends BaseActivity {
                     return;
                 }
                 showLoading();
-                new Thread(new Runnable() {
+
+                DialogUtils.showDialogHint(this, "确定要结束本次链接吗？", false, new DialogUtils.ErrorDialogInterface() {
                     @Override
-                    public void run() {
-                        if(state==2){
-                            try {
-                                Thread.sleep(3000);
-                            } catch (InterruptedException e) {
-                                e.printStackTrace();
-                            }
-                        }
-                        runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                state = 2;
-                                hideLoading();
-//                                AddChangeList data = new AddChangeList();
-//                                data.setId(data.getId());
-//                                data.setChangeList(changeList);
-//                                Intent intent = new Intent(DeviceLink1Activity.this, null);
-//                                intent.putExtra("data", data);
-//                                intent.putExtra("mixV", mixV);
-//                                intent.putParcelableArrayListExtra("mData1", (ArrayList<? extends Parcelable>) mData1);
-//                                startActivity(intent);
-                            }
-                        });
+                    public void btnConfirm() {
+                        state = 2;
+                        endUseDevice();
+                        lianJieSheBei();
                     }
-                }).start();
+                });
+
                 break;
         }
     }
@@ -267,6 +250,43 @@ public class DeviceLink2Activity extends BaseActivity {
                     @Override
                     public void onError(Throwable e) {
                         hideLoading();
+                    }
+
+                    @Override
+                    public void onComplete() {
+                    }
+                });
+    }
+
+    private void lianJieSheBei() {
+        showLoading();
+        AddChangeList dataT = new AddChangeList();
+        dataT.setId(data.getId());
+        dataT.setChangeList(changeList);
+        RetrofitUtil.getInstance().apiService()
+                .addChangeList(dataT)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.io())
+                .subscribe(new Observer<Result>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onNext(Result result) {
+                        hideLoading();
+                        if (isDataInfoSucceed(result)) {
+                            BluetoothLjUtils.ble4Util.disconnect();
+                            MainApplication.getContext().finishAllActivity();
+                            startActivity(new Intent(DeviceLink2Activity.this,MainActivity.class));
+                            finish();
+                        }
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+
                     }
 
                     @Override
