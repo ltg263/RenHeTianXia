@@ -32,6 +32,8 @@ import io.reactivex.schedulers.Schedulers;
 public class DeviceLinkJcActivity extends BaseActivity {
     @BindView(R.id.my_toolbar)
     Toolbar myToolbar;
+    @BindView(R.id.tv_tiaoguo)
+    TextView tv_tiaoguo;
     @BindView(R.id.tv_1)
     TextView mTv1;
     @BindView(R.id.tv_2)
@@ -85,8 +87,12 @@ public class DeviceLinkJcActivity extends BaseActivity {
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.tv_tiaoguo:
-                ll_jiao_cheng.setVisibility(View.GONE);
-                ll_lianjie.setVisibility(View.VISIBLE);
+                if(BluetoothLjUtils.ble4Util!=null){
+                    BluetoothLjUtils.ble4Util.disconnect();
+                }
+                BluetoothLjUtils.ble4Util = new Ble4_0Util(this);
+                BluetoothLjUtils.ble4Util.init();
+                jinxingLj();
                 break;
             case R.id.tv_bnt:
                 showJc();
@@ -111,38 +117,43 @@ public class DeviceLinkJcActivity extends BaseActivity {
             BluetoothLjUtils.ble4Util = new Ble4_0Util(this);
             BluetoothLjUtils.ble4Util.init();
         } else if (str.equals("下一步")) {
-            if (!BluetoothLjUtils.ble4Util.getBluetoothAdapter().isEnabled()) {
-                ToastUtil.showLongStrToast(this, "请先开启蓝牙");
-            } else {
-                ll_jiao_cheng.setVisibility(View.GONE);
-                ll_lianjie.setVisibility(View.VISIBLE);
-                tv_bnt.setVisibility(View.INVISIBLE);
-                GlideImgLoader.setImgAnimation(this, iv_lj_s);
-                GlideImgLoader.setImgAnimationN(this, iv_lj_n);
-                GlideImgLoader.setImgAnimation(this, iv_refresh);
-                BluetoothLjUtils.sousuo(this, data.getSortName(),new BluetoothLjUtils.BluetoothLjInterface() {
-                    @Override
-                    public void linkState(int state) {
-                        //1搜索成功//2链接成功//3链接中//4断开连接中
-                        switch (state) {
-                            case 0:
-                                break;
-                            case 1:
-                                iv_refresh.clearAnimation();
-                                GlideImgLoader.loadImage(DeviceLinkJcActivity.this, R.mipmap.ic_duih, iv_refresh);
-                                break;
-                            case 2:
-                                deviceAdd();
-                                break;
-                            case 3:
-                                GlideImgLoader.setImgAnimation(DeviceLinkJcActivity.this, iv_refresh_lj);
-                                break;
-                            case 4:
-                                break;
-                        }
+            jinxingLj();
+        }
+    }
+
+    private void jinxingLj() {
+        if (!BluetoothLjUtils.ble4Util.getBluetoothAdapter().isEnabled()) {
+            ToastUtil.showLongStrToast(this, "请先开启蓝牙");
+        } else {
+            tv_tiaoguo.setVisibility(View.GONE);
+            ll_jiao_cheng.setVisibility(View.GONE);
+            ll_lianjie.setVisibility(View.VISIBLE);
+            tv_bnt.setVisibility(View.INVISIBLE);
+            GlideImgLoader.setImgAnimation(this, iv_lj_s);
+            GlideImgLoader.setImgAnimationN(this, iv_lj_n);
+            GlideImgLoader.setImgAnimation(this, iv_refresh);
+            BluetoothLjUtils.sousuo(this, data.getSortName(),new BluetoothLjUtils.BluetoothLjInterface() {
+                @Override
+                public void linkState(int state) {
+                    //1搜索成功//2链接成功//3链接中//4断开连接中
+                    switch (state) {
+                        case 0:
+                            break;
+                        case 1:
+                            iv_refresh.clearAnimation();
+                            GlideImgLoader.loadImage(DeviceLinkJcActivity.this, R.mipmap.ic_duih, iv_refresh);
+                            break;
+                        case 2:
+                            deviceAdd();
+                            break;
+                        case 3:
+                            GlideImgLoader.setImgAnimation(DeviceLinkJcActivity.this, iv_refresh_lj);
+                            break;
+                        case 4:
+                            break;
                     }
-                });
-            }
+                }
+            });
         }
     }
 

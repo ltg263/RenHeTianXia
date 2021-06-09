@@ -253,13 +253,39 @@ public class DeviceLink8Activity extends BaseActivity {
             Log.w("---》》》", "暂停中:");
             return;
         }
-//        inivLine(resultData);
-        Log.w("---》》》", "BluetoothLjUtils:"+ Arrays.toString(BluetoothLjUtils.constructTest(resultData)));
+        Log.w("---》》》", "resultData:"+Arrays.toString(resultData));
+//        Log.w("---》》》", "BluetoothLjUtils:"+ Arrays.toString(BluetoothLjUtils.constructTest(resultData)));
+        if(resultData.length == 15 && resultData[0]==-6 && resultData[14]==-86){
+            //-6, 1, 0, 11, -86,
+            // -6, 2, 0, 8, -86,
+            // -6, 3, 0, 8, -86
+            String[] resultSrt = getResultSrt(resultData);
+            Log.w("---》》》", "resultSrt:"+ Arrays.toString(resultSrt));
+            ChartHelper.addEntryYs(mData1,mData2,mData3,resultSrt,mLineChart,isSelectDr1,isSelectDr2,isSelectDr3);
+            return;
+        }
         String[] resultSrt = BluetoothLjUtils.constructTest(resultData);
         if(resultData.length > 10 && resultSrt!=null && resultSrt.length==3){
             ChartHelper.addEntryYs(mData1,mData2,mData3,resultSrt,mLineChart,isSelectDr1,isSelectDr2,isSelectDr3);
         }
 
+    }
+    private String[] getResultSrt(byte[] resultData){
+        List<String> dataLists = new ArrayList<>();
+        for (int i = 0; i < resultData.length; i++) {
+            String stfff = Integer.toHexString(resultData[i] & 0xFF);
+            if (stfff.length() == 1) {
+                stfff = "0" + stfff;
+            }
+            dataLists.add(stfff);
+        }
+        int v1 = Integer.parseInt(dataLists.get(2), 16)*256+Integer.parseInt(dataLists.get(3), 16);
+
+        int v2 = Integer.parseInt(dataLists.get(7), 16)*256+Integer.parseInt(dataLists.get(8), 16);
+
+        int v3 = Integer.parseInt(dataLists.get(12), 16)*256+Integer.parseInt(dataLists.get(13), 16);
+
+        return new String[]{v1+"",v2+"",v3+""};
     }
     private void endUseDevice() {
         RetrofitUtil.getInstance().apiService()
