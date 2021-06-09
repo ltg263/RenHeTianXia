@@ -155,7 +155,8 @@ public class DeviceLinkJcActivity extends BaseActivity {
             case 2:
                 mIntent = new Intent(DeviceLinkJcActivity.this,DeviceLink2Activity.class);
                 break;
-            case 3:
+            case 8:
+                mIntent = new Intent(DeviceLinkJcActivity.this,DeviceLink8Activity.class);
                 break;
         }
         if(mIntent!=null){
@@ -219,7 +220,6 @@ public class DeviceLinkJcActivity extends BaseActivity {
                         if (isDataInfoSucceed(result)) {
                             startActivityType();
                         }else{
-
                             hideLoading();
                         }
                     }

@@ -13,6 +13,7 @@ import com.jxxx.rhtx.app.MainApplication;
 import com.jxxx.rhtx.base.BaseActivity;
 import com.jxxx.rhtx.utils.ToastUtil;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -95,13 +96,7 @@ public class BluetoothLjUtils {
                     break;
                 case 101:
                     byte[] resultData = (byte[]) message.obj;
-                    Log.w("---》》》","接收resultData："+Arrays.toString(resultData));
-                    String resultData_0xff = "";
-                    for (int i = 0; i < resultData.length; i++) {
-                        resultData_0xff += Integer.toHexString(resultData[i] & 0xFF)+",";
-                    }
                     startBroadcast(resultData);
-                    Log.w("---》》》","接收resultData_0xff："+resultData_0xff);
                     break;
             }
             return false;
@@ -121,4 +116,26 @@ public class BluetoothLjUtils {
         //发送
         MainApplication.getContext().sendBroadcast(intent);
     }
+    /**
+
+     *字节数组转为16进制字符串
+
+     */
+
+    public static String byteToHex(byte[] bytes) {
+        String strHex = "";
+        StringBuilder stringBuilder = new StringBuilder();
+        for (int n = 0; n < bytes.length; n++) {
+            strHex = Integer.toHexString(bytes[n] & 0xFF);
+            stringBuilder.append((strHex.length() == 1) ? "0" + strHex : strHex);
+        }
+        return stringBuilder.toString().trim();
+    }
+
+    public static String[] constructTest(byte[] data) {
+        String str = new String(data);
+        str = str.replaceAll(";", "").replaceAll("\r", "").replaceAll("\n", "");
+        return str.split(",");
+    }
+
 }

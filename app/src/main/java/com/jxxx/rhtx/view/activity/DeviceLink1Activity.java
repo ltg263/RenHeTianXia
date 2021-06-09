@@ -23,16 +23,13 @@ import com.jxxx.rhtx.base.Result;
 import com.jxxx.rhtx.bean.AddChangeList;
 import com.jxxx.rhtx.bean.DeviceDetailsBaen;
 import com.jxxx.rhtx.lanya.BluetoothLjUtils;
-import com.jxxx.rhtx.utils.GlideImgLoader;
 import com.jxxx.rhtx.utils.ImageUtils;
 import com.jxxx.rhtx.utils.StringUtil;
 import com.jxxx.rhtx.utils.ToastUtil;
 import com.jxxx.rhtx.utils.view.ChartHelper;
-import com.jxxx.rhtx.utils.view.ChartHelper_1;
 import com.jxxx.rhtx.utils.view.DialogUtils;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import butterknife.BindView;

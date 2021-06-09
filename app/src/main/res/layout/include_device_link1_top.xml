@@ -12,12 +12,18 @@
         android:background="@drawable/shape_radius_th_jb">
 
         <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:adjustViewBounds="true"
+            android:src="@mipmap/ic_top_bj" />
+
+        <ImageView
             android:id="@+id/iv_img"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:visibility="gone"
             android:scaleType="fitXY"
-            android:src="@mipmap/ic_home_bj" />
+            android:src="@mipmap/ic_home_bj"
+            android:visibility="gone" />
 
         <ImageView
             android:id="@+id/iv_1"

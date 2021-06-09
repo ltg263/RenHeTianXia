@@ -1,6 +1,7 @@
 package com.jxxx.rhtx.utils.view;
 
 import android.graphics.Color;
+import android.util.Log;
 
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.components.XAxis;
@@ -53,6 +54,82 @@ public class ChartHelper {
                 mData.add(entry);
             }
             LineData lineData = new LineData(getSet(mData));
+            lineData.setDrawValues(false);
+            lineChart.setData(lineData);
+            lineChart.invalidate();
+        }
+    }
+
+    public static void addEntryYs(List<Entry> mData1, List<Entry> mData2, List<Entry> mData3, String[] resultSrt,
+                                  LineChart lineChart,boolean is1,boolean is2, boolean is3) {
+        if (lineChart != null&& lineChart.getData() != null &&lineChart.getData().getDataSetCount() > 0) {
+            Log.w("Float.parseFloat(resultSrt[0])","Float.parseFloat(resultSrt[0]):"+Float.parseFloat(resultSrt[0]));
+            if (mData1.size() == 0) {
+                Entry entry1 = new Entry(maxCount, Float.parseFloat(resultSrt[0]));
+                mData1.add(entry1);
+            } else {
+                boolean needRemove = false;
+                for (Entry e : mData1) {
+                    float x = e.getX() - 1;
+                    if (x < 0) {
+                        needRemove = true;
+                    }
+                    e.setX(x);
+                }
+                if (needRemove) {
+                    mData1.remove(0);
+                }
+                Entry entry1 = new Entry(maxCount, Float.parseFloat(resultSrt[0]));
+                mData1.add(entry1);
+            }
+
+            if (mData2.size() == 0) {
+                Entry entry2 = new Entry(maxCount, Float.parseFloat(resultSrt[1]));
+                mData2.add(entry2);
+            } else {
+                boolean needRemove = false;
+                for (Entry e : mData2) {
+                    float x = e.getX() - 1;
+                    if (x < 0) {
+                        needRemove = true;
+                    }
+                    e.setX(x);
+                }
+                if (needRemove) {
+                    mData2.remove(0);
+                }
+                Entry entry2 = new Entry(maxCount, Float.parseFloat(resultSrt[1]));
+                mData2.add(entry2);
+            }
+
+            if (mData3.size() == 0) {
+                Entry entry3 = new Entry(maxCount, Float.parseFloat(resultSrt[2]));
+                mData3.add(entry3);
+            } else {
+                boolean needRemove = false;
+                for (Entry e : mData3) {
+                    float x = e.getX() - 1;
+                    if (x < 0) {
+                        needRemove = true;
+                    }
+                    e.setX(x);
+                }
+                if (needRemove) {
+                    mData3.remove(0);
+                }
+                Entry entry3 = new Entry(maxCount, Float.parseFloat(resultSrt[2]));
+                mData3.add(entry3);
+            }
+            LineData lineData = new LineData();
+            if(is1){
+                lineData.addDataSet(getSet(mData1,"#E24AC9"));
+            }
+            if(is2){
+                lineData.addDataSet(getSet(mData2,"#4A90E2"));
+            }
+            if(is3){
+                lineData.addDataSet(getSet(mData3,"#E2AF4A"));
+            }
             lineData.setDrawValues(false);
             lineChart.setData(lineData);
             lineChart.invalidate();
@@ -121,6 +198,18 @@ public class ChartHelper {
 
         lineChart.setData(lineData);
         lineChart.invalidate();
+    }
+
+    private static LineDataSet getSet(List<Entry> mData,String color) {
+        int valueColor = Color.parseColor(color);
+        LineDataSet set = new LineDataSet(mData, "");
+        set.setDrawFilled(false);
+        set.setFillColor(valueColor);
+        set.setColor(valueColor);
+        set.setValueTextColor(valueColor);
+        set.setDrawCircles(false);
+        set.setMode(LineDataSet.Mode.CUBIC_BEZIER);
+        return set;
     }
 
     private static LineDataSet getSet(List<Entry> mData) {
