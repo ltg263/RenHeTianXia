@@ -256,7 +256,7 @@ public class DeviceLink8Activity extends BaseActivity {
         Log.w("---》》》", "resultData:"+Arrays.toString(resultData));
 //        Log.w("---》》》", "BluetoothLjUtils:"+ Arrays.toString(BluetoothLjUtils.constructTest(resultData)));
         if(resultData.length == 15 && resultData[0]==-6 && resultData[14]==-86){
-            //-6, 1, 0, 11, -86,
+            // -6, 1, 0, 11, -86,
             // -6, 2, 0, 8, -86,
             // -6, 3, 0, 8, -86
             String[] resultSrt = getResultSrt(resultData);
