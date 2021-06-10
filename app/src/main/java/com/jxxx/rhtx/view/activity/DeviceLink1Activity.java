@@ -135,7 +135,7 @@ public class DeviceLink1Activity extends BaseActivity {
             case R.id.ll_state:
                 if (state == 1) {
                     mIvState.setImageDrawable(getResources().getDrawable(R.mipmap.icon_home_2));
-                    mTvState.setText("0.");
+                    mTvState.setText("开始");
                     state = 2;
                 } else if (state == 2) {
                     mIvState.setImageDrawable(getResources().getDrawable(R.mipmap.icon_home_5));
