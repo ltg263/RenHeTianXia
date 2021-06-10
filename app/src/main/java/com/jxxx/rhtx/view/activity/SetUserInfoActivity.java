@@ -101,6 +101,9 @@ public class SetUserInfoActivity extends BaseActivity {
                             mTvUser5.setText(StringUtil.isBlank(data.getBirthday())?"请设置出生日期":data.getBirthday());
                             mTvUser6.setText(StringUtil.isBlank(data.getRegion())?"请设置位置":data.getRegion());
                             mTvUser7.setText(data.getMobile());
+//                            let bmi = (res.weight / res.height / res.height * 10000).toFixed(1)
+                            Double double8 = Double.valueOf((data.getWeight()))/Double.valueOf((data.getHeight()))/Double.valueOf((data.getHeight()))*10000;
+                            mTvUser8.setText(String.format("%.1f",double8));
 
                         }
                     }
