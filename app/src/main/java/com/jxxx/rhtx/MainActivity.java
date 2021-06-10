@@ -12,6 +12,7 @@ import androidx.fragment.app.FragmentTransaction;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.jxxx.rhtx.api.RetrofitUtil;
+import com.jxxx.rhtx.app.MainApplication;
 import com.jxxx.rhtx.base.BaseActivity;
 import com.jxxx.rhtx.base.Result;
 import com.jxxx.rhtx.bean.DeviceUseLogList;
@@ -49,6 +50,7 @@ public class MainActivity extends BaseActivity {
 
     @Override
     public void initView() {
+        MainApplication.addActivity(this);
         initBottomBar();
     }
 

@@ -1,5 +1,6 @@
 package com.jxxx.rhtx.view.activity;
 
+import android.content.Intent;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
@@ -79,8 +80,10 @@ public class LoginWjmmActivity extends BaseActivity {
                     @Override
                     public void onNext(Result result) {
                         if(result.getStatus()==0){
-                            ToastUtil.showLongStrToast(LoginWjmmActivity.this,"修改成功");
+                            ToastUtil.showLongStrToast(LoginWjmmActivity.this,"修改成功,重新登录");
                             finish();
+                            MainApplication.getContext().AppExit();
+                            startActivity(new Intent(LoginWjmmActivity.this,LoginActivity.class));
                         }
 
                     }
