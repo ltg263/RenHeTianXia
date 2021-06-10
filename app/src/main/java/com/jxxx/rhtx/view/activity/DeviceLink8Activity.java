@@ -81,6 +81,8 @@ public class DeviceLink8Activity extends BaseActivity {
     LinearLayout mLlState;
     @BindView(R.id.ll_stop)
     LinearLayout mLlStop;
+    @BindView(R.id.ll_state_ly)
+    LinearLayout ll_state_ly;
     private MyReceiver mMyReceiver;
     private List<Entry> mData1 = new ArrayList<>();
     private List<Entry> mData2 = new ArrayList<>();
@@ -89,6 +91,7 @@ public class DeviceLink8Activity extends BaseActivity {
     boolean isSelectDr1 = true;
     boolean isSelectDr2 = true;
     boolean isSelectDr3 = true;
+    private int type_id;
 
     @Override
     public int intiLayout() {
@@ -97,6 +100,17 @@ public class DeviceLink8Activity extends BaseActivity {
 
     @Override
     public void initView() {
+        MainApplication.addActivity(this);
+        data = (DeviceDetailsBaen) getIntent().getSerializableExtra("data");
+        if(data ==null){
+            type_id = getIntent().getIntExtra("type_id",0);
+            setToolbar(myToolbar, getIntent().getStringExtra("type_name"), true);
+            mLlState.setVisibility(View.GONE);
+            mLlStop.setVisibility(View.GONE);
+            ll_state_ly.setVisibility(View.VISIBLE);
+            return;
+        }
+        setToolbar(myToolbar, data.getDeviceName(), true);
         /**
          * 广播动态注册
          */
@@ -115,17 +129,22 @@ public class DeviceLink8Activity extends BaseActivity {
 
     @Override
     public void initData() {
-        MainApplication.addActivity(this);
-        data = (DeviceDetailsBaen) getIntent().getSerializableExtra("data");
-        setToolbar(myToolbar, data.getDeviceName(), true);
+        if(data==null){
+            return;
+        }
         ChartHelper.initChart(new ArrayList<>(), mLineChart, -1);
 
     }
 
 
-    @OnClick({R.id.ll_home, R.id.ll_state, R.id.ll_stop,R.id.ll_dr_1, R.id.ll_dr_2, R.id.ll_dr_3})
+    @OnClick({R.id.ll_home, R.id.ll_state,R.id.ll_state_ly, R.id.ll_stop,R.id.ll_dr_1, R.id.ll_dr_2, R.id.ll_dr_3})
     public void onViewClicked(View view) {
         switch (view.getId()) {
+            case R.id.ll_state_ly:
+                Intent mIntent = new Intent(this, DeviceLinkActivity.class);
+                mIntent.putExtra("id",type_id);
+                startActivity(mIntent);
+                break;
             case R.id.ll_dr_1:
                 if(!isSelectDr1){
                     mLlDr1.setBackground(getResources().getDrawable(R.drawable.btn_shape_theme));
@@ -163,6 +182,10 @@ public class DeviceLink8Activity extends BaseActivity {
                 isSelectDr3 = !isSelectDr3;
                 break;
             case R.id.ll_home:
+                if(data==null){
+                    finish();
+                    return;
+                }
                 DialogUtils.showDialogHint(this, "确定要断开本次链接吗？", false, new DialogUtils.ErrorDialogInterface() {
                     @Override
                     public void btnConfirm() {
@@ -204,7 +227,10 @@ public class DeviceLink8Activity extends BaseActivity {
 
     @Override
     public void onBackPressed() {
-//        super.onBackPressed();
+        if(data==null){
+            super.onBackPressed();
+            return;
+        }
         DialogUtils.showDialogHint(this, "确定要断开本次链接吗？", false, new DialogUtils.ErrorDialogInterface() {
             @Override
             public void btnConfirm() {

@@ -29,9 +29,14 @@ import com.jxxx.rhtx.bean.ParamValueBean;
 import com.jxxx.rhtx.utils.GlideImgLoader;
 import com.jxxx.rhtx.utils.SharedUtils;
 import com.jxxx.rhtx.utils.StringUtil;
+import com.jxxx.rhtx.utils.ToastUtil;
 import com.jxxx.rhtx.utils.view.ChartHelperHome;
 import com.jxxx.rhtx.view.activity.DeviceHistroyActivity;
+import com.jxxx.rhtx.view.activity.DeviceLink1Activity;
+import com.jxxx.rhtx.view.activity.DeviceLink2Activity;
+import com.jxxx.rhtx.view.activity.DeviceLink8Activity;
 import com.jxxx.rhtx.view.activity.DeviceLinkActivity;
+import com.jxxx.rhtx.view.activity.DeviceLinkJcActivity;
 import com.jxxx.rhtx.view.activity.SetUserInfoActivity;
 import com.jxxx.rhtx.view.adapter.HomeBelowAdapter;
 import com.jxxx.rhtx.view.adapter.HomeCenAdapter;
@@ -92,6 +97,7 @@ public class HomeOneFragment extends BaseFragment {
     RelativeLayout ll_mrym;
     @BindView(R.id.line_chart)
     LineChart mLineChart;
+    boolean isShouOpen = true;
     private HomeBelowAdapter mHomeBelowAdapter;
 
     @Override
@@ -116,7 +122,7 @@ public class HomeOneFragment extends BaseFragment {
         mHomeBelowAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
             @Override
             public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
-                
+
             }
         });
     }
@@ -156,6 +162,9 @@ public class HomeOneFragment extends BaseFragment {
                                 GlideImgLoader.loadImageAndDefault(getActivity(), device.getImgUrl(), mIvSb);
                                 mTvSbName.setText(device.getTypeStr());
                                 inivLine(device.getChangeList());
+                                if(isShouOpen){
+                                    startActivityType(device.getDeviceType(),device.getTypeStr());
+                                }
                             }
                             List<HomeInfoBean.HistroyDeviceBean> histroyDevice = result.getData().getHistroyDevice();
                             if(histroyDevice!=null && histroyDevice.size()>0){
@@ -163,6 +172,7 @@ public class HomeOneFragment extends BaseFragment {
                                 mRvSbList.setVisibility(View.VISIBLE);
                                 mHomeBelowAdapter.setNewData(histroyDevice);
                             }
+                            isShouOpen = false;
                         }
 
                     }
@@ -240,6 +250,28 @@ public class HomeOneFragment extends BaseFragment {
                     }
                 });
 
+    }
+
+    private void startActivityType(int id, String typeStr) {
+        Intent mIntent = null;
+        switch (id){
+            case 1:
+                mIntent = new Intent(getActivity(), DeviceLink1Activity.class);
+                break;
+            case 2:
+                mIntent = new Intent(getActivity(), DeviceLink2Activity.class);
+                break;
+            case 8:
+                mIntent = new Intent(getActivity(), DeviceLink8Activity.class);
+                break;
+        }
+        if(mIntent!=null){
+            mIntent.putExtra("type_id",id);
+            mIntent.putExtra("type_name",typeStr);
+            startActivity(mIntent);
+        }else{
+            ToastUtil.showToast("暂无此设备");
+        }
     }
 
     @Override

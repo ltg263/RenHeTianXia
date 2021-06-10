@@ -61,10 +61,12 @@ public class DeviceLink2Activity extends BaseActivity {
     LinearLayout mLlState;
     @BindView(R.id.ll_stop)
     LinearLayout mLlStop;
+    @BindView(R.id.ll_state_ly)
+    LinearLayout ll_state_ly;
     private List<Entry> mData1 = new ArrayList<>();
     private List<Entry> mData2 = new ArrayList<>();
     private DeviceDetailsBaen data;
-
+    private int type_id = 0;
     @Override
     public int intiLayout() {
         return R.layout.activity_device_link_2;
@@ -72,6 +74,17 @@ public class DeviceLink2Activity extends BaseActivity {
 
     @Override
     public void initView() {
+        MainApplication.addActivity(this);
+        data = (DeviceDetailsBaen) getIntent().getSerializableExtra("data");
+        if(data ==null){
+            type_id = getIntent().getIntExtra("type_id",0);
+            setToolbar(myToolbar, getIntent().getStringExtra("type_name"), true);
+            mLlState.setVisibility(View.GONE);
+            mLlStop.setVisibility(View.GONE);
+            ll_state_ly.setVisibility(View.VISIBLE);
+            return;
+        }
+        setToolbar(myToolbar, data.getDeviceName(), true);
         /**
          * 广播动态注册
          */
@@ -89,9 +102,9 @@ public class DeviceLink2Activity extends BaseActivity {
     }
     @Override
     public void initData(){
-        MainApplication.addActivity(this);
-        data = (DeviceDetailsBaen) getIntent().getSerializableExtra("data");
-        setToolbar(myToolbar, data.getDeviceName(), true);
+        if(data==null){
+            return;
+        }
         GlideImgLoader.setViewImg(this,data.getImgUrl(),iv_icon);
         ChartHelper_1.initChart(mData1, mLineChart1, 0);
         ChartHelper.initChart(mData2, mLineChart2, -1);
@@ -99,10 +112,19 @@ public class DeviceLink2Activity extends BaseActivity {
     }
 
 
-    @OnClick({R.id.ll_home, R.id.ll_state, R.id.ll_stop})
+    @OnClick({R.id.ll_home, R.id.ll_state, R.id.ll_stop,R.id.ll_state_ly})
     public void onViewClicked(View view) {
         switch (view.getId()) {
+            case R.id.ll_state_ly:
+                Intent mIntent = new Intent(this, DeviceLinkActivity.class);
+                mIntent.putExtra("id",type_id);
+                startActivity(mIntent);
+                break;
             case R.id.ll_home:
+                if(data==null){
+                    finish();
+                    return;
+                }
                 DialogUtils.showDialogHint(this, "确定要断开本次链接吗？", false, new DialogUtils.ErrorDialogInterface() {
                     @Override
                     public void btnConfirm() {
@@ -147,7 +169,10 @@ public class DeviceLink2Activity extends BaseActivity {
 
     @Override
     public void onBackPressed() {
-//        super.onBackPressed();
+        if(data==null){
+            super.onBackPressed();
+            return;
+        }
         DialogUtils.showDialogHint(this, "确定要断开本次链接吗？", false, new DialogUtils.ErrorDialogInterface() {
             @Override
             public void btnConfirm() {
