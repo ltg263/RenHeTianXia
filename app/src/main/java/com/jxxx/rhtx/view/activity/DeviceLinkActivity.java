@@ -63,7 +63,7 @@ public class DeviceLinkActivity extends BaseActivity {
     public void initData() {
         id = getIntent().getIntExtra("id", 0);
         defaultShowId = SharedUtils.singleton().get(ConstValues.DEFAULT_SHOW, 0);
-        GlideImageLoader.loadImageAndDefault(this, SharedUtils.singleton().get(ConstValues.USER_BACK_IMG, ""), iv_bj);
+        GlideImageLoader.loadImageAndDefault(this, SharedUtils.singleton().get(ConstValues.USER_BACK_IMG_SB, ""), iv_bj);
         RetrofitUtil.getInstance().apiService()
                 .getDeviceDetails(id)
                 .observeOn(AndroidSchedulers.mainThread())

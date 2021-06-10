@@ -203,7 +203,10 @@ public class HomeOneFragment extends BaseFragment {
                     @Override
                     public void onNext(Result<ParamValueBean> result) {
                         if (isDataInfoSucceed(result)) {
-                            SharedUtils.singleton().put(ConstValues.USER_BACK_IMG,result.getData().getBackgeround());
+                            SharedUtils.singleton().put(ConstValues.USER_BACK_IMG,result.getData().getIndexImg());
+                            SharedUtils.singleton().put(ConstValues.SB_HELP,result.getData().getHelp());
+                            SharedUtils.singleton().put(ConstValues.USER_BACK_IMG_SB,result.getData().getBackgeround());
+                            SharedUtils.singleton().put(ConstValues.SB_CONTACT_WAY,result.getData().getPhone());
                             GlideImgLoader.setViewImg(getActivity(),result.getData().getBackgeround(),ll_bj);
                         }
                     }

@@ -8,6 +8,12 @@ import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 
+
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
+
 import java.io.UnsupportedEncodingException;
 import java.nio.ByteBuffer;
 import java.text.ParseException;
@@ -399,5 +405,14 @@ public class StringUtil {
             }
         }
         return age;
+    }
+
+    public static String getNewContent1(String htmltext) {
+        Document doc = Jsoup.parse(htmltext);
+        Elements elements = doc.getElementsByTag("img");
+        for (Element element : elements) {
+            element.attr("width", "100%").attr("height", "auto");
+        }
+        return doc.toString();
     }
 }

@@ -15,6 +15,7 @@ import com.jxxx.rhtx.utils.view.DialogUtils;
 import com.jxxx.rhtx.view.activity.MineSetActivity;
 import com.jxxx.rhtx.view.activity.SetUserDeviceActivity;
 import com.jxxx.rhtx.view.activity.SetUserInfoActivity;
+import com.jxxx.rhtx.view.activity.SetUserWebActivity;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -54,8 +55,16 @@ public class HomeThreeFragment extends BaseFragment {
                 startActivity(new Intent(getActivity(), SetUserInfoActivity.class));
                 break;
             case R.id.tv_bnt_3:
+                Intent mIntent = new Intent(getActivity(), SetUserWebActivity.class);
+                mIntent.putExtra("title","帮助说明");
+                mIntent.putExtra("content",SharedUtils.singleton().get(ConstValues.SB_HELP,""));
+                startActivity(mIntent);
                 break;
             case R.id.tv_bnt_4:
+                Intent mIntent1 = new Intent(getActivity(), SetUserWebActivity.class);
+                mIntent1.putExtra("title","联系方式");
+                mIntent1.putExtra("content",SharedUtils.singleton().get(ConstValues.SB_CONTACT_WAY,""));
+                startActivity(mIntent1);
                 break;
             case R.id.tv_bnt_5:
                 startActivity(new Intent(getActivity(), MineSetActivity.class));

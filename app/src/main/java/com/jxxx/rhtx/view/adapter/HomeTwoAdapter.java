@@ -12,6 +12,7 @@ import com.chad.library.adapter.base.BaseViewHolder;
 import com.jxxx.rhtx.R;
 import com.jxxx.rhtx.bean.DeviceTypeListAll;
 import com.jxxx.rhtx.utils.GlideImgLoader;
+import com.jxxx.rhtx.utils.ToastUtil;
 import com.jxxx.rhtx.view.activity.DeviceLinkActivity;
 
 import java.util.List;
@@ -36,7 +37,7 @@ public class HomeTwoAdapter extends BaseQuickAdapter<DeviceTypeListAll, BaseView
 
 class HomeTwoAdapterB extends BaseQuickAdapter<DeviceTypeListAll.ChildrenBean, BaseViewHolder> {
 
-
+    int[] str = {1,2,8};
     public HomeTwoAdapterB(@Nullable List<DeviceTypeListAll.ChildrenBean> data) {
         super(R.layout.item_home_two_b, data);
     }
@@ -49,9 +50,15 @@ class HomeTwoAdapterB extends BaseQuickAdapter<DeviceTypeListAll.ChildrenBean, B
         helper.getView(R.id.ll_top).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent mIntent = new Intent(mContext, DeviceLinkActivity.class);
-                mIntent.putExtra("id",item.getId());
-                mContext.startActivity(mIntent);
+                for(int i = 0;i<str.length;i++){
+                    if(str[i]==item.getId()){
+                        Intent mIntent = new Intent(mContext, DeviceLinkActivity.class);
+                        mIntent.putExtra("id",item.getId());
+                        mContext.startActivity(mIntent);
+                        return;
+                    }
+                }
+                ToastUtil.showToast("暂无关联设备");
             }
         });
     }
