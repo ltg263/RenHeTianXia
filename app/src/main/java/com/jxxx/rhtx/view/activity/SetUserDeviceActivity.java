@@ -49,8 +49,8 @@ public class SetUserDeviceActivity extends BaseActivity {
         mSetUserDeviceAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
             @Override
             public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
-                if(SharedUtils.singleton().get(ConstValues.DEFAULT_SHOW, 0)!=mSetUserDeviceAdapter.getData().get(position).getId()){
-                    getDeviceDetails(mSetUserDeviceAdapter.getData().get(position).getId());
+                if(SharedUtils.singleton().get(ConstValues.DEFAULT_SHOW, 0)!=mSetUserDeviceAdapter.getData().get(position).getDeviceType()){
+                    getDeviceDetails(mSetUserDeviceAdapter.getData().get(position).getDeviceType());
                 }else{
                     getDeviceDetails(0);
                 }

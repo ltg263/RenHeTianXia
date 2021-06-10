@@ -118,7 +118,7 @@ public class DeviceLink8Activity extends BaseActivity {
         MainApplication.addActivity(this);
         data = (DeviceDetailsBaen) getIntent().getSerializableExtra("data");
         setToolbar(myToolbar, data.getDeviceName(), true);
-        ChartHelper.initChart(new ArrayList<>(), mLineChart, 500);
+        ChartHelper.initChart(new ArrayList<>(), mLineChart, -1);
 
     }
 

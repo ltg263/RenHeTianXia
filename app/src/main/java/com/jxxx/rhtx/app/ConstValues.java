@@ -43,8 +43,8 @@ public class ConstValues {
      */
 //    public static final String BASE_URL = "http://api.zjduon.com/zulin/";
 //    public static final String BASE_URL = "http://192.168.2.130:8087/gtbl/";
-//    public static final String BASE_URL = "http://192.168.2.142:8083/zhongkeyan/";
-    public static final String BASE_URL = "https://elastech.nbqichen.com/zhongkeyan/";
+    public static final String BASE_URL = "http://192.168.2.142:8083/zhongkeyan/";
+//    public static final String BASE_URL = "https://elastech.nbqichen.com/zhongkeyan/";
     public static final String BASE_URL_DETAIL = "http://admin.zjduon.com/";
 
     public static final String WX_APP_ID = "wxf2824afc51ad69a0";

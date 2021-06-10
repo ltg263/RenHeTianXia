@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
@@ -30,6 +31,7 @@ import com.jxxx.rhtx.utils.SharedUtils;
 import com.jxxx.rhtx.utils.StringUtil;
 import com.jxxx.rhtx.utils.view.ChartHelperHome;
 import com.jxxx.rhtx.view.activity.DeviceHistroyActivity;
+import com.jxxx.rhtx.view.activity.DeviceLinkActivity;
 import com.jxxx.rhtx.view.activity.SetUserInfoActivity;
 import com.jxxx.rhtx.view.adapter.HomeBelowAdapter;
 import com.jxxx.rhtx.view.adapter.HomeCenAdapter;
@@ -90,6 +92,7 @@ public class HomeOneFragment extends BaseFragment {
     RelativeLayout ll_mrym;
     @BindView(R.id.line_chart)
     LineChart mLineChart;
+    private HomeBelowAdapter mHomeBelowAdapter;
 
     @Override
     protected int setLayoutResourceID() {
@@ -99,7 +102,17 @@ public class HomeOneFragment extends BaseFragment {
     @Override
     protected void initView() {
         showLoading();
-        ChartHelperHome.initChart(new ArrayList<>(), mLineChart, 100);
+        ChartHelperHome.initChart(new ArrayList<>(), mLineChart, -1);
+        mHomeBelowAdapter = new HomeBelowAdapter(null);
+        mRvSbList.setAdapter(mHomeBelowAdapter);
+        mHomeBelowAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                Intent mIntent = new Intent(mContext, DeviceLinkActivity.class);
+                mIntent.putExtra("id",mHomeBelowAdapter.getData().get(position).getDeviceType());
+                mContext.startActivity(mIntent);
+            }
+        });
     }
 
     @Override
@@ -142,7 +155,7 @@ public class HomeOneFragment extends BaseFragment {
                             if(histroyDevice!=null && histroyDevice.size()>0){
                                 tv_notsb.setVisibility(View.GONE);
                                 mRvSbList.setVisibility(View.VISIBLE);
-                                mRvSbList.setAdapter(new HomeBelowAdapter(histroyDevice));
+                                mHomeBelowAdapter.setNewData(histroyDevice);
                             }
                         }
 
@@ -278,7 +291,7 @@ public class HomeOneFragment extends BaseFragment {
             for (int j=0;j<changeList.size();j++){
                 String value_z = changeList.get(j).getValue().replace("[", "").replace("]", "");
                 String[] value_arr = value_z.split(",");
-                mData.add(new Entry(j, Integer.valueOf(value_arr[i])));
+                mData.add(new Entry(j, Float.valueOf(value_arr[i])));
             }
             lineData.addDataSet(getSet(mData,i));
         }

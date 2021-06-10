@@ -27,7 +27,7 @@ public class SetUserDeviceAdapter extends BaseQuickAdapter<HistroyDeviceLogBean.
         helper.setText(R.id.tv_name,item.getTypeStr());
         helper.addOnClickListener(R.id.iv_select);
         helper.setImageResource(R.id.iv_select,R.mipmap.ic_select_dev_no);
-        if(SharedUtils.singleton().get(ConstValues.DEFAULT_SHOW, 0)==item.getId()){
+        if(SharedUtils.singleton().get(ConstValues.DEFAULT_SHOW, 0)==item.getDeviceType()){
             helper.setImageResource(R.id.iv_select,R.mipmap.ic_select_dev_yes);
         }
     }
