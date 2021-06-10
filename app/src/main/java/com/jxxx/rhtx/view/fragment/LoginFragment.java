@@ -5,6 +5,7 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -52,12 +53,18 @@ public class LoginFragment extends BaseFragment {
     TextView mTvWjmm;
     @BindView(R.id.btn_login)
     TextView mBtnLogin;
+    @BindView(R.id.iv_select)
+    ImageView iv_select;
     private TimeCounter mTimeCounter;
 
-    @OnClick({R.id.btn_login, R.id.tv_fs, R.id.tv_wjmm,R.id.tv_get_code})
+    @OnClick({R.id.iv_select,R.id.btn_login, R.id.tv_fs, R.id.tv_wjmm,R.id.tv_get_code})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.btn_login:
+                if(iv_select.isSelected()){
+                    ToastUtil.showToast("请先阅读《韧和天下协议》");
+                    return;
+                }
                 goLogin();
                 break;
             case R.id.tv_fs:
@@ -76,6 +83,9 @@ public class LoginFragment extends BaseFragment {
                 break;
             case R.id.tv_get_code:
                 getCode();
+                break;
+            case R.id.iv_select:
+                iv_select.setSelected(!iv_select.isSelected());
                 break;
         }
     }
@@ -205,7 +215,7 @@ public class LoginFragment extends BaseFragment {
 
     @Override
     protected void initView() {
-
+        iv_select.setSelected(true);
     }
 
     @Override

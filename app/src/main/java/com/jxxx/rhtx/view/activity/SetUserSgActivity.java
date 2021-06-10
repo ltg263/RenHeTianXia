@@ -90,7 +90,7 @@ public class SetUserSgActivity extends BaseActivity {
 
     @Override
     public int intiLayout() {
-        StatusBarUtil.setStatusBarMode(this, true, R.color.white);
+//        StatusBarUtil.setStatusBarMode(this, true, R.color.white);
         return R.layout.activity_set_user_sg;
     }
 

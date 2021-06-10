@@ -1,6 +1,7 @@
 package com.jxxx.rhtx.view.activity;
 
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
@@ -26,6 +27,8 @@ public class SetUserDeviceActivity extends BaseActivity {
     RecyclerView rv_list;
     @BindView(R.id.tv)
     TextView tv;
+    @BindView(R.id.iv_back)
+    ImageView iv_back;
     private SetUserDeviceAdapter mSetUserDeviceAdapter;
 
     @Override
@@ -35,6 +38,12 @@ public class SetUserDeviceActivity extends BaseActivity {
 
     @Override
     public void initView() {
+        iv_back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
         mSetUserDeviceAdapter = new SetUserDeviceAdapter(null);
         rv_list.setAdapter(mSetUserDeviceAdapter);
         mSetUserDeviceAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
