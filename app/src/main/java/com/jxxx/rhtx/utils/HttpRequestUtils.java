@@ -39,9 +39,7 @@ public class HttpRequestUtils {
 
                     @Override
                     public void onNext(Result result) {
-
                         if (result.getStatus() == 0 && result.getData()!=null &&StringUtil.isNotBlank(result.getData().toString())) {
-
                             fileInterface.succeed(result.getData().toString());
                         }else{
                             fileInterface.failure();

@@ -132,7 +132,7 @@ public class SetUserInfoActivity extends BaseActivity {
                 finish();
                 break;
             case R.id.iv_head:
-//                MatisseUtils.gotoSelectPhoto(this, 1, true);
+                MatisseUtils.gotoSelectPhoto(this, 1, true);
                 break;
             case R.id.tv_user_2:
             case R.id.tv_user_5:
@@ -191,6 +191,7 @@ public class SetUserInfoActivity extends BaseActivity {
         HttpRequestUtils.uploadFiles(compressPath, new HttpRequestUtils.UploadFileInterface() {
             @Override
             public void succeed(String path) {
+                hideLoading();
                 tx = path;
                 GlideImgLoader.loadImageViewRadius(SetUserInfoActivity.this, path, 5, mIvHead);
             }
