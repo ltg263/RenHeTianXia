@@ -83,7 +83,6 @@ public class Ble4_0Util implements BleUtil {
         checkBluetoothPermission();
         //不支持 蓝牙
         if (!context.getPackageManager().hasSystemFeature(PackageManager.FEATURE_BLUETOOTH_LE)) {
-            Log.w("init()"," return false");
             return false;
         }
         final BluetoothManager bluetoothManager = (BluetoothManager) context.getSystemService(Context.BLUETOOTH_SERVICE);
@@ -91,14 +90,12 @@ public class Ble4_0Util implements BleUtil {
         mBluetoothAdapter = bluetoothManager.getAdapter();
         //不支持 蓝牙
         if (mBluetoothAdapter == null) {
-            Log.w("init()"," 1111return false");
             return false;
         }
 
         //没有打开蓝牙
         if (!mBluetoothAdapter.isEnabled()){
             mBluetoothAdapter.enable();
-            Log.w("init()"," 1isEnabled");
         }
 
         return true;
@@ -292,6 +289,7 @@ public class Ble4_0Util implements BleUtil {
     @Override
     public boolean disconnect() {
         Log.w("---》》》","mBluetoothGatt:"+mBluetoothGatt);
+        stopScan();
         if (null != mBluetoothGatt) {
             mBluetoothGatt.disconnect();
             mBluetoothGatt.close();

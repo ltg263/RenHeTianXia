@@ -196,18 +196,18 @@ public class GlideImgLoader extends ImageLoader {
     }
 
     public static void setImgAnimation(Context mContext,View view){
-        if(true){
-           return;
-        }
+//        if(true){
+//           return;
+//        }
         Animation anim = AnimationUtils.loadAnimation(mContext, R.anim.my_rotate);
         LinearInterpolator lir = new LinearInterpolator();
         anim.setInterpolator(lir);
         view.startAnimation(anim);
     }
     public static void setImgAnimationN(Context mContext,View view){
-        if(true){
-            return;
-        }
+//        if(true){
+//            return;
+//        }
         Animation anim = AnimationUtils.loadAnimation(mContext, R.anim.my_rotate_n);
         LinearInterpolator lir = new LinearInterpolator();
         anim.setInterpolator(lir);

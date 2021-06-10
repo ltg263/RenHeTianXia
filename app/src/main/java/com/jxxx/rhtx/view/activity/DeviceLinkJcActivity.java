@@ -22,6 +22,8 @@ import com.jxxx.rhtx.utils.GlideImageLoader;
 import com.jxxx.rhtx.utils.GlideImgLoader;
 import com.jxxx.rhtx.utils.ToastUtil;
 
+import java.sql.Time;
+
 import butterknife.BindView;
 import butterknife.OnClick;
 import io.reactivex.Observer;
@@ -50,6 +52,8 @@ public class DeviceLinkJcActivity extends BaseActivity {
     ImageView mIv;
     @BindView(R.id.tv_bnt)
     TextView tv_bnt;
+    @BindView(R.id.tv_time)
+    TextView tv_time;
     @BindView(R.id.ll_jiao_cheng)
     LinearLayout ll_jiao_cheng;
     @BindView(R.id.ll_lianjie)
@@ -132,6 +136,7 @@ public class DeviceLinkJcActivity extends BaseActivity {
             GlideImgLoader.setImgAnimation(this, iv_lj_s);
             GlideImgLoader.setImgAnimationN(this, iv_lj_n);
             GlideImgLoader.setImgAnimation(this, iv_refresh);
+            setTime();
             BluetoothLjUtils.sousuo(this, data.getSortName(),new BluetoothLjUtils.BluetoothLjInterface() {
                 @Override
                 public void linkState(int state) {
@@ -144,6 +149,7 @@ public class DeviceLinkJcActivity extends BaseActivity {
                             GlideImgLoader.loadImage(DeviceLinkJcActivity.this, R.mipmap.ic_duih, iv_refresh);
                             break;
                         case 2:
+                            isLianJie = false;
                             deviceAdd();
                             break;
                         case 3:
@@ -155,6 +161,29 @@ public class DeviceLinkJcActivity extends BaseActivity {
                 }
             });
         }
+    }
+    boolean isLianJie = true;
+    int sun =60;
+    private void setTime() {
+        isLianJie = true;
+        new Thread(() -> {
+            try {
+                while (isLianJie){
+                    Thread.sleep(1000);
+                    runOnUiThread(() -> {
+                        sun--;
+                        if(sun==1){
+                            BluetoothLjUtils.ble4Util.disconnect();
+                            ToastUtil.showToast("链接超时");
+                            isLianJie = false;
+                        }
+                        tv_time.setText(sun+"s");
+                    });
+                }
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }).start();
     }
 
     private void startActivityType(int id) {

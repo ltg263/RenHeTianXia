@@ -134,8 +134,8 @@
                 android:id="@+id/ll_lianjie"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
                 android:visibility="gone"
+                android:layout_gravity="center_horizontal"
                 android:orientation="vertical">
 
                 <RelativeLayout
@@ -156,6 +156,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerInParent="true"
+                        android:layout_margin="15dp"
                         android:src="@mipmap/dot" />
 
                     <View
@@ -165,9 +166,10 @@
                         android:background="@drawable/bj_circle_three_x" />
 
                     <ImageView
-                        android:layout_width="40dp"
-                        android:layout_height="40dp"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
                         android:layout_centerInParent="true"
+                        android:adjustViewBounds="true"
                         android:src="@mipmap/ic_log_lanya" />
 
                 </RelativeLayout>
@@ -183,11 +185,12 @@
                     android:textSize="@dimen/sp_14" />
 
                 <TextView
+                    android:id="@+id/tv_time"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center"
                     android:padding="@dimen/dp_10"
-                    android:text="89s"
+                    android:text="60s"
                     android:textColor="@color/color_text_theme"
                     android:textSize="@dimen/sp_14" />
 
