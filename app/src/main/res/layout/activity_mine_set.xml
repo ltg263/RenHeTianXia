@@ -15,12 +15,13 @@
         android:src="@mipmap/ic_icon_img" />
 
     <TextView
+        android:id="@+id/tv_bbh"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="15dp"
-        android:text="@string/app_name"
-        android:textColor="@color/color_333333"
+        android:text="当前版本V：1.0.0"
+        android:textColor="@color/color_999999"
         android:textSize="14sp" />
 
     <LinearLayout
@@ -46,7 +47,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="@dimen/dp_10"
-            android:drawableEnd="@mipmap/icon_jiantou_you_99"
+            android:drawableEnd="@mipmap/fanhui2"
             android:drawablePadding="@dimen/dp_10"
             android:padding="@dimen/dp_10"
             android:text=""

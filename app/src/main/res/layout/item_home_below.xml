@@ -47,9 +47,11 @@
         android:textColor="@color/white" />
 
     <ImageView
+        android:id="@+id/iv_delete"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignTop="@id/tv_lianjie"
+        android:visibility="invisible"
         android:layout_alignParentEnd="true"
         android:src="@mipmap/icon_index_8" />
 

@@ -24,5 +24,6 @@ public class HomeBelowAdapter extends BaseQuickAdapter<HomeInfoBean.HistroyDevic
     protected void convert(BaseViewHolder helper, HomeInfoBean.HistroyDeviceBean item) {
         GlideImgLoader.loadImageAndDefault(mContext,item.getImgUrl(),helper.getView(R.id.iv_icon));
         helper.setText(R.id.tv_sb_name,item.getTypeStr()).setText(R.id.tv_sb_st,item.getDeviceName());
+        helper.addOnClickListener(R.id.iv_delete);
     }
 }

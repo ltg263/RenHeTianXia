@@ -113,6 +113,12 @@ public class HomeOneFragment extends BaseFragment {
                 mContext.startActivity(mIntent);
             }
         });
+        mHomeBelowAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
+            @Override
+            public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
+                
+            }
+        });
     }
 
     @Override
