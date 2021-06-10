@@ -36,7 +36,6 @@ import com.jxxx.rhtx.view.activity.DeviceLink1Activity;
 import com.jxxx.rhtx.view.activity.DeviceLink2Activity;
 import com.jxxx.rhtx.view.activity.DeviceLink8Activity;
 import com.jxxx.rhtx.view.activity.DeviceLinkActivity;
-import com.jxxx.rhtx.view.activity.DeviceLinkJcActivity;
 import com.jxxx.rhtx.view.activity.SetUserInfoActivity;
 import com.jxxx.rhtx.view.adapter.HomeBelowAdapter;
 import com.jxxx.rhtx.view.adapter.HomeCenAdapter;

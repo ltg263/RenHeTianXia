@@ -16,6 +16,7 @@ import com.jxxx.rhtx.base.BaseActivity;
 import com.jxxx.rhtx.base.Result;
 import com.jxxx.rhtx.bean.DeviceUseLogList;
 import com.jxxx.rhtx.bean.LoginBean;
+import com.jxxx.rhtx.utils.ToastUtil;
 import com.jxxx.rhtx.view.adapter.HomeCenAdapter;
 import com.jxxx.rhtx.view.fragment.HomeOneFragment;
 import com.jxxx.rhtx.view.fragment.HomeThreeFragment;
@@ -117,6 +118,28 @@ public class MainActivity extends BaseActivity {
 //            ZsnaviManager.getInstance(getActivity()).startLocation();//开启定位，该定位只会回调一次定位信息，建议使用完后调用停止定位接口
         }
 
+    }
+    @Override
+    public void onBackPressed() {
+        ToastUtil.showToast("再按一次退出程序");
+        if (isSlowDoubleClick()) {
+            this.finish();
+            System.exit(0);
+        } else {
+
+        }
+    }
+    private static long lastClickTime = 0;
+    public static boolean isSlowDoubleClick() {
+        long time = System.currentTimeMillis();
+        long timeD = time - lastClickTime;
+        if ( 0 < timeD && timeD < 2000) {
+            return true;
+        }
+
+        lastClickTime = time;
+
+        return false;
     }
 
 
