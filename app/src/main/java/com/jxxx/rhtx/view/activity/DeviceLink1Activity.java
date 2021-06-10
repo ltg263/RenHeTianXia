@@ -135,14 +135,14 @@ public class DeviceLink1Activity extends BaseActivity {
             case R.id.ll_state:
                 if (state == 1) {
                     mIvState.setImageDrawable(getResources().getDrawable(R.mipmap.icon_home_2));
-                    mTvState.setText("开始");
+                    mTvState.setText("0.");
                     state = 2;
                 } else if (state == 2) {
                     mIvState.setImageDrawable(getResources().getDrawable(R.mipmap.icon_home_5));
                     mTvState.setText("暂停");
                     state = 1;
                 }
-                break;//
+                break;
             case R.id.ll_stop:
                 if (changeList.size() == 0) {
                     ToastUtil.showToast("您还没有测试数据");
