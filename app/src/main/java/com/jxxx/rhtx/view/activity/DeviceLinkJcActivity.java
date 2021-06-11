@@ -68,6 +68,7 @@ public class DeviceLinkJcActivity extends BaseActivity {
     ImageView iv_lj_n;
 
     DeviceDetailsBaen data;
+    int lianjieTime = 30;
 
     @Override
     public int intiLayout() {
@@ -83,7 +84,7 @@ public class DeviceLinkJcActivity extends BaseActivity {
 
     @Override
     public void initData() {
-
+        tv_time.setText(lianjieTime+"s");
     }
 
 
@@ -120,7 +121,7 @@ public class DeviceLinkJcActivity extends BaseActivity {
             }
             BluetoothLjUtils.ble4Util = new Ble4_0Util(this);
             BluetoothLjUtils.ble4Util.init();
-        } else if (str.equals("下一步")) {
+        } else if (str.equals("下一步") || str.equals("重新链接")) {
             jinxingLj();
         }
     }
@@ -136,6 +137,7 @@ public class DeviceLinkJcActivity extends BaseActivity {
             GlideImgLoader.setImgAnimation(this, iv_lj_s);
             GlideImgLoader.setImgAnimationN(this, iv_lj_n);
             GlideImgLoader.setImgAnimation(this, iv_refresh);
+            tv_time.setText(lianjieTime+"s");
             setTime();
             BluetoothLjUtils.sousuo(this, data.getSortName(),new BluetoothLjUtils.BluetoothLjInterface() {
                 @Override
@@ -163,7 +165,6 @@ public class DeviceLinkJcActivity extends BaseActivity {
         }
     }
     boolean isLianJie = true;
-    int sun =60;
     private void setTime() {
         isLianJie = true;
         new Thread(() -> {
@@ -171,13 +172,22 @@ public class DeviceLinkJcActivity extends BaseActivity {
                 while (isLianJie){
                     Thread.sleep(1000);
                     runOnUiThread(() -> {
-                        sun--;
-                        if(sun==1){
+                        lianjieTime--;
+                        if(lianjieTime==0){
                             BluetoothLjUtils.ble4Util.disconnect();
-                            ToastUtil.showToast("链接超时");
+                            lianjieTime = 30;
+                            iv_lj_s.clearAnimation();
+                            iv_lj_n.clearAnimation();
+                            iv_refresh.clearAnimation();
+                            iv_refresh_lj.clearAnimation();
+                            tv_bnt.setText("重新链接");
+                            tv_time.setText("链接超时...");
+                            tv_bnt.setVisibility(View.VISIBLE);
                             isLianJie = false;
                         }
-                        tv_time.setText(sun+"s");
+                        if(isLianJie){
+                            tv_time.setText(lianjieTime+"s");
+                        }
                     });
                 }
             } catch (InterruptedException e) {
