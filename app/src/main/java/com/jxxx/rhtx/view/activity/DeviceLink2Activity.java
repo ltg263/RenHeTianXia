@@ -182,15 +182,12 @@ public class DeviceLink2Activity extends BaseActivity {
             super.onBackPressed();
             return;
         }
-        DialogUtils.showDialogHint(this, "确定要断开本次链接吗？", false, new DialogUtils.ErrorDialogInterface() {
-            @Override
-            public void btnConfirm() {
-                endUseDevice();
-                BluetoothLjUtils.ble4Util.disconnect();
-                MainApplication.getContext().finishAllActivity();
-                startActivity(new Intent(DeviceLink2Activity.this,MainActivity.class));
-                finish();
-            }
+        DialogUtils.showDialogHint(this, "确定要断开本次链接吗？", false, () -> {
+            endUseDevice();
+            BluetoothLjUtils.ble4Util.disconnect();
+            MainApplication.getContext().finishAllActivity();
+            startActivity(new Intent(DeviceLink2Activity.this,MainActivity.class));
+            finish();
         });
     }
 
