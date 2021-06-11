@@ -22,6 +22,7 @@ import com.jxxx.rhtx.base.BaseActivity;
 import com.jxxx.rhtx.base.Result;
 import com.jxxx.rhtx.bean.AddChangeList;
 import com.jxxx.rhtx.bean.DeviceDetailsBaen;
+import com.jxxx.rhtx.bean.HomeInfoBean;
 import com.jxxx.rhtx.lanya.BluetoothLjUtils;
 import com.jxxx.rhtx.utils.GlideImgLoader;
 import com.jxxx.rhtx.utils.StringUtil;
@@ -67,6 +68,8 @@ public class DeviceLink2Activity extends BaseActivity {
     private List<Entry> mData2 = new ArrayList<>();
     private DeviceDetailsBaen data;
     private int type_id = 0;
+    HomeInfoBean.DeviceBean mChangeListBean;
+    private List<HomeInfoBean.DeviceBean.ChangeListBean> mChangeList;
     @Override
     public int intiLayout() {
         return R.layout.activity_device_link_2;
@@ -75,6 +78,8 @@ public class DeviceLink2Activity extends BaseActivity {
     @Override
     public void initView() {
         MainApplication.addActivity(this);
+        ChartHelper_1.initChart(mData1, mLineChart1, 0);
+        ChartHelper.initChart(mData2, mLineChart2, -1);
         data = (DeviceDetailsBaen) getIntent().getSerializableExtra("data");
         if(data ==null){
             type_id = getIntent().getIntExtra("type_id",0);
@@ -82,9 +87,19 @@ public class DeviceLink2Activity extends BaseActivity {
             mLlState.setVisibility(View.GONE);
             mLlStop.setVisibility(View.GONE);
             ll_state_ly.setVisibility(View.VISIBLE);
+            mChangeListBean = (HomeInfoBean.DeviceBean) getIntent().getSerializableExtra("mChangeListBean");
+            mChangeList = mChangeListBean.getChangeList();
+            if(mChangeList!=null){
+                for(int i=0;i<mChangeList.size();i++){
+                    String[] resultSrt = mChangeList.get(i).getValue().replace("[","").replace("]","").split(",");
+                    ChartHelper.addEntry(mData2, mLineChart2, Float.parseFloat(resultSrt[0]));
+
+                }
+            }
             return;
         }
         setToolbar(myToolbar, data.getDeviceName(), true);
+        GlideImgLoader.setViewImg(this,data.getImgUrl(),iv_icon);
         /**
          * 广播动态注册
          */
@@ -102,12 +117,6 @@ public class DeviceLink2Activity extends BaseActivity {
     }
     @Override
     public void initData(){
-        if(data==null){
-            return;
-        }
-        GlideImgLoader.setViewImg(this,data.getImgUrl(),iv_icon);
-        ChartHelper_1.initChart(mData1, mLineChart1, 0);
-        ChartHelper.initChart(mData2, mLineChart2, -1);
 
     }
 
@@ -218,7 +227,7 @@ public class DeviceLink2Activity extends BaseActivity {
                 break;
             }
         }
-        List<Double> dataSz = new ArrayList<>();
+        List<Integer> dataSz = new ArrayList<>();
 
         if (dataLists.size() == 4 &&
                 dataLists.get(0).equals("fa") && dataLists.get(3).equals("aa")) {
@@ -237,8 +246,8 @@ public class DeviceLink2Activity extends BaseActivity {
                 Log.w("---aaa", "cc:" + cc);
                 time = System.currentTimeMillis();
 //                tv_details.setText("呼吸频率（"+(int)(Double.valueOf(cc)*100)+"次/min）");
-                ChartHelper.addEntry(mData2, mLineChart2, (int)(Double.valueOf(cc)*100));
-                dataSz.add(Double.valueOf(cc));
+                ChartHelper.addEntry(mData2, mLineChart2, (int)(Float.parseFloat(cc)*100));
+                dataSz.add((int)(Float.parseFloat(cc)*100));
                 AddChangeList.ChangeListBean bean = new AddChangeList.ChangeListBean();
                 bean.setValue(dataSz.toString());
                 bean.setChangeTime(StringUtil.getTimeToYMD(System.currentTimeMillis(), "yyyy-MM-dd HH:mm:ss"));

@@ -26,10 +26,12 @@ import com.jxxx.rhtx.base.Result;
 import com.jxxx.rhtx.bean.DeviceUseLogList;
 import com.jxxx.rhtx.bean.HomeInfoBean;
 import com.jxxx.rhtx.bean.ParamValueBean;
+import com.jxxx.rhtx.utils.GlideImageLoader;
 import com.jxxx.rhtx.utils.GlideImgLoader;
 import com.jxxx.rhtx.utils.SharedUtils;
 import com.jxxx.rhtx.utils.StringUtil;
 import com.jxxx.rhtx.utils.ToastUtil;
+import com.jxxx.rhtx.utils.view.ChartHelper;
 import com.jxxx.rhtx.utils.view.ChartHelperHome;
 import com.jxxx.rhtx.view.activity.DeviceHistroyActivity;
 import com.jxxx.rhtx.view.activity.DeviceLink1Activity;
@@ -128,6 +130,7 @@ public class HomeOneFragment extends BaseFragment {
 
     @Override
     protected void initData() {
+        GlideImgLoader.setViewImg(getContext(), SharedUtils.singleton().get(ConstValues.USER_BACK_IMG_SB, ""), ll_bj);
         RetrofitUtil.getInstance().apiService()
                 .getHome()
                 .observeOn(AndroidSchedulers.mainThread())
@@ -162,7 +165,7 @@ public class HomeOneFragment extends BaseFragment {
                                 mTvSbName.setText(device.getTypeStr());
                                 inivLine(device.getChangeList());
                                 if(isShouOpen){
-                                    startActivityType(device.getDeviceType(),device.getTypeStr());
+                                    startActivityType(device.getDeviceType(),device.getTypeStr(),device);
                                 }
                             }
                             List<HomeInfoBean.HistroyDeviceBean> histroyDevice = result.getData().getHistroyDevice();
@@ -251,7 +254,7 @@ public class HomeOneFragment extends BaseFragment {
 
     }
 
-    private void startActivityType(int id, String typeStr) {
+    private void startActivityType(int id, String typeStr, HomeInfoBean.DeviceBean mChangeListBean) {
         Intent mIntent = null;
         switch (id){
             case 1:
@@ -267,6 +270,10 @@ public class HomeOneFragment extends BaseFragment {
         if(mIntent!=null){
             mIntent.putExtra("type_id",id);
             mIntent.putExtra("type_name",typeStr);
+            if(mChangeListBean.getChangeList()!=null && mChangeListBean.getChangeList().size()>0){
+                mIntent.putExtra("mChangeListBean",mChangeListBean);
+                ChartHelper.maxCount = mChangeListBean.getChangeList().size();
+            }
             startActivity(mIntent);
         }else{
             ToastUtil.showToast("暂无此设备");

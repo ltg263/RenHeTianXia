@@ -28,7 +28,7 @@ public class ChartHelper {
         return Float.valueOf(mDecimalFormat.format(mRandom.nextFloat() * seed));
     }
 
-    private static int maxCount = 60; //集合最大存储数量
+    public static int maxCount = 60; //集合最大存储数量
 
     public static void addEntry(List<Entry> mData, LineChart lineChart, float yValues) {
         if (lineChart != null
@@ -63,61 +63,63 @@ public class ChartHelper {
     public static void addEntryYs(List<Entry> mData1, List<Entry> mData2, List<Entry> mData3, String[] resultSrt,
                                   LineChart lineChart,boolean is1,boolean is2, boolean is3) {
         if (lineChart != null&& lineChart.getData() != null) {
-            if (mData1.size() == 0) {
-                Entry entry1 = new Entry(maxCount, Float.parseFloat(resultSrt[0]));
-                mData1.add(entry1);
-            } else {
-                boolean needRemove = false;
-                for (Entry e : mData1) {
-                    float x = e.getX() - 1;
-                    if (x < 0) {
-                        needRemove = true;
+            if(resultSrt!=null){
+                if (mData1.size() == 0) {
+                    Entry entry1 = new Entry(maxCount, Float.parseFloat(resultSrt[0]));
+                    mData1.add(entry1);
+                } else {
+                    boolean needRemove = false;
+                    for (Entry e : mData1) {
+                        float x = e.getX() - 1;
+                        if (x < 0) {
+                            needRemove = true;
+                        }
+                        e.setX(x);
                     }
-                    e.setX(x);
+                    if (needRemove) {
+                        mData1.remove(0);
+                    }
+                    Entry entry1 = new Entry(maxCount, Float.parseFloat(resultSrt[0]));
+                    mData1.add(entry1);
                 }
-                if (needRemove) {
-                    mData1.remove(0);
-                }
-                Entry entry1 = new Entry(maxCount, Float.parseFloat(resultSrt[0]));
-                mData1.add(entry1);
-            }
 
-            if (mData2.size() == 0) {
-                Entry entry2 = new Entry(maxCount, Float.parseFloat(resultSrt[1]));
-                mData2.add(entry2);
-            } else {
-                boolean needRemove = false;
-                for (Entry e : mData2) {
-                    float x = e.getX() - 1;
-                    if (x < 0) {
-                        needRemove = true;
+                if (mData2.size() == 0) {
+                    Entry entry2 = new Entry(maxCount, Float.parseFloat(resultSrt[1]));
+                    mData2.add(entry2);
+                } else {
+                    boolean needRemove = false;
+                    for (Entry e : mData2) {
+                        float x = e.getX() - 1;
+                        if (x < 0) {
+                            needRemove = true;
+                        }
+                        e.setX(x);
                     }
-                    e.setX(x);
+                    if (needRemove) {
+                        mData2.remove(0);
+                    }
+                    Entry entry2 = new Entry(maxCount, Float.parseFloat(resultSrt[1]));
+                    mData2.add(entry2);
                 }
-                if (needRemove) {
-                    mData2.remove(0);
-                }
-                Entry entry2 = new Entry(maxCount, Float.parseFloat(resultSrt[1]));
-                mData2.add(entry2);
-            }
 
-            if (mData3.size() == 0) {
-                Entry entry3 = new Entry(maxCount, Float.parseFloat(resultSrt[2]));
-                mData3.add(entry3);
-            } else {
-                boolean needRemove = false;
-                for (Entry e : mData3) {
-                    float x = e.getX() - 1;
-                    if (x < 0) {
-                        needRemove = true;
+                if (mData3.size() == 0) {
+                    Entry entry3 = new Entry(maxCount, Float.parseFloat(resultSrt[2]));
+                    mData3.add(entry3);
+                } else {
+                    boolean needRemove = false;
+                    for (Entry e : mData3) {
+                        float x = e.getX() - 1;
+                        if (x < 0) {
+                            needRemove = true;
+                        }
+                        e.setX(x);
                     }
-                    e.setX(x);
+                    if (needRemove) {
+                        mData3.remove(0);
+                    }
+                    Entry entry3 = new Entry(maxCount, Float.parseFloat(resultSrt[2]));
+                    mData3.add(entry3);
                 }
-                if (needRemove) {
-                    mData3.remove(0);
-                }
-                Entry entry3 = new Entry(maxCount, Float.parseFloat(resultSrt[2]));
-                mData3.add(entry3);
             }
             LineData lineData = new LineData();
             if(is1){

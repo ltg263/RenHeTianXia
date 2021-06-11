@@ -25,6 +25,7 @@ import com.jxxx.rhtx.base.BaseActivity;
 import com.jxxx.rhtx.base.Result;
 import com.jxxx.rhtx.bean.AddChangeList;
 import com.jxxx.rhtx.bean.DeviceDetailsBaen;
+import com.jxxx.rhtx.bean.HomeInfoBean;
 import com.jxxx.rhtx.lanya.BluetoothLjUtils;
 import com.jxxx.rhtx.utils.StringUtil;
 import com.jxxx.rhtx.utils.ToastUtil;
@@ -93,6 +94,9 @@ public class DeviceLink8Activity extends BaseActivity {
     boolean isSelectDr3 = true;
     private int type_id;
 
+    HomeInfoBean.DeviceBean mChangeListBean;
+    private List<HomeInfoBean.DeviceBean.ChangeListBean> mChangeList;
+
     @Override
     public int intiLayout() {
         return R.layout.activity_device_link_8;
@@ -101,13 +105,22 @@ public class DeviceLink8Activity extends BaseActivity {
     @Override
     public void initView() {
         MainApplication.addActivity(this);
+        ChartHelper.initChart(new ArrayList<>(), mLineChart, -1);
         data = (DeviceDetailsBaen) getIntent().getSerializableExtra("data");
         if(data ==null){
             type_id = getIntent().getIntExtra("type_id",0);
+            mChangeListBean = (HomeInfoBean.DeviceBean) getIntent().getSerializableExtra("mChangeListBean");
             setToolbar(myToolbar, getIntent().getStringExtra("type_name"), true);
             mLlState.setVisibility(View.GONE);
             mLlStop.setVisibility(View.GONE);
             ll_state_ly.setVisibility(View.VISIBLE);
+            mChangeList = mChangeListBean.getChangeList();
+            if(mChangeList!=null){
+                for(int i=0;i<mChangeList.size();i++){
+                    String[] resultSrt = mChangeList.get(i).getValue().replace("[","").replace("]","").split(",");
+                    ChartHelper.addEntryYs(mData1,mData2,mData3,resultSrt,mLineChart,isSelectDr1,isSelectDr2,isSelectDr3);
+                }
+            }
             return;
         }
         setToolbar(myToolbar, data.getDeviceName(), true);
@@ -129,10 +142,6 @@ public class DeviceLink8Activity extends BaseActivity {
 
     @Override
     public void initData() {
-        if(data==null){
-            return;
-        }
-        ChartHelper.initChart(new ArrayList<>(), mLineChart, -1);
 
     }
 
@@ -156,6 +165,9 @@ public class DeviceLink8Activity extends BaseActivity {
                     mTvDr1.setTextColor(getColor(R.color.color_999999));
                 }
                 isSelectDr1 = !isSelectDr1;
+                if(data==null){
+                    ChartHelper.addEntryYs(mData1,mData2,mData3,null,mLineChart,isSelectDr1,isSelectDr2,isSelectDr3);
+                }
                 break;
             case R.id.ll_dr_2:
                 if(!isSelectDr2){
@@ -168,6 +180,9 @@ public class DeviceLink8Activity extends BaseActivity {
                     mTvDr2.setTextColor(getColor(R.color.color_999999));
                 }
                 isSelectDr2 = !isSelectDr2;
+                if(data==null){
+                    ChartHelper.addEntryYs(mData1,mData2,mData3,null,mLineChart,isSelectDr1,isSelectDr2,isSelectDr3);
+                }
                 break;
             case R.id.ll_dr_3:
                 if(!isSelectDr3){
@@ -180,6 +195,9 @@ public class DeviceLink8Activity extends BaseActivity {
                     mTvDr3.setTextColor(getColor(R.color.color_999999));
                 }
                 isSelectDr3 = !isSelectDr3;
+                if(data==null){
+                    ChartHelper.addEntryYs(mData1,mData2,mData3,null,mLineChart,isSelectDr1,isSelectDr2,isSelectDr3);
+                }
                 break;
             case R.id.ll_home:
                 if(data==null){
@@ -276,7 +294,7 @@ public class DeviceLink8Activity extends BaseActivity {
             return;
         }
         String[] resultSrt = BluetoothLjUtils.constructTest(resultData);
-        if(resultData.length > 10 && resultSrt!=null && resultSrt.length==3){
+        if(resultData.length > 10 && resultSrt.length == 3){
             AddChangeList.ChangeListBean bean = new AddChangeList.ChangeListBean();
             bean.setValue(Arrays.toString(resultSrt));
             bean.setChangeTime(StringUtil.getTimeToYMD(System.currentTimeMillis(), "yyyy-MM-dd HH:mm:ss"));

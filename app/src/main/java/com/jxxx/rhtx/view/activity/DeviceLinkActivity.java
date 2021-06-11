@@ -18,6 +18,7 @@ import com.jxxx.rhtx.bean.DeviceDetailsBaen;
 import com.jxxx.rhtx.utils.GlideImageLoader;
 import com.jxxx.rhtx.utils.SharedUtils;
 import com.jxxx.rhtx.utils.StringUtil;
+import com.jxxx.rhtx.utils.view.ChartHelper;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -56,6 +57,7 @@ public class DeviceLinkActivity extends BaseActivity {
     @Override
     public void initView() {
         MainApplication.addActivity(this);
+        ChartHelper.maxCount = 60;
         setToolbar(myToolbar, "智能设备", true);
     }
 

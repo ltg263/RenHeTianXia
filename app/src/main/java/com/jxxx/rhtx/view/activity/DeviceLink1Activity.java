@@ -22,6 +22,7 @@ import com.jxxx.rhtx.base.BaseActivity;
 import com.jxxx.rhtx.base.Result;
 import com.jxxx.rhtx.bean.AddChangeList;
 import com.jxxx.rhtx.bean.DeviceDetailsBaen;
+import com.jxxx.rhtx.bean.HomeInfoBean;
 import com.jxxx.rhtx.lanya.BluetoothLjUtils;
 import com.jxxx.rhtx.utils.ImageUtils;
 import com.jxxx.rhtx.utils.StringUtil;
@@ -82,7 +83,8 @@ public class DeviceLink1Activity extends BaseActivity {
     private List<Entry> mData5 = new ArrayList<>();
     private DeviceDetailsBaen data;
     private int type_id = 0;
-
+    HomeInfoBean.DeviceBean mChangeListBean;
+    private List<HomeInfoBean.DeviceBean.ChangeListBean> mChangeList;
     @Override
     public int intiLayout() {
         return R.layout.activity_device_link_1;
@@ -91,6 +93,11 @@ public class DeviceLink1Activity extends BaseActivity {
     @Override
     public void initView() {
         MainApplication.addActivity(this);
+        ChartHelper.initChart(mData1, mLineChart1, 160);
+        ChartHelper.initChart(mData2, mLineChart2, 160);
+        ChartHelper.initChart(mData3, mLineChart3, 160);
+        ChartHelper.initChart(mData4, mLineChart4, 160);
+        ChartHelper.initChart(mData5, mLineChart5, 160);
         data = (DeviceDetailsBaen) getIntent().getSerializableExtra("data");
         if(data ==null){
             setToolbar(myToolbar, getIntent().getStringExtra("type_name"), true);
@@ -98,6 +105,19 @@ public class DeviceLink1Activity extends BaseActivity {
             mLlState.setVisibility(View.GONE);
             mLlStop.setVisibility(View.GONE);
             ll_state_ly.setVisibility(View.VISIBLE);
+            mChangeListBean = (HomeInfoBean.DeviceBean) getIntent().getSerializableExtra("mChangeListBean");
+            mChangeList = mChangeListBean.getChangeList();
+            if(mChangeList!=null){
+                for(int i=0;i<mChangeList.size();i++){
+                    String[] resultSrt = mChangeList.get(i).getValue().replace("[","").replace("]","").split(",");
+                    ChartHelper.addEntry(mData1, mLineChart1, Float.parseFloat(resultSrt[0]));
+                    ChartHelper.addEntry(mData2, mLineChart2, Float.parseFloat(resultSrt[1]));
+                    ChartHelper.addEntry(mData3, mLineChart3, Float.parseFloat(resultSrt[2]));
+                    ChartHelper.addEntry(mData4, mLineChart4, Float.parseFloat(resultSrt[3]));
+                    ChartHelper.addEntry(mData5, mLineChart5, Float.parseFloat(resultSrt[4]));
+
+                }
+            }
             return;
         }
         setToolbar(myToolbar, data.getDeviceName(), true);
@@ -118,15 +138,7 @@ public class DeviceLink1Activity extends BaseActivity {
     }
     @Override
     public void initData(){
-        if(data==null){
-            return;
-        }
 //        GlideImgLoader.setViewImg(this,data.getImgUrl(),iv_icon);
-        ChartHelper.initChart(mData1, mLineChart1, 160);
-        ChartHelper.initChart(mData2, mLineChart2, 160);
-        ChartHelper.initChart(mData3, mLineChart3, 160);
-        ChartHelper.initChart(mData4, mLineChart4, 160);
-        ChartHelper.initChart(mData5, mLineChart5, 160);
 
     }
 
