@@ -8,8 +8,8 @@
 
     <ImageView
         android:id="@+id/iv_icon"
-        android:layout_width="45dp"
-        android:layout_height="45dp"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
         android:layout_marginHorizontal="15dp" />
 
     <TextView
@@ -19,7 +19,7 @@
         android:layout_toEndOf="@id/iv_icon"
         android:text="@string/app_name"
         android:textColor="@color/color_000000"
-        android:textSize="@dimen/sp_14"
+        android:textSize="@dimen/sp_12"
         android:textStyle="bold" />
 
     <TextView
@@ -31,7 +31,7 @@
         android:layout_toEndOf="@id/iv_icon"
         android:text="蓝牙地址"
         android:textColor="@color/color_666666"
-        android:textSize="@dimen/sp_12" />
+        android:textSize="@dimen/dp_10" />
 
     <TextView
         android:id="@+id/tv_end_1"
@@ -40,7 +40,7 @@
         android:layout_alignParentEnd="true"
         android:text="暂无"
         android:textColor="@color/color_text_theme"
-        android:textSize="@dimen/sp_14" />
+        android:textSize="@dimen/sp_12" />
 
     <TextView
         android:id="@+id/tv_end_2"
@@ -51,7 +51,7 @@
         android:layout_marginTop="5dp"
         android:text="训练量"
         android:textColor="@color/color_666666"
-        android:textSize="@dimen/sp_14" />
+        android:textSize="@dimen/sp_12" />
 
     <View
         android:id="@+id/view"
@@ -71,7 +71,7 @@
         android:layout_marginTop="5dp"
         android:text="使用时间：2020-20-20 12:12:00"
         android:textColor="@color/color_666666"
-        android:textSize="@dimen/sp_14" />
+        android:textSize="@dimen/sp_12" />
 
     <TextView
         android:id="@+id/tv_sysc"
@@ -83,7 +83,7 @@
         android:layout_marginTop="5dp"
         android:text="使用时长：20分"
         android:textColor="@color/color_666666"
-        android:textSize="@dimen/sp_14" />
+        android:textSize="@dimen/sp_12" />
 
     <View
         android:layout_width="match_parent"

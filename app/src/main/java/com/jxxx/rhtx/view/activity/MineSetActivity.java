@@ -15,6 +15,7 @@ import com.jxxx.rhtx.app.MainApplication;
 import com.jxxx.rhtx.base.BaseActivity;
 import com.jxxx.rhtx.lanya.BluetoothLjUtils;
 import com.jxxx.rhtx.utils.SharedUtils;
+import com.jxxx.rhtx.utils.StringUtil;
 import com.jxxx.rhtx.utils.view.DialogUtils;
 
 import butterknife.BindView;
@@ -60,7 +61,8 @@ public class MineSetActivity extends BaseActivity {
     public void initView() {
         MainApplication.addActivity(this);
         setToolbar(myToolbar, "设置中心", true);
-        tv_bbh.setText("当前版本：V"+getVersionCode(this));
+        //2021.06
+        tv_bbh.setText("当前版本："+ StringUtil.getTimeToYMD(System.currentTimeMillis(),"yyyy.MM") +"-V"+getVersionCode(this));
     }
 
     //获取版本

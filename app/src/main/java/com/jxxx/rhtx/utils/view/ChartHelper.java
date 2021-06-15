@@ -167,9 +167,8 @@ public class ChartHelper {
         axisLeft.setTextColor(textColor);
         axisLeft.setAxisLineColor(lineColor);
 
-        axisLeft.setDrawLabels(false);//不显示数值
+        axisLeft.setDrawLabels(true);//不显示数值
         if(StringUtil.isNotBlank(color1)){
-            axisLeft.setDrawLabels(true);//不显示数值
             // X轴可以缩放，Y轴不能缩放
             lineChart.setScaleXEnabled(true);
             lineChart.setScaleYEnabled(false);

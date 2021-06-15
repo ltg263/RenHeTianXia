@@ -14,7 +14,19 @@ android {
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
+    //设置签名，debug运行也用正式签名
+    signingConfigs {
+//        debug {
+//            storeFile file('rhtx.jks')
+//            storePassword "123456"
+//            keyAlias "rhtx"
+//            keyPassword "123456"
+//        }18892616358
+//        2776845816bc4642e19508cd8f2ec00b
+//        SHA1: E1:BE:D1:B2:06:33:2A:94:1E:36:11:9B:07:0F:6B:B8:CB:73:DE:3E
+//        SHA256: AF:BE:85:35:8A:56:D0:97:18:A2:D6:EB:5F:BA:19:67:3D:83:11:13:16:BD:3C:A3:69:24:AC:C3:8D:2B:C6:0A
 
+    }
     buildTypes {
         release {
             minifyEnabled false
