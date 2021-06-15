@@ -195,7 +195,7 @@
                         android:layout_below="@id/tv_sb_name"
                         android:layout_alignStart="@id/tv_sb_name"
                         android:layout_marginTop="5dp"
-                        android:text="呼吸波形 丨 呼吸频率"
+                        android:text=""
                         android:textColor="@color/white"
                         android:textSize="@dimen/sp_12" />
 
