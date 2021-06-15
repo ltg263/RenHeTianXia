@@ -415,4 +415,25 @@ public class StringUtil {
         }
         return doc.toString();
     }
+    public static String formatDateTime(long mss) {
+        String DateTimes = null;
+        long days = mss / ( 60 * 60 * 24);
+        long hours = (mss % ( 60 * 60 * 24)) / (60 * 60);
+        long minutes = (mss % ( 60 * 60)) /60;
+        long seconds = mss % 60;
+
+        if(days>0){
+            DateTimes= days + ":" + hours + ":" + minutes + ":"
+                    + seconds + "";
+        }else if(hours>0){
+            DateTimes=hours + ":" + minutes + ":"
+                    + seconds + "";
+        }else if(minutes>0){
+            DateTimes=(minutes>9?minutes:"0"+minutes) + ":"+ (seconds>9?seconds:"0"+seconds)+ "";
+        }else{
+            DateTimes="00:"+(seconds>9?seconds:"0"+seconds);
+        }
+
+        return DateTimes;
+    }
 }

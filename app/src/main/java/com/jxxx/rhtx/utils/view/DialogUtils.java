@@ -9,6 +9,37 @@ import android.widget.TextView;
 import com.jxxx.rhtx.R;
 
 public class DialogUtils {
+
+    public static void showDialogHintDc(Context context, String title, final ErrorDialogInterfaceA dialogConfirm) {
+
+        final Dialog dialog5 = new Dialog(context, R.style.selectorDialog);
+        final View view = LayoutInflater.from(context).inflate(R.layout.dialog_hine, null);
+        TextView bt_ok = (TextView) view.findViewById(R.id.bt_confirm);
+        TextView suanle = (TextView) view.findViewById(R.id.bt_suanle);
+        TextView tv_title = (TextView) view.findViewById(R.id.tv_title);
+        tv_title.setText(title);
+        bt_ok.setText("是");
+        suanle.setText("否");
+        suanle.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                dialogConfirm.btnConfirm(1);
+                dialog5.dismiss();
+            }
+        });
+        bt_ok.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialogConfirm.btnConfirm(0);
+                dialog5.dismiss();
+            }
+        });
+        dialog5.setCancelable(false);
+        dialog5.setContentView(view);
+        dialog5.show();
+    }
+
     public static void showDialogHint(Context context, String title, boolean isOne, final ErrorDialogInterface dialogConfirm) {
 
         final Dialog dialog5 = new Dialog(context, R.style.selectorDialog);
@@ -39,6 +70,13 @@ public class DialogUtils {
         dialog5.setCancelable(false);
         dialog5.setContentView(view);
         dialog5.show();
+    }
+
+    public interface ErrorDialogInterfaceA {
+        /**
+         * 确定
+         */
+        public void btnConfirm(int index);
     }
 
     public interface ErrorDialogInterface {

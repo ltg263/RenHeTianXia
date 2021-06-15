@@ -66,7 +66,7 @@ public class ChartHelper_1 {
     public static void initChart(List<Entry> mData, LineChart lineChart, long maxYValue,String color1,String color2) {
 
         int lineColor = Color.parseColor("#ebebeb");
-        int textColor = Color.parseColor("#999999");
+        int textColor = Color.parseColor("#ffffff");
         if(StringUtil.isNotBlank(color1)){
             lineColor = Color.parseColor(color1);
             textColor = Color.parseColor(color2);
@@ -90,22 +90,11 @@ public class ChartHelper_1 {
         axisLeft.setTextColor(textColor);
         axisLeft.setAxisLineColor(lineColor);
 
-        axisLeft.setDrawLabels(false);//不显示数值
-        if(StringUtil.isNotBlank(color1)){
-            axisLeft.setDrawLabels(true);//不显示数值
-            // X轴可以缩放，Y轴不能缩放
-            lineChart.setScaleXEnabled(true);
-            lineChart.setScaleYEnabled(false);
-            // 可以拖动，而不影响缩放比例
-            lineChart.setDragEnabled(true);
-        }
+        axisLeft.setDrawLabels(true);//不显示数值
 
         XAxis xAxis = lineChart.getXAxis();
         xAxis.setDrawGridLines(false);
         xAxis.setDrawLabels(false);//不显示数值
-        if(StringUtil.isNotBlank(color1)){
-            xAxis.setDrawLabels(true);//不显示数值
-        }
         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
         xAxis.setAxisMinimum(0f);
         xAxis.setAxisMaximum(maxCount);
@@ -125,7 +114,7 @@ public class ChartHelper_1 {
     }
 
     private static LineDataSet getSet(List<Entry> mData) {
-        int valueColor = Color.parseColor("#999999");
+        int valueColor = Color.parseColor("#E2AF4A");
         LineDataSet set = new LineDataSet(mData, "");
         set.setDrawFilled(true);
         set.setFillColor(valueColor);

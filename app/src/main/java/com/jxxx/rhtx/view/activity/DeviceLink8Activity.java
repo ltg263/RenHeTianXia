@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.appcompat.widget.Toolbar;
@@ -27,6 +28,7 @@ import com.jxxx.rhtx.bean.AddChangeList;
 import com.jxxx.rhtx.bean.DeviceDetailsBaen;
 import com.jxxx.rhtx.bean.HomeInfoBean;
 import com.jxxx.rhtx.lanya.BluetoothLjUtils;
+import com.jxxx.rhtx.utils.ExcelUtil;
 import com.jxxx.rhtx.utils.StringUtil;
 import com.jxxx.rhtx.utils.ToastUtil;
 import com.jxxx.rhtx.utils.view.ChartHelper;
@@ -52,25 +54,31 @@ public class DeviceLink8Activity extends BaseActivity {
     @BindView(R.id.tv_dr_1)
     TextView mTvDr1;
     @BindView(R.id.ll_dr_1)
-    LinearLayout mLlDr1;
+    RelativeLayout mLlDr1;
     @BindView(R.id.iv_dr_2)
     ImageView mIvDr2;
     @BindView(R.id.tv_dr_2)
     TextView mTvDr2;
     @BindView(R.id.ll_dr_2)
-    LinearLayout mLlDr2;
+    RelativeLayout mLlDr2;
     @BindView(R.id.iv_dr_3)
     ImageView mIvDr3;
     @BindView(R.id.tv_dr_3)
     TextView mTvDr3;
     @BindView(R.id.ll_dr_3)
-    LinearLayout mLlDr3;
+    RelativeLayout mLlDr3;
     @BindView(R.id.tv_ch_1)
     TextView mTvCh1;
     @BindView(R.id.tv_ch_2)
     TextView mTvCh2;
     @BindView(R.id.tv_ch_3)
     TextView mTvCh3;
+    @BindView(R.id.tv_dr_1v)
+    TextView tv_dr_1v;
+    @BindView(R.id.tv_dr_2v)
+    TextView tv_dr_2v;
+    @BindView(R.id.tv_dr_3v)
+    TextView tv_dr_3v;
     @BindView(R.id.line_chart)
     LineChart mLineChart;
 
@@ -84,6 +92,15 @@ public class DeviceLink8Activity extends BaseActivity {
     LinearLayout mLlStop;
     @BindView(R.id.ll_state_ly)
     LinearLayout ll_state_ly;
+
+    @BindView(R.id.tv_start)
+    TextView mTvStart;
+    @BindView(R.id.iv_state_z)
+    ImageView mIvStateZ;
+    @BindView(R.id.view)
+    View mView;
+    @BindView(R.id.tv_time)
+    TextView mTvTime;
     private MyReceiver mMyReceiver;
     private List<Entry> mData1 = new ArrayList<>();
     private List<Entry> mData2 = new ArrayList<>();
@@ -149,9 +166,29 @@ public class DeviceLink8Activity extends BaseActivity {
     }
 
 
-    @OnClick({R.id.ll_home, R.id.ll_state,R.id.ll_state_ly, R.id.ll_stop,R.id.ll_dr_1, R.id.ll_dr_2, R.id.ll_dr_3})
+    @OnClick({R.id.iv_state_z,R.id.ll_home,R.id.ll_state,R.id.ll_state_ly, R.id.ll_stop,R.id.ll_dr_1, R.id.ll_dr_2, R.id.ll_dr_3})
     public void onViewClicked(View view) {
         switch (view.getId()) {
+            case R.id.iv_state_z:
+                if(data==null){
+                    return;
+                }
+                if(state==2){
+                    ToastUtil.showToast("设备暂停中...");
+                    return;
+                }
+                if (state_jl == 1) {
+                    mIvStateZ.setImageDrawable(getResources().getDrawable(R.mipmap.ic_jlsj_stop));
+                    mTvStart.setText("开始记录");
+                    isKaiShi = false;
+                    state_jl = 2;
+                } else if (state_jl == 2) {
+                    mIvStateZ.setImageDrawable(getResources().getDrawable(R.mipmap.ic_jlsj_start));
+                    mTvStart.setText("暂停记录");
+                    state_jl = 1;
+                    startTime();
+                }
+                break;
             case R.id.ll_state_ly:
                 Intent mIntent = new Intent(this, DeviceLinkActivity.class);
                 mIntent.putExtra("id",type_id);
@@ -223,6 +260,10 @@ public class DeviceLink8Activity extends BaseActivity {
                     mIvState.setImageDrawable(getResources().getDrawable(R.mipmap.icon_home_2));
                     mTvState.setText("开始");
                     state = 2;
+                    mIvStateZ.setImageDrawable(getResources().getDrawable(R.mipmap.ic_jlsj_stop));
+                    mTvStart.setText("开始记录");
+                    isKaiShi = false;
+                    state_jl = 2;
                 } else if (state == 2) {
                     mIvState.setImageDrawable(getResources().getDrawable(R.mipmap.icon_home_5));
                     mTvState.setText("暂停");
@@ -244,6 +285,32 @@ public class DeviceLink8Activity extends BaseActivity {
                 });
                 break;
         }
+    }
+    boolean isKaiShi = true;
+    int totalTime = 0;
+    private void startTime() {
+        isKaiShi = true;
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                while (isKaiShi) {
+                    try {
+                        Thread.sleep(1000);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                    if(isKaiShi) {
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                totalTime++;
+                                mTvTime.setText(StringUtil.formatDateTime(totalTime));
+                            }
+                        });
+                    }
+                }
+            }
+        }).start();
     }
 
     @Override
@@ -273,6 +340,7 @@ public class DeviceLink8Activity extends BaseActivity {
     }
 
     int state = 1;//1 开始 2停止中
+    int state_jl = 2;//1 开始 2停止中
 
     List<AddChangeList.ChangeListBean> changeList = new ArrayList<>();
 
@@ -289,20 +357,34 @@ public class DeviceLink8Activity extends BaseActivity {
             // -6, 3, 0, 8, -86
             String[] resultSrt = getResultSrt(resultData);
             Log.w("---》》》", "resultSrt:"+ Arrays.toString(resultSrt));
-            AddChangeList.ChangeListBean bean = new AddChangeList.ChangeListBean();
-            bean.setValue(Arrays.toString(resultSrt));
-            bean.setChangeTime(StringUtil.getTimeToYMD(System.currentTimeMillis(), "yyyy-MM-dd HH:mm:ss"));
-            changeList.add(bean);
+            if(state_jl==1){
+                AddChangeList.ChangeListBean bean = new AddChangeList.ChangeListBean();
+                bean.setValue(Arrays.toString(resultSrt));
+                bean.setChangeTime(StringUtil.getTimeToYMD(System.currentTimeMillis(), "yyyy-MM-dd HH:mm:ss"));
+                changeList.add(bean);
+            }
             ChartHelper.addEntryYs(mData1,mData2,mData3,resultSrt,mLineChart,isSelectDr1,isSelectDr2,isSelectDr3);
+            if(resultSrt.length==3 && state_jl==1){
+                tv_dr_1v.setText(resultSrt[0]);
+                tv_dr_2v.setText(resultSrt[1]);
+                tv_dr_3v.setText(resultSrt[2]);
+            }
             return;
         }
         String[] resultSrt = BluetoothLjUtils.constructTest(resultData);
         if(resultData.length > 10 && resultSrt.length == 3){
-            AddChangeList.ChangeListBean bean = new AddChangeList.ChangeListBean();
-            bean.setValue(Arrays.toString(resultSrt));
-            bean.setChangeTime(StringUtil.getTimeToYMD(System.currentTimeMillis(), "yyyy-MM-dd HH:mm:ss"));
-            changeList.add(bean);
+            if(state_jl==1) {
+                AddChangeList.ChangeListBean bean = new AddChangeList.ChangeListBean();
+                bean.setValue(Arrays.toString(resultSrt));
+                bean.setChangeTime(StringUtil.getTimeToYMD(System.currentTimeMillis(), "yyyy-MM-dd HH:mm:ss"));
+                changeList.add(bean);
+            }
             ChartHelper.addEntryYs(mData1,mData2,mData3,resultSrt,mLineChart,isSelectDr1,isSelectDr2,isSelectDr3);
+            if(state_jl==1){
+                tv_dr_1v.setText(resultSrt[0]);
+                tv_dr_2v.setText(resultSrt[1]);
+                tv_dr_3v.setText(resultSrt[2]);
+            }
         }
 
     }
@@ -371,10 +453,19 @@ public class DeviceLink8Activity extends BaseActivity {
                     public void onNext(Result result) {
                         hideLoading();
                         if (isDataInfoSucceed(result)) {
-                            BluetoothLjUtils.ble4Util.disconnect();
-                            MainApplication.getContext().finishAllActivity();
-                            startActivity(new Intent(DeviceLink8Activity.this,MainActivity.class));
-                            finish();
+                            DialogUtils.showDialogHintDc(DeviceLink8Activity.this, "是否要通过excel格式导出？",  new DialogUtils.ErrorDialogInterfaceA() {
+                                @Override
+                                public void btnConfirm(int index) {
+                                    if(index==1){
+                                        BluetoothLjUtils.ble4Util.disconnect();
+                                        MainApplication.getContext().finishAllActivity();
+                                        startActivity(new Intent(DeviceLink8Activity.this, MainActivity.class));
+                                        finish();
+                                        return;
+                                    }
+                                    deriveExcel(dataT);
+                                }
+                            });
                         }
                     }
 
@@ -387,6 +478,49 @@ public class DeviceLink8Activity extends BaseActivity {
                     public void onComplete() {
                     }
                 });
+    }
+    private void deriveExcel(AddChangeList dataT) {
+        showLoading();
+        // TODO Auto-generated method stub
+        try {
+            ExcelUtil.writeExcel(this, dataT, data.getDeviceName());
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    try {
+                        Thread.sleep(2000);
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                hideLoading();
+                                ToastUtil.showToast("导出成功");
+                                BluetoothLjUtils.ble4Util.disconnect();
+                                MainApplication.getContext().finishAllActivity();
+                                startActivity(new Intent(DeviceLink8Activity.this, MainActivity.class));
+                                finish();
+                            }
+                        });
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }).start();
+        } catch (Exception e) {
+            DialogUtils.showDialogHintDc(DeviceLink8Activity.this, "导出失败是否重新导出？",  new DialogUtils.ErrorDialogInterfaceA() {
+                @Override
+                public void btnConfirm(int index) {
+                    if(index==1){
+                        BluetoothLjUtils.ble4Util.disconnect();
+                        MainApplication.getContext().finishAllActivity();
+                        startActivity(new Intent(DeviceLink8Activity.this, MainActivity.class));
+                        finish();
+                        return;
+                    }
+                    deriveExcel(dataT);
+                }
+            });
+            e.printStackTrace();
+        }
     }
 
 }

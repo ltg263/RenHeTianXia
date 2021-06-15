@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="80dp"
+    android:layout_height="100dp"
+    android:background="@drawable/ic_shade_img">
+
+
+    <TextView
+        android:id="@+id/tv_start"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
+        android:text="开始记录"
+        android:textColor="@color/color_text_theme"
+        android:textSize="12sp" />
+
+    <ImageView
+        android:id="@+id/iv_state_z"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv_start"
+        android:layout_centerHorizontal="true"
+        android:layout_marginVertical="5dp"
+        android:src="@mipmap/ic_jlsj_stop" />
+
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/iv_state_z"
+        android:layout_centerHorizontal="true"
+        android:gravity="center_vertical">
+
+        <View
+            android:id="@+id/view"
+            android:layout_width="2dp"
+            android:layout_height="2dp"
+            android:background="@color/red40" />
+
+        <TextView
+            android:id="@+id/tv_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:text="00:00"
+            android:textColor="@color/color_text_theme"
+            android:textSize="12sp" />
+
+    </LinearLayout>
+
+
+</RelativeLayout>

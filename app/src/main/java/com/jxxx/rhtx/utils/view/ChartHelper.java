@@ -144,7 +144,7 @@ public class ChartHelper {
     public static void initChart(List<Entry> mData, LineChart lineChart, long maxYValue,String color1,String color2) {
 
         int lineColor = Color.parseColor("#ebebeb");
-        int textColor = Color.parseColor("#999999");
+        int textColor = Color.parseColor("#4A90E2");
         if(StringUtil.isNotBlank(color1)){
             lineColor = Color.parseColor(color1);
             textColor = Color.parseColor(color2);
