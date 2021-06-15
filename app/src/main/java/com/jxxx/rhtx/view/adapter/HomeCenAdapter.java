@@ -32,5 +32,8 @@ public class HomeCenAdapter extends BaseQuickAdapter<DeviceUseLogList.ListBean, 
         .setText(R.id.tv_end_1,"暂无").setText(R.id.tv_end_2,"训练量")
                 .setText(R.id.tv_sysj, Html.fromHtml(sysj))
                 .setText(R.id.tv_sysc, Html.fromHtml(sysc));
+        if(helper.getLayoutPosition()==mData.size()-1){
+            helper.setVisible(R.id.view1,false);
+        }
     }
 }
