@@ -109,11 +109,14 @@ public class DeviceLink8Activity extends BaseActivity {
         data = (DeviceDetailsBaen) getIntent().getSerializableExtra("data");
         if(data ==null){
             type_id = getIntent().getIntExtra("type_id",0);
-            mChangeListBean = (HomeInfoBean.DeviceBean) getIntent().getSerializableExtra("mChangeListBean");
             setToolbar(myToolbar, getIntent().getStringExtra("type_name"), true);
             mLlState.setVisibility(View.GONE);
             mLlStop.setVisibility(View.GONE);
             ll_state_ly.setVisibility(View.VISIBLE);
+            mChangeListBean = (HomeInfoBean.DeviceBean) getIntent().getSerializableExtra("mChangeListBean");
+            if(mChangeListBean==null){
+                return;
+            }
             mChangeList = mChangeListBean.getChangeList();
             if(mChangeList!=null){
                 for(int i=0;i<mChangeList.size();i++){

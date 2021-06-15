@@ -88,6 +88,9 @@ public class DeviceLink2Activity extends BaseActivity {
             mLlStop.setVisibility(View.GONE);
             ll_state_ly.setVisibility(View.VISIBLE);
             mChangeListBean = (HomeInfoBean.DeviceBean) getIntent().getSerializableExtra("mChangeListBean");
+            if(mChangeListBean==null){
+                return;
+            }
             mChangeList = mChangeListBean.getChangeList();
             if(mChangeList!=null){
                 for(int i=0;i<mChangeList.size();i++){
