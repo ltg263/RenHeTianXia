@@ -159,7 +159,7 @@
                             android:layout_below="@id/iv_icon2"
                             android:layout_marginHorizontal="@dimen/dp_10"
                             android:layout_marginTop="@dimen/dp_10"
-                            android:text="拇指"
+                            android:text="食指"
                             android:textColor="@color/color_000000"
                             android:textSize="@dimen/sp_12" />
 

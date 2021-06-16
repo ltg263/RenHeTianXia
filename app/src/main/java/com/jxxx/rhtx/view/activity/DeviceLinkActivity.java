@@ -82,6 +82,7 @@ public class DeviceLinkActivity extends BaseActivity {
                             data = result.getData();
                             GlideImageLoader.loadImageAndDefault(DeviceLinkActivity.this,result.getData().getImgUrl(),mIvSbImg);
                             mTvSbType.setText(result.getData().getDeviceName());
+                            mTvSbName.setText(data.getDeviceName());
                             mTvSortName.setText(result.getData().getSortName());
                             if(StringUtil.isNotBlank(result.getData().getRemark())){
                                 mTvSbSm.setText(result.getData().getRemark());

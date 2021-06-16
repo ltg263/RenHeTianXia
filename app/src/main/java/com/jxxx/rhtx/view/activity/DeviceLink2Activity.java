@@ -67,6 +67,8 @@ public class DeviceLink2Activity extends BaseActivity {
     TextView mTvState;
     @BindView(R.id.tv_details)
     TextView tv_details;
+    @BindView(R.id.tv_drz)
+    TextView tv_drz;
     @BindView(R.id.iv_icon)
     ImageView iv_icon;
     @BindView(R.id.ll_state)
@@ -296,6 +298,7 @@ public class DeviceLink2Activity extends BaseActivity {
                 dataLists.get(0).equals("fa") && dataLists.get(3).equals("aa")) {
 
             int v = Integer.parseInt(dataLists.get(1) + dataLists.get(2), 16);
+            Log.w("---》》》", "v:" + v);
             if (v < mixV || mixV == 0) {
                 mixV = v;
             }
@@ -304,11 +307,10 @@ public class DeviceLink2Activity extends BaseActivity {
                 jsq = 0;
                 isZ = false;
                 long aa = System.currentTimeMillis() - time;
-                double bb = aa;
-                String cc = String.format("%.2f", 1000 / bb);
+                String cc = String.format("%.2f", 1000 / aa);
                 Log.w("---aaa", "cc:" + cc);
                 time = System.currentTimeMillis();
-//                tv_details.setText("呼吸频率（"+(int)(Double.valueOf(cc)*100)+"次/min）");
+                tv_details.setText("呼吸频率:"+(int)(Double.valueOf(cc)*100)+"次/min");
                 ChartHelper.addEntry(mData2, mLineChart2, (int) (Float.parseFloat(cc) * 100));
                 dataSz.add((int) (Float.parseFloat(cc) * 100));
                 if (state_jl == 1) {
@@ -325,6 +327,7 @@ public class DeviceLink2Activity extends BaseActivity {
             }
             zuiG = v;
             zuiD = v;
+            tv_drz.setText("当前电容值:"+(v - mixV + 10)+"pF");
             ChartHelper_1.addEntry(mData1, mLineChart1, v - mixV + 10);
         }
     }
