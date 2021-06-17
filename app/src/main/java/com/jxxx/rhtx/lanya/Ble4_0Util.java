@@ -290,9 +290,9 @@ public class Ble4_0Util implements BleUtil {
     public boolean disconnect() {
         Log.w("---》》》","mBluetoothGatt:"+mBluetoothGatt);
         stopScan();
-        if (null != mBluetoothGatt) {
-            mBluetoothGatt.disconnect();
+        if (BluetoothLjUtils.ble4Util!=null && null != mBluetoothGatt) {
             mBluetoothGatt.close();
+            mBluetoothGatt.disconnect();
             mBluetoothGatt = null;
         }
         mDevWriteCharacteristic = null;

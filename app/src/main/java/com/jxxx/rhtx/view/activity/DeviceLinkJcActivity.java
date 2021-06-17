@@ -79,7 +79,7 @@ public class DeviceLinkJcActivity extends BaseActivity {
     public void initView() {
         MainApplication.addActivity(this);
         data = (DeviceDetailsBaen) getIntent().getSerializableExtra("data");
-        setToolbar(myToolbar, "设备链接", true);
+        setToolbar(myToolbar, "设备连接", true);
     }
 
     @Override
@@ -134,6 +134,7 @@ public class DeviceLinkJcActivity extends BaseActivity {
             ll_jiao_cheng.setVisibility(View.GONE);
             ll_lianjie.setVisibility(View.VISIBLE);
             tv_bnt.setVisibility(View.INVISIBLE);
+            iv_refresh.setImageDrawable(getResources().getDrawable(R.mipmap.ic_refresh));
             GlideImgLoader.setImgAnimation(this, iv_lj_s);
             GlideImgLoader.setImgAnimationN(this, iv_lj_n);
             GlideImgLoader.setImgAnimation(this, iv_refresh);
@@ -143,23 +144,39 @@ public class DeviceLinkJcActivity extends BaseActivity {
                 @Override
                 public void linkState(int state) {
                     //1搜索成功//2链接成功//3链接中//4断开连接中
-                    switch (state) {
-                        case 0:
-                            break;
-                        case 1:
-                            iv_refresh.clearAnimation();
-                            GlideImgLoader.loadImage(DeviceLinkJcActivity.this, R.mipmap.ic_duih, iv_refresh);
-                            break;
-                        case 2:
-                            isLianJie = false;
-                            deviceAdd();
-                            break;
-                        case 3:
-                            GlideImgLoader.setImgAnimation(DeviceLinkJcActivity.this, iv_refresh_lj);
-                            break;
-                        case 4:
-                            break;
-                    }
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            switch (state) {
+                                case 0:
+                                    isLianJie = false;
+                                    BluetoothLjUtils.ble4Util.disconnect();
+                                    lianjieTime = 30;
+                                    iv_lj_s.clearAnimation();
+                                    iv_lj_n.clearAnimation();
+                                    iv_refresh.clearAnimation();
+                                    iv_refresh_lj.clearAnimation();
+                                    tv_bnt.setText("重新链接");
+                                    tv_time.setText("连接失败...");
+                                    tv_bnt.setVisibility(View.VISIBLE);
+                                    break;
+                                case 1:
+                                    iv_refresh.clearAnimation();
+                                    GlideImgLoader.loadImage(DeviceLinkJcActivity.this, R.mipmap.ic_duih, iv_refresh);
+                                    break;
+                                case 2:
+                                    isLianJie = false;
+                                    deviceAdd();
+                                    break;
+                                case 3:
+                                    GlideImgLoader.setImgAnimation(DeviceLinkJcActivity.this, iv_refresh_lj);
+                                    break;
+                                case 4:
+                                    break;
+                            }
+
+                        }
+                    });
                 }
             });
         }

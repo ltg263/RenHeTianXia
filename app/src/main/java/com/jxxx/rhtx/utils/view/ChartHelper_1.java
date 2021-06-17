@@ -80,7 +80,7 @@ public class ChartHelper_1 {
         lineChart.getXAxis().setEnabled(false);
 
         YAxis axisLeft = lineChart.getAxisLeft();
-        axisLeft.setAxisMinimum(0);
+        axisLeft.setAxisMinimum(900);
         axisLeft.setLabelCount(5);
         if(maxYValue>0){
             maxCount = 50;

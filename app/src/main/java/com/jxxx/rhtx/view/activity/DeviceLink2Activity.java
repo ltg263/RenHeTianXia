@@ -4,7 +4,6 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
@@ -38,7 +37,6 @@ import java.util.Arrays;
 import java.util.List;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -93,7 +91,7 @@ public class DeviceLink2Activity extends BaseActivity {
     @Override
     public void initView() {
         MainApplication.addActivity(this);
-        ChartHelper_1.initChart(mData1, mLineChart1, 0);
+        ChartHelper_1.initChart(mData1, mLineChart1, -1);
         ChartHelper.initChart(mData2, mLineChart2, -1);
         data = (DeviceDetailsBaen) getIntent().getSerializableExtra("data");
         if (data == null) {
@@ -307,11 +305,11 @@ public class DeviceLink2Activity extends BaseActivity {
                 jsq = 0;
                 isZ = false;
                 long aa = System.currentTimeMillis() - time;
-                String cc = String.format("%.2f", 1000 / aa);
-                Log.w("---aaa", "cc:" + cc);
+                double bb = aa;
+                String cc = String.format("%.2f", 1000 / bb);
                 time = System.currentTimeMillis();
-                tv_details.setText("呼吸频率:"+(int)(Double.valueOf(cc)*100)+"次/min");
-                ChartHelper.addEntry(mData2, mLineChart2, (int) (Float.parseFloat(cc) * 100));
+                tv_details.setText("呼吸频率:"+(int)(Double.valueOf(cc)*60)+"次/min");
+                ChartHelper.addEntry(mData2, mLineChart2, (int) (Float.parseFloat(cc) * 60));
                 dataSz.add((int) (Float.parseFloat(cc) * 100));
                 if (state_jl == 1) {
                     AddChangeList.ChangeListBean bean = new AddChangeList.ChangeListBean();
@@ -327,8 +325,9 @@ public class DeviceLink2Activity extends BaseActivity {
             }
             zuiG = v;
             zuiD = v;
-            tv_drz.setText("当前电容值:"+(v - mixV + 10)+"pF");
-            ChartHelper_1.addEntry(mData1, mLineChart1, v - mixV + 10);
+            Log.w("---》》》", "mixV:" + v);
+            tv_drz.setText("当前电容值:"+ v+"pF");
+            ChartHelper_1.addEntry(mData1, mLineChart1, v);
         }
     }
 

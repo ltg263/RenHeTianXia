@@ -261,7 +261,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="链接蓝牙设备" />
+                        android:text="连接蓝牙设备" />
 
                     <ImageView
                         android:id="@+id/iv_refresh_lj"
