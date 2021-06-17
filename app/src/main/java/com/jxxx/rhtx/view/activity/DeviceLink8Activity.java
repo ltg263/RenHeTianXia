@@ -446,6 +446,7 @@ public class DeviceLink8Activity extends BaseActivity {
                 .subscribe(new Observer<Result>() {
                     @Override
                     public void onSubscribe(Disposable d) {
+                        Log.w("onError:","onSubscribe:"+d.toString());
 
                     }
 
@@ -471,7 +472,7 @@ public class DeviceLink8Activity extends BaseActivity {
 
                     @Override
                     public void onError(Throwable e) {
-
+                        Log.w("onError:","onError:"+e.toString());
                     }
 
                     @Override

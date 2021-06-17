@@ -183,15 +183,15 @@ public class DeviceLink2Activity extends BaseActivity {
                     return;
                 }
                 if (state_jl == 1) {
-                    mIvStateZ.setImageDrawable(getResources().getDrawable(R.mipmap.icon_home_2));
+                    mIvStateZ.setImageDrawable(getResources().getDrawable(R.mipmap.ic_jlsj_stop));
                     mTvStart.setText("开始记录");
+                    isKaiShi = false;
                     state_jl = 2;
-                    startTime();
                 } else if (state_jl == 2) {
-                    mIvStateZ.setImageDrawable(getResources().getDrawable(R.mipmap.icon_home_5));
+                    mIvStateZ.setImageDrawable(getResources().getDrawable(R.mipmap.ic_jlsj_start));
                     mTvStart.setText("暂停记录");
                     state_jl = 1;
-                    isKaiShi = false;
+                    startTime();
                 }
                 break;
             case R.id.ll_stop:
