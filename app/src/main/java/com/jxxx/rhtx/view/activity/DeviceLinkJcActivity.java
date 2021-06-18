@@ -21,6 +21,7 @@ import com.jxxx.rhtx.lanya.BluetoothLjUtils;
 import com.jxxx.rhtx.utils.GlideImageLoader;
 import com.jxxx.rhtx.utils.GlideImgLoader;
 import com.jxxx.rhtx.utils.ToastUtil;
+import com.jxxx.rhtx.utils.view.MatisseUtils;
 
 import java.sql.Time;
 
@@ -30,6 +31,7 @@ import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
+import pub.devrel.easypermissions.EasyPermissions;
 
 public class DeviceLinkJcActivity extends BaseActivity {
     @BindView(R.id.my_toolbar)
@@ -78,6 +80,7 @@ public class DeviceLinkJcActivity extends BaseActivity {
     @Override
     public void initView() {
         MainApplication.addActivity(this);
+        MatisseUtils.filePermissions(this);
         data = (DeviceDetailsBaen) getIntent().getSerializableExtra("data");
         setToolbar(myToolbar, "设备连接", true);
     }
@@ -127,6 +130,9 @@ public class DeviceLinkJcActivity extends BaseActivity {
     }
 
     private void jinxingLj() {
+        if(!MatisseUtils.filePermissions(this)){
+            return;
+        }
         if (!BluetoothLjUtils.ble4Util.getBluetoothAdapter().isEnabled()) {
             ToastUtil.showLongStrToast(this, "请先开启蓝牙");
         } else {

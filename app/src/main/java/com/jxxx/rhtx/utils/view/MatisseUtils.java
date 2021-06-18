@@ -24,6 +24,15 @@ public class MatisseUtils {
         }
     }
 
+    public static boolean filePermissions(Activity mActivity) {
+        if (!EasyPermissions.hasPermissions(mActivity, params)) {
+            //权限拒绝 申请权限
+            EasyPermissions.requestPermissions(mActivity, "为了您更好使用本应用，请允许应用获取以下权限", PERMISSION_CAMERA, params);
+            return false;
+        }
+        return true;
+    }
+
 
 
     public static void selectImg(Activity mActivity,int selectedNum,boolean isEnableCrop) {
