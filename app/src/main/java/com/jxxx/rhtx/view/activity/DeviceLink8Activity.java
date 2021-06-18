@@ -138,7 +138,9 @@ public class DeviceLink8Activity extends BaseActivity {
             if(mChangeList!=null){
                 for(int i=0;i<mChangeList.size();i++){
                     String[] resultSrt = mChangeList.get(i).getValue().replace("[","").replace("]","").split(",");
-                    ChartHelper.addEntryYs(mData1,mData2,mData3,resultSrt,mLineChart,isSelectDr1,isSelectDr2,isSelectDr3);
+                    if(resultSrt.length==3){
+                        ChartHelper.addEntryYs(mData1,mData2,mData3,resultSrt,mLineChart,isSelectDr1,isSelectDr2,isSelectDr3);
+                    }
                 }
             }
             return;

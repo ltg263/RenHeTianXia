@@ -108,7 +108,9 @@ public class DeviceLink2Activity extends BaseActivity {
             if (mChangeList != null) {
                 for (int i = 0; i < mChangeList.size(); i++) {
                     String[] resultSrt = mChangeList.get(i).getValue().replace("[", "").replace("]", "").split(",");
-                    ChartHelper.addEntry(mData2, mLineChart2, Float.parseFloat(resultSrt[0]));
+                    if(resultSrt.length==1){
+                        ChartHelper.addEntry(mData2, mLineChart2, Float.parseFloat(resultSrt[0]));
+                    }
 
                 }
             }

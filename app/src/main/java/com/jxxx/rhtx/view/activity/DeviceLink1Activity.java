@@ -134,11 +134,13 @@ public class DeviceLink1Activity extends BaseActivity {
             if(mChangeList!=null){
                 for(int i=0;i<mChangeList.size();i++){
                     String[] resultSrt = mChangeList.get(i).getValue().replace("[","").replace("]","").split(",");
-                    ChartHelper.addEntry(mData1, mLineChart1, Float.parseFloat(resultSrt[0]));
-                    ChartHelper.addEntry(mData2, mLineChart2, Float.parseFloat(resultSrt[1]));
-                    ChartHelper.addEntry(mData3, mLineChart3, Float.parseFloat(resultSrt[2]));
-                    ChartHelper.addEntry(mData4, mLineChart4, Float.parseFloat(resultSrt[3]));
-                    ChartHelper.addEntry(mData5, mLineChart5, Float.parseFloat(resultSrt[4]));
+                    if(resultSrt.length==5){
+                        ChartHelper.addEntry(mData1, mLineChart1, Float.parseFloat(resultSrt[0]));
+                        ChartHelper.addEntry(mData2, mLineChart2, Float.parseFloat(resultSrt[1]));
+                        ChartHelper.addEntry(mData3, mLineChart3, Float.parseFloat(resultSrt[2]));
+                        ChartHelper.addEntry(mData4, mLineChart4, Float.parseFloat(resultSrt[3]));
+                        ChartHelper.addEntry(mData5, mLineChart5, Float.parseFloat(resultSrt[4]));
+                    }
 
                 }
             }
