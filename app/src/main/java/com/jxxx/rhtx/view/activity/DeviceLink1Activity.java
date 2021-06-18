@@ -207,9 +207,7 @@ public class DeviceLink1Activity extends BaseActivity {
                     public void btnConfirm() {
                         endUseDevice();
                         BluetoothLjUtils.ble4Util.disconnect();
-                        MainApplication.getContext().finishAllActivity();
                         startActivity(new Intent(DeviceLink1Activity.this,MainActivity.class));
-                        finish();
                     }
                 });
                 break;
@@ -288,10 +286,8 @@ public class DeviceLink1Activity extends BaseActivity {
             @Override
             public void btnConfirm() {
                 endUseDevice();
-                MainApplication.getContext().finishAllActivity();
                 BluetoothLjUtils.ble4Util.disconnect();
                 startActivity(new Intent(DeviceLink1Activity.this,MainActivity.class));
-                finish();
             }
         });
     }
@@ -427,9 +423,7 @@ public class DeviceLink1Activity extends BaseActivity {
                                 public void btnConfirm(int index) {
                                     if(index==1){
                                         BluetoothLjUtils.ble4Util.disconnect();
-                                        MainApplication.getContext().finishAllActivity();
                                         startActivity(new Intent(DeviceLink1Activity.this, MainActivity.class));
-                                        finish();
                                         return;
                                     }
                                     deriveExcel(dataT);
@@ -464,9 +458,7 @@ public class DeviceLink1Activity extends BaseActivity {
                                 hideLoading();
                                 ToastUtil.showToast("导出成功");
                                 BluetoothLjUtils.ble4Util.disconnect();
-                                MainApplication.getContext().finishAllActivity();
                                 startActivity(new Intent(DeviceLink1Activity.this, MainActivity.class));
-                                finish();
                             }
                         });
                     } catch (InterruptedException e) {
@@ -480,9 +472,7 @@ public class DeviceLink1Activity extends BaseActivity {
                 public void btnConfirm(int index) {
                     if(index==1){
                         BluetoothLjUtils.ble4Util.disconnect();
-                        MainApplication.getContext().finishAllActivity();
                         startActivity(new Intent(DeviceLink1Activity.this, MainActivity.class));
-                        finish();
                         return;
                     }
                     deriveExcel(dataT);
