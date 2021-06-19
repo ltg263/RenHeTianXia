@@ -22,8 +22,9 @@ import com.jxxx.rhtx.utils.GlideImageLoader;
 import com.jxxx.rhtx.utils.GlideImgLoader;
 import com.jxxx.rhtx.utils.ToastUtil;
 import com.jxxx.rhtx.utils.view.MatisseUtils;
-
-import java.sql.Time;
+import com.jxxx.rhtx.view.activity.device.DeviceLink1Activity;
+import com.jxxx.rhtx.view.activity.device.DeviceLink2Activity;
+import com.jxxx.rhtx.view.activity.device.DeviceLink8Activity;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -31,7 +32,6 @@ import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
-import pub.devrel.easypermissions.EasyPermissions;
 
 public class DeviceLinkJcActivity extends BaseActivity {
     @BindView(R.id.my_toolbar)
@@ -223,13 +223,13 @@ public class DeviceLinkJcActivity extends BaseActivity {
         Intent mIntent = null;
         switch (data.getId()){
             case 1:
-                mIntent = new Intent(DeviceLinkJcActivity.this,DeviceLink1Activity.class);
+                mIntent = new Intent(DeviceLinkJcActivity.this, DeviceLink1Activity.class);
                 break;
             case 2:
-                mIntent = new Intent(DeviceLinkJcActivity.this,DeviceLink2Activity.class);
+                mIntent = new Intent(DeviceLinkJcActivity.this, DeviceLink2Activity.class);
                 break;
             case 8:
-                mIntent = new Intent(DeviceLinkJcActivity.this,DeviceLink8Activity.class);
+                mIntent = new Intent(DeviceLinkJcActivity.this, DeviceLink8Activity.class);
                 break;
         }
         if(mIntent!=null){

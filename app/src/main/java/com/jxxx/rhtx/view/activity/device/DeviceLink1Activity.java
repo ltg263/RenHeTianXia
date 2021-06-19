@@ -1,4 +1,4 @@
-package com.jxxx.rhtx.view.activity;
+package com.jxxx.rhtx.view.activity.device;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -25,15 +25,14 @@ import com.jxxx.rhtx.bean.DeviceDetailsBaen;
 import com.jxxx.rhtx.bean.HomeInfoBean;
 import com.jxxx.rhtx.lanya.BluetoothLjUtils;
 import com.jxxx.rhtx.utils.ExcelUtil;
-import com.jxxx.rhtx.utils.GlideImgLoader;
+import com.jxxx.rhtx.utils.ImageUtils;
 import com.jxxx.rhtx.utils.StringUtil;
 import com.jxxx.rhtx.utils.ToastUtil;
 import com.jxxx.rhtx.utils.view.ChartHelper;
-import com.jxxx.rhtx.utils.view.ChartHelper_1;
 import com.jxxx.rhtx.utils.view.DialogUtils;
+import com.jxxx.rhtx.view.activity.DeviceLinkActivity;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import butterknife.BindView;
@@ -43,73 +42,105 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 
-public class DeviceLink2Activity extends BaseActivity {
+public class DeviceLink1Activity extends BaseActivity {
     @BindView(R.id.my_toolbar)
     Toolbar myToolbar;
-    @BindView(R.id.tv_start)
-    TextView mTvStart;
+    private MyReceiver mMyReceiver;
+    @BindView(R.id.line_chart_1)
+    LineChart mLineChart1;
+    @BindView(R.id.line_chart_2)
+    LineChart mLineChart2;
+    @BindView(R.id.line_chart_3)
+    LineChart mLineChart3;
+    @BindView(R.id.line_chart_4)
+    LineChart mLineChart4;
+    @BindView(R.id.line_chart_5)
+    LineChart mLineChart5;
+    @BindView(R.id.iv_5)
+    ImageView mIv5;
+    @BindView(R.id.iv_4)
+    ImageView mIv4;
+    @BindView(R.id.iv_3)
+    ImageView mIv3;
+    @BindView(R.id.iv_2)
+    ImageView mIv2;
+    @BindView(R.id.iv_1)
+    ImageView mIv1;
     @BindView(R.id.iv_state)
     ImageView mIvState;
-    @BindView(R.id.view)
-    View mView;
-    @BindView(R.id.tv_time)
-    TextView mTvTime;
-    private MyReceiver mMyReceiver;
-    @BindView(R.id.line_chart1)
-    LineChart mLineChart1;
-    @BindView(R.id.line_chart2)
-    LineChart mLineChart2;
-    @BindView(R.id.iv_state_z)
-    ImageView mIvStateZ;
     @BindView(R.id.tv_state)
     TextView mTvState;
-    @BindView(R.id.tv_details)
-    TextView tv_details;
-    @BindView(R.id.tv_drz)
-    TextView tv_drz;
-    @BindView(R.id.iv_icon)
-    ImageView iv_icon;
+    @BindView(R.id.ll_state_ly)
+    LinearLayout ll_state_ly;
     @BindView(R.id.ll_state)
     LinearLayout mLlState;
     @BindView(R.id.ll_stop)
     LinearLayout mLlStop;
-    @BindView(R.id.ll_state_ly)
-    LinearLayout ll_state_ly;
+    @BindView(R.id.tv_v1)
+    TextView tv_v1;
+    @BindView(R.id.tv_v2)
+    TextView tv_v2;
+    @BindView(R.id.tv_v3)
+    TextView tv_v3;
+    @BindView(R.id.tv_v4)
+    TextView tv_v4;
+    @BindView(R.id.tv_v5)
+    TextView tv_v5;
+
+
+    @BindView(R.id.tv_start)
+    TextView mTvStart;
+    @BindView(R.id.iv_state_z)
+    ImageView mIvStateZ;
+    @BindView(R.id.view)
+    View mView;
+    @BindView(R.id.tv_time)
+    TextView mTvTime;
+//    @BindView(R.id.iv_icon)
+//    ImageView iv_icon;
     private List<Entry> mData1 = new ArrayList<>();
     private List<Entry> mData2 = new ArrayList<>();
+    private List<Entry> mData3 = new ArrayList<>();
+    private List<Entry> mData4 = new ArrayList<>();
+    private List<Entry> mData5 = new ArrayList<>();
     private DeviceDetailsBaen data;
     private int type_id = 0;
     HomeInfoBean.DeviceBean mChangeListBean;
     private List<HomeInfoBean.DeviceBean.ChangeListBean> mChangeList;
-    int totalTime = 0;
-
     @Override
     public int intiLayout() {
-        return R.layout.activity_device_link_2;
+        return R.layout.activity_device_link_1;
     }
 
     @Override
     public void initView() {
         MainApplication.addActivity(this);
-        ChartHelper_1.initChart(mData1, mLineChart1, -1);
-        ChartHelper.initChart(mData2, mLineChart2, -1);
+        ChartHelper.initChart(mData1, mLineChart1, 160);
+        ChartHelper.initChart(mData2, mLineChart2, 160);
+        ChartHelper.initChart(mData3, mLineChart3, 160);
+        ChartHelper.initChart(mData4, mLineChart4, 160);
+        ChartHelper.initChart(mData5, mLineChart5, 160);
         data = (DeviceDetailsBaen) getIntent().getSerializableExtra("data");
-        if (data == null) {
-            type_id = getIntent().getIntExtra("type_id", 0);
+        if(data ==null){
             setToolbar(myToolbar, getIntent().getStringExtra("type_name"), true);
+            type_id = getIntent().getIntExtra("type_id",0);
             mLlState.setVisibility(View.GONE);
             mLlStop.setVisibility(View.GONE);
             ll_state_ly.setVisibility(View.VISIBLE);
             mChangeListBean = (HomeInfoBean.DeviceBean) getIntent().getSerializableExtra("mChangeListBean");
-            if (mChangeListBean == null) {
+            if(mChangeListBean==null){
                 return;
             }
             mChangeList = mChangeListBean.getChangeList();
-            if (mChangeList != null) {
-                for (int i = 0; i < mChangeList.size(); i++) {
-                    String[] resultSrt = mChangeList.get(i).getValue().replace("[", "").replace("]", "").split(",");
-                    if(resultSrt.length==1){
-                        ChartHelper.addEntry(mData2, mLineChart2, Float.parseFloat(resultSrt[0]));
+            if(mChangeList!=null){
+                for(int i=0;i<mChangeList.size();i++){
+                    String[] resultSrt = mChangeList.get(i).getValue().replace("[","").replace("]","").split(",");
+                    if(resultSrt.length==5){
+                        ChartHelper.addEntry(mData1, mLineChart1, Float.parseFloat(resultSrt[0]));
+                        ChartHelper.addEntry(mData2, mLineChart2, Float.parseFloat(resultSrt[1]));
+                        ChartHelper.addEntry(mData3, mLineChart3, Float.parseFloat(resultSrt[2]));
+                        ChartHelper.addEntry(mData4, mLineChart4, Float.parseFloat(resultSrt[3]));
+                        ChartHelper.addEntry(mData5, mLineChart5, Float.parseFloat(resultSrt[4]));
                     }
 
                 }
@@ -117,7 +148,6 @@ public class DeviceLink2Activity extends BaseActivity {
             return;
         }
         setToolbar(myToolbar, data.getDeviceName(), true);
-        GlideImgLoader.setViewImg(this, data.getImgUrl(), iv_icon);
         /**
          * 广播动态注册
          */
@@ -129,27 +159,47 @@ public class DeviceLink2Activity extends BaseActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        if (mMyReceiver != null) {
+        if(mMyReceiver!=null){
             unregisterReceiver(mMyReceiver);
         }
     }
-
     @Override
-    public void initData() {
+    public void initData(){
+//        GlideImgLoader.setViewImg(this,data.getImgUrl(),iv_icon);
 
     }
 
 
-    @OnClick({R.id.ll_home, R.id.ll_state, R.id.ll_stop, R.id.ll_state_ly, R.id.iv_state_z})
+    @OnClick({R.id.iv_state_z,R.id.ll_home, R.id.ll_state, R.id.ll_stop,R.id.ll_state_ly})
     public void onViewClicked(View view) {
         switch (view.getId()) {
+            case R.id.iv_state_z:
+                if(data==null){
+                    return;
+                }
+                if(state==2){
+                    ToastUtil.showToast("设备暂停中...");
+                    return;
+                }
+                if (state_jl == 1) {
+                    mIvStateZ.setImageDrawable(getResources().getDrawable(R.mipmap.ic_jlsj_stop));
+                    mTvStart.setText("开始记录");
+                    isKaiShi = false;
+                    state_jl = 2;
+                } else if (state_jl == 2) {
+                    mIvStateZ.setImageDrawable(getResources().getDrawable(R.mipmap.ic_jlsj_start));
+                    mTvStart.setText("暂停记录");
+                    state_jl = 1;
+                    startTime();
+                }
+                break;
             case R.id.ll_state_ly:
                 Intent mIntent = new Intent(this, DeviceLinkActivity.class);
-                mIntent.putExtra("id", type_id);
+                mIntent.putExtra("id",type_id);
                 startActivity(mIntent);
                 break;
             case R.id.ll_home:
-                if (data == null) {
+                if(data==null){
                     finish();
                     return;
                 }
@@ -158,7 +208,7 @@ public class DeviceLink2Activity extends BaseActivity {
                     public void btnConfirm() {
                         endUseDevice();
                         BluetoothLjUtils.ble4Util.disconnect();
-                        startActivity(new Intent(DeviceLink2Activity.this, MainActivity.class));
+                        startActivity(new Intent(DeviceLink1Activity.this,MainActivity.class));
                     }
                 });
                 break;
@@ -176,30 +226,19 @@ public class DeviceLink2Activity extends BaseActivity {
                     mTvState.setText("暂停");
                     state = 1;
                 }
-                break;//
-            case R.id.iv_state_z:
-                if(state==2){
-                    ToastUtil.showToast("设备暂停中...");
-                    return;
-                }
-                if (state_jl == 1) {
-                    mIvStateZ.setImageDrawable(getResources().getDrawable(R.mipmap.ic_jlsj_stop));
-                    mTvStart.setText("开始记录");
-                    isKaiShi = false;
-                    state_jl = 2;
-                } else if (state_jl == 2) {
-                    mIvStateZ.setImageDrawable(getResources().getDrawable(R.mipmap.ic_jlsj_start));
-                    mTvStart.setText("暂停记录");
-                    state_jl = 1;
-                    startTime();
-                }
                 break;
             case R.id.ll_stop:
                 if (changeList.size() == 0) {
                     ToastUtil.showToast("您还没有测试数据");
                     return;
                 }
-                showLoading();
+//                showLoading();
+//                AddChangeList dataList = new AddChangeList();
+//                dataList.setId(data.getId());
+//                dataList.setChangeList(changeList);
+//                Intent intent = new Intent(this, ShopActivity_1.class);
+//                intent.putExtra("data", data);
+//                startActivity(intent);
 
                 DialogUtils.showDialogHint(this, "确定要结束本次链接吗？", false, new DialogUtils.ErrorDialogInterface() {
                     @Override
@@ -209,11 +248,11 @@ public class DeviceLink2Activity extends BaseActivity {
                         lianJieSheBei();
                     }
                 });
-
                 break;
         }
     }
     boolean isKaiShi = true;
+    int totalTime = 0;
     private void startTime() {
         isKaiShi = true;
         new Thread(new Runnable() {
@@ -238,17 +277,19 @@ public class DeviceLink2Activity extends BaseActivity {
             }
         }).start();
     }
-
     @Override
     public void onBackPressed() {
-        if (data == null) {
+        if(data==null){
             super.onBackPressed();
             return;
         }
-        DialogUtils.showDialogHint(this, "确定要断开本次链接吗？", false, () -> {
-            endUseDevice();
-            BluetoothLjUtils.ble4Util.disconnect();
-            startActivity(new Intent(DeviceLink2Activity.this, MainActivity.class));
+        DialogUtils.showDialogHint(this, "确定要断开本次链接吗？", false, new DialogUtils.ErrorDialogInterface() {
+            @Override
+            public void btnConfirm() {
+                endUseDevice();
+                BluetoothLjUtils.ble4Util.disconnect();
+                startActivity(new Intent(DeviceLink1Activity.this,MainActivity.class));
+            }
         });
     }
 
@@ -260,23 +301,15 @@ public class DeviceLink2Activity extends BaseActivity {
         }
     }
 
-    int mixV = 0;//呼吸过程最小值
-    int zuiG = 0;//一周期最大值
-    int zuiD = 0;//一周期最小值
-    long time = 0;//一周期的时间
-    boolean isZ = true;//是否长
-    int jsq = 0;//
+    String lsStr = "";
     int state = 1;//1 开始 2停止中
     int state_jl = 2;//1 开始 2停止中
 
     List<AddChangeList.ChangeListBean> changeList = new ArrayList<>();
-
     public void initUIData(byte[] strData) {
-        if (state != 1) {
-            Log.w("---》》》", "暂停中:");
+        if(state==2){
             return;
         }
-        Log.w("---》》》", "strData:" + Arrays.toString(strData));
         List<String> dataLists = new ArrayList<>();
         for (int i = 0; i < strData.length; i++) {
             String stfff = Integer.toHexString(strData[i] & 0xFF);
@@ -289,46 +322,55 @@ public class DeviceLink2Activity extends BaseActivity {
             }
         }
         List<Integer> dataSz = new ArrayList<>();
+        if (dataLists.size() == 7 &&
+                dataLists.get(0).equals("fa") && dataLists.get(6).equals("aa")) {
+            dataSz.add(Integer.parseInt(dataLists.get(1), 16));
+            dataSz.add(Integer.parseInt(dataLists.get(2), 16));
+            dataSz.add(Integer.parseInt(dataLists.get(3), 16));
+            dataSz.add(Integer.parseInt(dataLists.get(4), 16));
+            dataSz.add(Integer.parseInt(dataLists.get(5), 16));
+        }
+        if (lsStr.equals(dataSz.toString()) || dataSz.size() != 5) {
+            Log.w("---》》》111", "最终角度:" + lsStr);
+            return;
+        }
+        lsStr = dataSz.toString();
+        Log.w("---》》》", "最终角度:" + lsStr);
+        if (dataSz.size() == 5) {
+            setImages(dataSz.get(0), dataSz.get(1), dataSz.get(2), dataSz.get(3), dataSz.get(4));
+            ChartHelper.addEntry(mData1, mLineChart1, dataSz.get(0));
+            ChartHelper.addEntry(mData2, mLineChart2, dataSz.get(1));
+            ChartHelper.addEntry(mData3, mLineChart3, dataSz.get(2));
+            ChartHelper.addEntry(mData4, mLineChart4, dataSz.get(3));
+            ChartHelper.addEntry(mData5, mLineChart5, dataSz.get(4));
+            tv_v1.setText("角度 " + dataSz.get(0) + "°");
+            tv_v2.setText("角度 " + dataSz.get(1) + "°");
+            tv_v3.setText("角度 " + dataSz.get(2) + "°");
+            tv_v4.setText("角度 " + dataSz.get(3) + "°");
+            tv_v5.setText("角度 " + dataSz.get(4) + "°");
+            String currentTime = StringUtil.getTimeToYMD(System.currentTimeMillis(), "HH:mm:ss");
+//            mTvTime1.setText("当前时间  " + currentTime);
+//            mTvTime2.setText("当前时间  " + currentTime);
+//            mTvTime3.setText("当前时间  " + currentTime);
+//            mTvTime4.setText("当前时间  " + currentTime);
+//            mTvTime5.setText("当前时间  " + currentTime);
 
-        if (dataLists.size() == 4 &&
-                dataLists.get(0).equals("fa") && dataLists.get(3).equals("aa")) {
-
-            int v = Integer.parseInt(dataLists.get(1) + dataLists.get(2), 16);
-            Log.w("---》》》", "v:" + v);
-            if (v < mixV || mixV == 0) {
-                mixV = v;
+            if(state_jl==1){
+                AddChangeList.ChangeListBean bean = new AddChangeList.ChangeListBean();
+                bean.setValue(dataSz.toString());
+                bean.setChangeTime(StringUtil.getTimeToYMD(System.currentTimeMillis(), "yyyy-MM-dd HH:mm:ss"));
+                changeList.add(bean);
             }
-            jsq++;
-            if (v < zuiG && isZ && jsq > 100) {//50  60
-                jsq = 0;
-                isZ = false;
-                long aa = System.currentTimeMillis() - time;
-                double bb = aa;
-                String cc = String.format("%.2f", 1000 / bb);
-                time = System.currentTimeMillis();
-                tv_details.setText("呼吸频率:"+(int)(Double.valueOf(cc)*60)+"次/min");
-                ChartHelper.addEntry(mData2, mLineChart2, (int) (Float.parseFloat(cc) * 60));
-                dataSz.add((int) (Float.parseFloat(cc) * 100));
-                if (state_jl == 1) {
-                    AddChangeList.ChangeListBean bean = new AddChangeList.ChangeListBean();
-                    bean.setValue(dataSz.toString());
-                    bean.setChangeTime(StringUtil.getTimeToYMD(System.currentTimeMillis(), "yyyy-MM-dd HH:mm:ss"));
-                    changeList.add(bean);
-                }
-            }
-
-            if (v > zuiD && !isZ) {//50  60
-                zuiD = v;
-                isZ = true;
-            }
-            zuiG = v;
-            zuiD = v;
-            Log.w("---》》》", "mixV:" + v);
-            tv_drz.setText("当前电容值:"+ v+"pF");
-            ChartHelper_1.addEntry(mData1, mLineChart1, v);
         }
     }
 
+    private void setImages(Integer integer, Integer integer1, Integer integer2, Integer integer3, Integer integer4) {
+        ImageUtils.setImg1(this, mIv1, integer);
+        ImageUtils.setImg2(this, mIv2, integer1);
+        ImageUtils.setImg3(this, mIv3, integer2);
+        ImageUtils.setImg4(this, mIv4, integer3);
+        ImageUtils.setImg5(this, mIv5, integer4);
+    }
     private void endUseDevice() {
         RetrofitUtil.getInstance().apiService()
                 .endUseDevice(data.getId())
@@ -343,7 +385,7 @@ public class DeviceLink2Activity extends BaseActivity {
                     @Override
                     public void onNext(Result result) {
                         if (isDataInfoSucceed(result)) {
-                        } else {
+                        }else{
                         }
                     }
 
@@ -377,12 +419,12 @@ public class DeviceLink2Activity extends BaseActivity {
                     public void onNext(Result result) {
                         hideLoading();
                         if (isDataInfoSucceed(result)) {
-                            DialogUtils.showDialogHintDc(DeviceLink2Activity.this, "是否要通过excel格式导出？",  new DialogUtils.ErrorDialogInterfaceA() {
+                            DialogUtils.showDialogHintDc(DeviceLink1Activity.this, "是否要通过excel格式导出？",  new DialogUtils.ErrorDialogInterfaceA() {
                                 @Override
                                 public void btnConfirm(int index) {
                                     if(index==1){
                                         BluetoothLjUtils.ble4Util.disconnect();
-                                        startActivity(new Intent(DeviceLink2Activity.this, MainActivity.class));
+                                        startActivity(new Intent(DeviceLink1Activity.this, MainActivity.class));
                                         return;
                                     }
                                     deriveExcel(dataT);
@@ -401,7 +443,6 @@ public class DeviceLink2Activity extends BaseActivity {
                     }
                 });
     }
-
     private void deriveExcel(AddChangeList dataT) {
         showLoading();
         // TODO Auto-generated method stub
@@ -418,7 +459,7 @@ public class DeviceLink2Activity extends BaseActivity {
                                 hideLoading();
                                 ToastUtil.showToast("导出成功");
                                 BluetoothLjUtils.ble4Util.disconnect();
-                                startActivity(new Intent(DeviceLink2Activity.this, MainActivity.class));
+                                startActivity(new Intent(DeviceLink1Activity.this, MainActivity.class));
                             }
                         });
                     } catch (InterruptedException e) {
@@ -427,12 +468,12 @@ public class DeviceLink2Activity extends BaseActivity {
                 }
             }).start();
         } catch (Exception e) {
-            DialogUtils.showDialogHintDc(DeviceLink2Activity.this, "导出失败是否重新导出？",  new DialogUtils.ErrorDialogInterfaceA() {
+            DialogUtils.showDialogHintDc(DeviceLink1Activity.this, "导出失败是否重新导出？",  new DialogUtils.ErrorDialogInterfaceA() {
                 @Override
                 public void btnConfirm(int index) {
                     if(index==1){
                         BluetoothLjUtils.ble4Util.disconnect();
-                        startActivity(new Intent(DeviceLink2Activity.this, MainActivity.class));
+                        startActivity(new Intent(DeviceLink1Activity.this, MainActivity.class));
                         return;
                     }
                     deriveExcel(dataT);

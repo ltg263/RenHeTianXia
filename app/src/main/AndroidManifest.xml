@@ -71,9 +71,9 @@
         <activity android:name=".view.activity.SetUserDeviceActivity" />
         <activity android:name=".view.activity.DeviceLinkJcActivity" />
         <activity android:name=".view.activity.SetUserInfoActivity" />
-        <activity android:name=".view.activity.DeviceLink1Activity" />
-        <activity android:name=".view.activity.DeviceLink2Activity" />
-        <activity android:name=".view.activity.DeviceLink8Activity" />
+        <activity android:name=".view.activity.device.DeviceLink1Activity" />
+        <activity android:name=".view.activity.device.DeviceLink2Activity" />
+        <activity android:name=".view.activity.device.DeviceLink8Activity" />
         <activity android:name=".view.activity.SetUserWebActivity" />
         <activity
             android:name=".MainActivity"
