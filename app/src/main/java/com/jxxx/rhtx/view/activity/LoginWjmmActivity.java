@@ -120,7 +120,7 @@ public class LoginWjmmActivity extends BaseActivity {
     @Override
     public void initView() {
         MainApplication.addActivity(this);
-        setToolbar(myToolbar, "设置新密码", true);
+        setToolbar(myToolbar, "设置新密码");
     }
 
     @Override

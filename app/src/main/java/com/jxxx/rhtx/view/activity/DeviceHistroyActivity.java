@@ -30,7 +30,7 @@ public class DeviceHistroyActivity extends BaseActivity {
 
     @Override
     public void initView() {
-        setToolbar(myToolbar, "历史设备", true);
+        setToolbar(myToolbar, "历史设备");
     }
 
     @Override

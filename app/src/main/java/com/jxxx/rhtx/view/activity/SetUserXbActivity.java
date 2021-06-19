@@ -132,7 +132,7 @@ public class SetUserXbActivity extends BaseActivity {
     @Override
     public void initView() {
         MainApplication.addActivity(this);
-        setToolbar(myToolbar, "修改信息", true);
+        setToolbar(myToolbar, "修改信息");
         setDatePickerDividerColor(mDatePicker);
         Calendar calendar = Calendar.getInstance();
         int year = calendar.get(Calendar.YEAR);

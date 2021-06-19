@@ -15,4 +15,18 @@
         android:textColor="@color/white"
         android:textSize="16sp" />
 
+    <TextView
+        android:id="@+id/tv_xz"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/dp_10"
+        android:gravity="center"
+        android:visibility="gone"
+        android:layout_gravity="end"
+        android:drawablePadding="@dimen/dp_10"
+        android:textSize="@dimen/sp_14"
+        android:textColor="@color/white"
+        android:drawableEnd="@mipmap/ic_refresh"
+        android:text="转换" />
+
 </androidx.appcompat.widget.Toolbar>

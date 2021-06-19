@@ -101,7 +101,7 @@ public class OSUtil {
         private BuildProperties() throws IOException {
             properties = new Properties();
             // 读取系统配置信息build.prop类
-            properties.load(new FileInputStream(new File(Environment.getRootDirectory(), "build" +
+             properties.load(new FileInputStream(new File(Environment.getRootDirectory(), "build" +
                     ".prop")));
         }
 

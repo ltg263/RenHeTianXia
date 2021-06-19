@@ -4,6 +4,8 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.pm.ActivityInfo;
+import android.content.res.Configuration;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
@@ -123,9 +125,9 @@ public class DeviceLink8Activity extends BaseActivity {
         data = (DeviceDetailsBaen) getIntent().getSerializableExtra("data");
         if(data ==null){
             type_id = getIntent().getIntExtra("type_id",0);
-            setToolbar(myToolbar, getIntent().getStringExtra("type_name"), true);
+            setToolbar(myToolbar, getIntent().getStringExtra("type_name"));
             mLlState.setVisibility(View.GONE);
-            mLlStop.setVisibility(View.GONE);
+            mLlStop.setVisibility(View.INVISIBLE);
             ll_state_ly.setVisibility(View.VISIBLE);
             mChangeListBean = (HomeInfoBean.DeviceBean) getIntent().getSerializableExtra("mChangeListBean");
             if(mChangeListBean==null){
@@ -142,7 +144,7 @@ public class DeviceLink8Activity extends BaseActivity {
             }
             return;
         }
-        setToolbar(myToolbar, data.getDeviceName(), true);
+        setToolbar(myToolbar, data.getDeviceName());
         /**
          * 广播动态注册
          */
@@ -163,7 +165,6 @@ public class DeviceLink8Activity extends BaseActivity {
     public void initData() {
 
     }
-
 
     @OnClick({R.id.iv_state_z,R.id.ll_home,R.id.ll_state,R.id.ll_state_ly, R.id.ll_stop,R.id.ll_dr_1, R.id.ll_dr_2, R.id.ll_dr_3})
     public void onViewClicked(View view) {

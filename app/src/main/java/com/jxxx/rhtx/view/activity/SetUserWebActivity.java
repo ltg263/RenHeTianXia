@@ -24,7 +24,7 @@ public class SetUserWebActivity extends BaseActivity {
 
     @Override
     public void initView() {
-        setToolbar(myToolbar, getIntent().getStringExtra("title"), true);
+        setToolbar(myToolbar, getIntent().getStringExtra("title"));
         WebSettings webSettings = mWebView.getSettings();//获取webview设置属性
         webSettings.setDefaultTextEncodingName("UTF-8");//设置默认为utf-8
         webSettings.setBlockNetworkImage(false); // 解决图片不显示

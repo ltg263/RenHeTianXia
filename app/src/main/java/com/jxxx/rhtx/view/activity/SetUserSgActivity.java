@@ -97,7 +97,7 @@ public class SetUserSgActivity extends BaseActivity {
     @Override
     public void initView() {
         MainApplication.addActivity(this);
-        setToolbar(myToolbar, "修改信息", true);
+        setToolbar(myToolbar, "修改信息");
         sex = getIntent().getStringExtra("sex");
         age = getIntent().getStringExtra("age");
         mRulerWeight.setOnValueChangeListener(value -> mTvTz.setText(value + ""));

@@ -54,27 +54,39 @@
         android:theme="@style/AppTheme"
         tools:replace="android:theme">
 
-        <activity android:name=".view.activity.SplashScreenActivity">
+        <activity android:name=".view.activity.SplashScreenActivity"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".view.activity.LoginActivity" />
-        <activity android:name=".view.activity.DeviceLinkActivity" />
-        <activity android:name=".view.activity.LoginWjmmActivity" />
-        <activity android:name=".view.activity.SetUserXbActivity" />
-        <activity android:name=".view.activity.DeviceHistroyActivity" />
-        <activity android:name=".view.activity.SetUserSgActivity" />
-        <activity android:name=".view.activity.MineSetActivity" />
-        <activity android:name=".view.activity.SetUserDeviceActivity" />
-        <activity android:name=".view.activity.DeviceLinkJcActivity" />
-        <activity android:name=".view.activity.SetUserInfoActivity" />
+        <activity android:name=".view.activity.LoginActivity"
+            android:screenOrientation="portrait" />
+        <activity android:name=".view.activity.DeviceLinkActivity"
+            android:screenOrientation="portrait" />
+        <activity android:name=".view.activity.LoginWjmmActivity"
+            android:screenOrientation="portrait" />
+        <activity android:name=".view.activity.SetUserXbActivity"
+            android:screenOrientation="portrait" />
+        <activity android:name=".view.activity.DeviceHistroyActivity"
+            android:screenOrientation="portrait" />
+        <activity android:name=".view.activity.SetUserSgActivity"
+            android:screenOrientation="portrait" />
+        <activity android:name=".view.activity.MineSetActivity"
+            android:screenOrientation="portrait" />
+        <activity android:name=".view.activity.SetUserDeviceActivity"
+            android:screenOrientation="portrait" />
+        <activity android:name=".view.activity.DeviceLinkJcActivity"
+            android:screenOrientation="portrait" />
+        <activity android:name=".view.activity.SetUserInfoActivity"
+            android:screenOrientation="portrait" />
         <activity android:name=".view.activity.device.DeviceLink1Activity" />
         <activity android:name=".view.activity.device.DeviceLink2Activity" />
         <activity android:name=".view.activity.device.DeviceLink8Activity" />
-        <activity android:name=".view.activity.SetUserWebActivity" />
+        <activity android:name=".view.activity.SetUserWebActivity"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".MainActivity"
             android:launchMode="singleTask" />

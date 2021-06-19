@@ -60,7 +60,7 @@ public class MineSetActivity extends BaseActivity {
     @Override
     public void initView() {
         MainApplication.addActivity(this);
-        setToolbar(myToolbar, "设置中心", true);
+        setToolbar(myToolbar, "设置中心");
         //2021.06
         tv_bbh.setText("当前版本："+ StringUtil.getTimeToYMD(System.currentTimeMillis(),"yyyy.MM") +"-V"+getVersionCode(this));
     }

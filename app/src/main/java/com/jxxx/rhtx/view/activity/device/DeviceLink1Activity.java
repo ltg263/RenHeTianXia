@@ -4,6 +4,8 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.pm.ActivityInfo;
+import android.content.res.Configuration;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
@@ -107,9 +109,17 @@ public class DeviceLink1Activity extends BaseActivity {
     private int type_id = 0;
     HomeInfoBean.DeviceBean mChangeListBean;
     private List<HomeInfoBean.DeviceBean.ChangeListBean> mChangeList;
+    String strR;
     @Override
     public int intiLayout() {
-        return R.layout.activity_device_link_1;
+        Configuration cfg = getResources().getConfiguration();
+        if (cfg.orientation == Configuration.ORIENTATION_LANDSCAPE ){
+            strR = "转换为竖屏";
+            return R.layout.activity_device_link_1_h;
+        }else {
+            strR = "转换为横屏";
+            return R.layout.activity_device_link_1;
+        }
     }
 
     @Override
@@ -122,10 +132,10 @@ public class DeviceLink1Activity extends BaseActivity {
         ChartHelper.initChart(mData5, mLineChart5, 160);
         data = (DeviceDetailsBaen) getIntent().getSerializableExtra("data");
         if(data ==null){
-            setToolbar(myToolbar, getIntent().getStringExtra("type_name"), true);
+            setToolbarR(myToolbar, getIntent().getStringExtra("type_name"),strR);
             type_id = getIntent().getIntExtra("type_id",0);
             mLlState.setVisibility(View.GONE);
-            mLlStop.setVisibility(View.GONE);
+            mLlStop.setVisibility(View.INVISIBLE);
             ll_state_ly.setVisibility(View.VISIBLE);
             mChangeListBean = (HomeInfoBean.DeviceBean) getIntent().getSerializableExtra("mChangeListBean");
             if(mChangeListBean==null){
@@ -147,7 +157,7 @@ public class DeviceLink1Activity extends BaseActivity {
             }
             return;
         }
-        setToolbar(myToolbar, data.getDeviceName(), true);
+        setToolbarR(myToolbar, data.getDeviceName(),strR);
         /**
          * 广播动态注册
          */
@@ -170,9 +180,20 @@ public class DeviceLink1Activity extends BaseActivity {
     }
 
 
-    @OnClick({R.id.iv_state_z,R.id.ll_home, R.id.ll_state, R.id.ll_stop,R.id.ll_state_ly})
+    public void getScreenMessage(){
+        Configuration cfg = getResources().getConfiguration();
+        if (cfg.orientation == Configuration.ORIENTATION_LANDSCAPE ){
+            setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+        }else {
+            setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE );
+        }
+    }
+    @OnClick({R.id.tv_xz,R.id.iv_state_z,R.id.ll_home, R.id.ll_state, R.id.ll_stop,R.id.ll_state_ly})
     public void onViewClicked(View view) {
         switch (view.getId()) {
+            case R.id.tv_xz:
+                getScreenMessage();
+                break;
             case R.id.iv_state_z:
                 if(data==null){
                     return;

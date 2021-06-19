@@ -97,9 +97,9 @@ public class DeviceLink2Activity extends BaseActivity {
         data = (DeviceDetailsBaen) getIntent().getSerializableExtra("data");
         if (data == null) {
             type_id = getIntent().getIntExtra("type_id", 0);
-            setToolbar(myToolbar, getIntent().getStringExtra("type_name"), true);
+            setToolbar(myToolbar, getIntent().getStringExtra("type_name"));
             mLlState.setVisibility(View.GONE);
-            mLlStop.setVisibility(View.GONE);
+            mLlStop.setVisibility(View.INVISIBLE);
             ll_state_ly.setVisibility(View.VISIBLE);
             mChangeListBean = (HomeInfoBean.DeviceBean) getIntent().getSerializableExtra("mChangeListBean");
             if (mChangeListBean == null) {
@@ -117,7 +117,7 @@ public class DeviceLink2Activity extends BaseActivity {
             }
             return;
         }
-        setToolbar(myToolbar, data.getDeviceName(), true);
+        setToolbar(myToolbar, data.getDeviceName());
         GlideImgLoader.setViewImg(this, data.getImgUrl(), iv_icon);
         /**
          * 广播动态注册

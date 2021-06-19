@@ -82,7 +82,7 @@ public class DeviceLinkJcActivity extends BaseActivity {
         MainApplication.addActivity(this);
         MatisseUtils.filePermissions(this);
         data = (DeviceDetailsBaen) getIntent().getSerializableExtra("data");
-        setToolbar(myToolbar, "设备连接", true);
+        setToolbar(myToolbar, "设备连接");
     }
 
     @Override

@@ -2,6 +2,7 @@ package com.jxxx.rhtx.view.activity;
 
 import android.content.Intent;
 import android.text.Html;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -58,7 +59,7 @@ public class DeviceLinkActivity extends BaseActivity {
     public void initView() {
         MainApplication.addActivity(this);
         ChartHelper.maxCount = 60;
-        setToolbar(myToolbar, "智能设备", true);
+        setToolbar(myToolbar, "智能设备");
     }
 
     @Override
@@ -80,7 +81,9 @@ public class DeviceLinkActivity extends BaseActivity {
                     public void onNext(Result<DeviceDetailsBaen> result) {
                         if (isDataInfoSucceed(result)) {
                             data = result.getData();
-                            GlideImageLoader.loadImageAndDefault(DeviceLinkActivity.this,result.getData().getImgUrl(),mIvSbImg);
+                            if(!isDestroyed()){
+                                GlideImageLoader.loadImageAndDefault(DeviceLinkActivity.this,result.getData().getImgUrl(),mIvSbImg);
+                            }
                             mTvSbType.setText(result.getData().getDeviceName());
                             mTvSbName.setText(data.getDeviceName());
                             mTvSortName.setText(result.getData().getSortName());

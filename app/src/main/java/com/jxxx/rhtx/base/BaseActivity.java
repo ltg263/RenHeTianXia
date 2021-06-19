@@ -3,6 +3,7 @@ package com.jxxx.rhtx.base;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.EditText;
@@ -15,6 +16,7 @@ import androidx.appcompat.widget.Toolbar;
 
 import com.jxxx.rhtx.R;
 import com.jxxx.rhtx.utils.StatusBarUtil;
+import com.jxxx.rhtx.utils.StringUtil;
 import com.jxxx.rhtx.utils.ToastUtil;
 import com.jxxx.rhtx.utils.view.LoadingDialog;
 
@@ -46,7 +48,10 @@ public abstract class BaseActivity extends AppCompatActivity {
         initView();
         //设置数据
         initData();
-        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);//强制竖屏
+        Log.w("this.getPackageName()","this.getPackageName()"+this.getLocalClassName());
+        if(!getLocalClassName().contains("view.activity.device.")){
+            setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);//强制竖屏
+        }
     }
 
     /**
@@ -66,12 +71,21 @@ public abstract class BaseActivity extends AppCompatActivity {
      */
     public abstract void initData();
     public void setToolbar(Toolbar mToolbar, String title) {
-        this.setToolbar(mToolbar, title, true);
+        this.setToolbar(mToolbar, title, true,null);
+    }
+    public void setToolbarR(Toolbar mToolbar, String title,String strR) {
+        this.setToolbar(mToolbar, title, true,strR);
     }
 
-    public void setToolbar(Toolbar mToolbar, String title, Boolean isBack) {
+    public void setToolbar(Toolbar mToolbar, String title, Boolean isBack,String strR) {
+        Log.w("strR","strR"+strR);
         TextView mViewToolBarTitle = mToolbar.findViewById(R.id.toolbar_title);
         mViewToolBarTitle.setText(title);
+        if(StringUtil.isNotBlank(strR)){
+            TextView tv_xz = mToolbar.findViewById(R.id.tv_xz);
+            tv_xz.setVisibility(View.VISIBLE);
+            tv_xz.setText(strR);
+        }
         if (isBack) {
             mToolbar.setNavigationIcon(R.mipmap.back_b);
             mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
