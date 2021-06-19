@@ -83,7 +83,7 @@ public abstract class BaseActivity extends AppCompatActivity {
         mViewToolBarTitle.setText(title);
         if(StringUtil.isNotBlank(strR)){
             TextView tv_xz = mToolbar.findViewById(R.id.tv_xz);
-//            tv_xz.setVisibility(View.VISIBLE);
+            tv_xz.setVisibility(View.VISIBLE);
             tv_xz.setText(strR);
         }
         if (isBack) {

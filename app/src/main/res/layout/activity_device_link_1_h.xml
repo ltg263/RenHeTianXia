@@ -31,7 +31,7 @@
                 android:layout_weight="1"
                 tools:ignore="NestedWeights" />
 
-            <include layout="@layout/include_device_link_bnt_h" />
+            <include layout="@layout/include_device_link_bnt_h_s" />
 
             <include layout="@layout/include_bnt_start_h" />
         </LinearLayout>
