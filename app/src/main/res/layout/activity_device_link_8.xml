@@ -65,7 +65,7 @@
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
-                                android:background="@drawable/btn_shape_theme"
+                                android:background="@drawable/btn_shape_theme_dr1"
                                 android:padding="8dp">
 
                                 <ImageView
@@ -104,7 +104,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginHorizontal="@dimen/dp_10"
                                 android:layout_weight="1"
-                                android:background="@drawable/btn_shape_theme"
+                                android:background="@drawable/btn_shape_theme_dr2"
                                 android:padding="8dp">
 
                                 <ImageView
@@ -142,7 +142,7 @@
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
-                                android:background="@drawable/btn_shape_theme"
+                                android:background="@drawable/btn_shape_theme_dr3"
                                 android:padding="8dp">
 
                                 <ImageView

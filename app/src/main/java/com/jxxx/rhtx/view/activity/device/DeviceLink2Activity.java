@@ -4,6 +4,8 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.pm.ActivityInfo;
+import android.content.res.Configuration;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
@@ -83,10 +85,16 @@ public class DeviceLink2Activity extends BaseActivity {
     HomeInfoBean.DeviceBean mChangeListBean;
     private List<HomeInfoBean.DeviceBean.ChangeListBean> mChangeList;
     int totalTime = 0;
-
+    String strR;
     @Override
     public int intiLayout() {
-        return R.layout.activity_device_link_2;
+        if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE ){
+            strR = "转换为竖屏";
+            return R.layout.activity_device_link_2_h;
+        }else {
+            strR = "转换为横屏";
+            return R.layout.activity_device_link_2;
+        }
     }
 
     @Override
@@ -97,7 +105,7 @@ public class DeviceLink2Activity extends BaseActivity {
         data = (DeviceDetailsBaen) getIntent().getSerializableExtra("data");
         if (data == null) {
             type_id = getIntent().getIntExtra("type_id", 0);
-            setToolbar(myToolbar, getIntent().getStringExtra("type_name"));
+            setToolbarR(myToolbar, getIntent().getStringExtra("type_name"),strR);
             mLlState.setVisibility(View.GONE);
             mLlStop.setVisibility(View.INVISIBLE);
             ll_state_ly.setVisibility(View.VISIBLE);
@@ -117,7 +125,7 @@ public class DeviceLink2Activity extends BaseActivity {
             }
             return;
         }
-        setToolbar(myToolbar, data.getDeviceName());
+        setToolbarR(myToolbar, data.getDeviceName(),strR);
         GlideImgLoader.setViewImg(this, data.getImgUrl(), iv_icon);
         /**
          * 广播动态注册
@@ -140,12 +148,23 @@ public class DeviceLink2Activity extends BaseActivity {
 
     }
 
+    public void getScreenMessage(){
+        if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE ){
+            setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+        }else {
+            setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE );
+        }
+    }
 
-    @OnClick({R.id.ll_home, R.id.ll_state, R.id.ll_stop, R.id.ll_state_ly, R.id.iv_state_z})
+    @OnClick({R.id.tv_xz,R.id.ll_home, R.id.ll_state, R.id.ll_stop, R.id.ll_state_ly, R.id.iv_state_z})
     public void onViewClicked(View view) {
+        Intent mIntent;
         switch (view.getId()) {
+            case R.id.tv_xz:
+                getScreenMessage();
+                break;
             case R.id.ll_state_ly:
-                Intent mIntent = new Intent(this, DeviceLinkActivity.class);
+                mIntent = new Intent(this, DeviceLinkActivity.class);
                 mIntent.putExtra("id", type_id);
                 startActivity(mIntent);
                 break;
@@ -179,6 +198,12 @@ public class DeviceLink2Activity extends BaseActivity {
                 }
                 break;//
             case R.id.iv_state_z:
+                if(data==null){
+                    mIntent = new Intent(this, DeviceLinkActivity.class);
+                    mIntent.putExtra("id", type_id);
+                    startActivity(mIntent);
+                    return;
+                }
                 if(state==2){
                     ToastUtil.showToast("设备暂停中...");
                     return;

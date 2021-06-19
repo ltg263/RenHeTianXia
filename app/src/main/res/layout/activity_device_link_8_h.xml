@@ -1,0 +1,270 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/color_ffffff"
+    android:orientation="vertical">
+
+    <include layout="@layout/include_toolbar" />
+
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true"
+        android:overScrollMode="never"
+        android:scrollbars="none">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginStart="@dimen/dp_10"
+                android:layout_marginVertical="10dp"
+                android:layout_weight="3"
+                android:orientation="vertical">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:orientation="vertical">
+
+                    <View
+                        android:layout_width="wrap_content"
+                        android:layout_height="5dp"
+                        android:layout_below="@id/tv_sb_type"
+                        android:layout_alignEnd="@id/tv_sb_type"
+                        android:layout_marginTop="-6dp"
+                        android:background="@drawable/shape_radius_th" />
+
+                    <TextView
+                        android:id="@+id/tv_sb_type"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="实时数据"
+                        android:textColor="@color/color_000000"
+                        android:textSize="@dimen/sp_16"
+                        android:textStyle="bold" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/tv_sb_type"
+                        android:layout_marginTop="15dp">
+
+                        <RelativeLayout
+                            android:id="@+id/ll_dr_1"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:background="@drawable/btn_shape_theme_dr1"
+                            android:padding="8dp">
+
+                            <ImageView
+                                android:id="@+id/iv_dr_1"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginHorizontal="5dp"
+                                android:layout_marginTop="3dp"
+                                android:src="@mipmap/ic_select_f_yse" />
+
+                            <TextView
+                                android:id="@+id/tv_dr_1"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_toEndOf="@id/iv_dr_1"
+                                android:text="CH1电容"
+                                android:textColor="@color/white"
+                                android:textSize="@dimen/sp_14" />
+
+                            <TextView
+                                android:id="@+id/tv_dr_1v"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_below="@id/iv_dr_1"
+                                android:layout_alignEnd="@id/tv_dr_1"
+                                android:layout_marginTop="5dp"
+                                android:text="0"
+                                android:textColor="@color/white"
+                                android:textSize="@dimen/sp_14" />
+
+                        </RelativeLayout>
+
+                        <RelativeLayout
+                            android:id="@+id/ll_dr_2"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginHorizontal="@dimen/dp_10"
+                            android:layout_weight="1"
+                            android:background="@drawable/btn_shape_theme_dr2"
+                            android:padding="8dp">
+
+                            <ImageView
+                                android:id="@+id/iv_dr_2"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginHorizontal="5dp"
+                                android:layout_marginTop="3dp"
+                                android:src="@mipmap/ic_select_f_yse" />
+
+                            <TextView
+                                android:id="@+id/tv_dr_2"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_toEndOf="@id/iv_dr_2"
+                                android:text="CH2电容"
+                                android:textColor="@color/white"
+                                android:textSize="@dimen/sp_14" />
+
+                            <TextView
+                                android:id="@+id/tv_dr_2v"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_below="@id/iv_dr_2"
+                                android:layout_alignEnd="@id/tv_dr_2"
+                                android:layout_marginTop="5dp"
+                                android:text="0"
+                                android:textColor="@color/white"
+                                android:textSize="@dimen/sp_14" />
+
+                        </RelativeLayout>
+
+                        <RelativeLayout
+                            android:id="@+id/ll_dr_3"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:background="@drawable/btn_shape_theme_dr3"
+                            android:padding="8dp">
+
+                            <ImageView
+                                android:id="@+id/iv_dr_3"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginHorizontal="5dp"
+                                android:layout_marginTop="3dp"
+                                android:src="@mipmap/ic_select_f_yse" />
+
+                            <TextView
+                                android:id="@+id/tv_dr_3"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_toEndOf="@id/iv_dr_3"
+                                android:text="CH3电容"
+                                android:textColor="@color/white"
+                                android:textSize="@dimen/sp_14" />
+
+                            <TextView
+                                android:id="@+id/tv_dr_3v"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_below="@id/iv_dr_3"
+                                android:layout_alignEnd="@id/tv_dr_3"
+                                android:layout_marginTop="5dp"
+                                android:text="0"
+                                android:textColor="@color/white"
+                                android:textSize="@dimen/sp_14" />
+
+                        </RelativeLayout>
+                    </LinearLayout>
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="35dp"
+                    android:background="@drawable/ic_shade_img"
+                    android:padding="@dimen/dp_10">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/dp_10"
+                        android:text="数据预览"
+                        android:textColor="@color/color_999999" />
+
+                    <TextView
+                        android:id="@+id/tv_ch_1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/dp_10"
+                        android:layout_toStartOf="@id/tv_ch_2"
+                        android:drawableStart="@mipmap/ic_logo_11"
+                        android:drawablePadding="5dp"
+                        android:gravity="center_vertical"
+                        android:text="CH1电容"
+                        android:textColor="@color/color_000000"
+                        android:textSize="@dimen/sp_12" />
+
+                    <TextView
+                        android:id="@+id/tv_ch_2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/dp_10"
+                        android:layout_toStartOf="@id/tv_ch_3"
+                        android:drawableStart="@mipmap/ic_logo_22"
+                        android:drawablePadding="5dp"
+                        android:gravity="center_vertical"
+                        android:text="CH2电容"
+                        android:textColor="@color/color_000000"
+                        android:textSize="@dimen/sp_12" />
+
+                    <TextView
+                        android:id="@+id/tv_ch_3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_margin="@dimen/dp_10"
+                        android:drawableStart="@mipmap/ic_logo_33"
+                        android:drawablePadding="5dp"
+                        android:gravity="center_vertical"
+                        android:text="CH3电容"
+                        android:textColor="@color/color_000000"
+                        android:textSize="@dimen/sp_12" />
+
+                    <TextView
+                        android:id="@+id/tv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_above="@id/line_chart"
+                        android:layout_marginStart="5dp"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginBottom="-8dp"
+                        android:text="(pF)"
+                        android:textColor="@color/color_text_theme"
+                        android:textSize="10sp" />
+
+
+                    <com.github.mikephil.charting.charts.LineChart
+                        android:id="@+id/line_chart"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_below="@id/tv_ch_3" />
+
+                </RelativeLayout>
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginHorizontal="@dimen/dp_10"
+                android:layout_marginTop="45dp"
+                android:layout_marginBottom="@dimen/dp_10"
+                android:layout_weight="1"
+                android:background="@drawable/shape_radius_eee">
+
+                <include layout="@layout/include_device_link_bnt_h" />
+
+            </LinearLayout>
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+</LinearLayout>

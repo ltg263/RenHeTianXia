@@ -109,13 +109,21 @@ public class DeviceLink8Activity extends BaseActivity {
     boolean isSelectDr2 = true;
     boolean isSelectDr3 = true;
     private int type_id;
+    String strR;
 
     HomeInfoBean.DeviceBean mChangeListBean;
     private List<HomeInfoBean.DeviceBean.ChangeListBean> mChangeList;
 
     @Override
     public int intiLayout() {
-        return R.layout.activity_device_link_8;
+
+        if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE ){
+            strR = "转换为竖屏";
+            return R.layout.activity_device_link_8_h;
+        }else {
+            strR = "转换为横屏";
+            return R.layout.activity_device_link_8;
+        }
     }
 
     @Override
@@ -125,7 +133,7 @@ public class DeviceLink8Activity extends BaseActivity {
         data = (DeviceDetailsBaen) getIntent().getSerializableExtra("data");
         if(data ==null){
             type_id = getIntent().getIntExtra("type_id",0);
-            setToolbar(myToolbar, getIntent().getStringExtra("type_name"));
+            setToolbarR(myToolbar, getIntent().getStringExtra("type_name"),strR);
             mLlState.setVisibility(View.GONE);
             mLlStop.setVisibility(View.INVISIBLE);
             ll_state_ly.setVisibility(View.VISIBLE);
@@ -144,7 +152,7 @@ public class DeviceLink8Activity extends BaseActivity {
             }
             return;
         }
-        setToolbar(myToolbar, data.getDeviceName());
+        setToolbarR(myToolbar, data.getDeviceName(),strR);
         /**
          * 广播动态注册
          */
@@ -166,11 +174,25 @@ public class DeviceLink8Activity extends BaseActivity {
 
     }
 
-    @OnClick({R.id.iv_state_z,R.id.ll_home,R.id.ll_state,R.id.ll_state_ly, R.id.ll_stop,R.id.ll_dr_1, R.id.ll_dr_2, R.id.ll_dr_3})
+    public void getScreenMessage(){
+        if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE ){
+            setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+        }else {
+            setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE );
+        }
+    }
+    @OnClick({R.id.tv_xz,R.id.iv_state_z,R.id.ll_home,R.id.ll_state,R.id.ll_state_ly, R.id.ll_stop,R.id.ll_dr_1, R.id.ll_dr_2, R.id.ll_dr_3})
     public void onViewClicked(View view) {
+        Intent mIntent;
         switch (view.getId()) {
+            case R.id.tv_xz:
+                getScreenMessage();
+                break;
             case R.id.iv_state_z:
                 if(data==null){
+                    mIntent = new Intent(this, DeviceLinkActivity.class);
+                    mIntent.putExtra("id", type_id);
+                    startActivity(mIntent);
                     return;
                 }
                 if(state==2){
@@ -190,13 +212,13 @@ public class DeviceLink8Activity extends BaseActivity {
                 }
                 break;
             case R.id.ll_state_ly:
-                Intent mIntent = new Intent(this, DeviceLinkActivity.class);
+                mIntent = new Intent(this, DeviceLinkActivity.class);
                 mIntent.putExtra("id",type_id);
                 startActivity(mIntent);
                 break;
             case R.id.ll_dr_1:
                 if(!isSelectDr1){
-                    mLlDr1.setBackground(getResources().getDrawable(R.drawable.btn_shape_theme));
+                    mLlDr1.setBackground(getResources().getDrawable(R.drawable.btn_shape_theme_dr1));
                     mIvDr1.setImageDrawable(getResources().getDrawable(R.mipmap.ic_select_f_yse));
                     mTvDr1.setTextColor(getColor(R.color.white));
                 }else{
@@ -211,7 +233,7 @@ public class DeviceLink8Activity extends BaseActivity {
                 break;
             case R.id.ll_dr_2:
                 if(!isSelectDr2){
-                    mLlDr2.setBackground(getResources().getDrawable(R.drawable.btn_shape_theme));
+                    mLlDr2.setBackground(getResources().getDrawable(R.drawable.btn_shape_theme_dr2));
                     mIvDr2.setImageDrawable(getResources().getDrawable(R.mipmap.ic_select_f_yse));
                     mTvDr2.setTextColor(getColor(R.color.white));
                 }else{
@@ -226,7 +248,7 @@ public class DeviceLink8Activity extends BaseActivity {
                 break;
             case R.id.ll_dr_3:
                 if(!isSelectDr3){
-                    mLlDr3.setBackground(getResources().getDrawable(R.drawable.btn_shape_theme));
+                    mLlDr3.setBackground(getResources().getDrawable(R.drawable.btn_shape_theme_dr3));
                     mIvDr3.setImageDrawable(getResources().getDrawable(R.mipmap.ic_select_f_yse));
                     mTvDr3.setTextColor(getColor(R.color.white));
                 }else{

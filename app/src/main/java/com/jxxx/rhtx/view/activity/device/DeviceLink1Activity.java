@@ -188,12 +188,16 @@ public class DeviceLink1Activity extends BaseActivity {
     }
     @OnClick({R.id.tv_xz,R.id.iv_state_z,R.id.ll_home, R.id.ll_state, R.id.ll_stop,R.id.ll_state_ly})
     public void onViewClicked(View view) {
+        Intent mIntent;
         switch (view.getId()) {
             case R.id.tv_xz:
                 getScreenMessage();
                 break;
             case R.id.iv_state_z:
                 if(data==null){
+                    mIntent = new Intent(this, DeviceLinkActivity.class);
+                    mIntent.putExtra("id", type_id);
+                    startActivity(mIntent);
                     return;
                 }
                 if(state==2){
@@ -213,7 +217,7 @@ public class DeviceLink1Activity extends BaseActivity {
                 }
                 break;
             case R.id.ll_state_ly:
-                Intent mIntent = new Intent(this, DeviceLinkActivity.class);
+                mIntent = new Intent(this, DeviceLinkActivity.class);
                 mIntent.putExtra("id",type_id);
                 startActivity(mIntent);
                 break;
