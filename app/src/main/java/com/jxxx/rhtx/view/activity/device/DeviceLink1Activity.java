@@ -112,8 +112,7 @@ public class DeviceLink1Activity extends BaseActivity {
     String strR;
     @Override
     public int intiLayout() {
-        Configuration cfg = getResources().getConfiguration();
-        if (cfg.orientation == Configuration.ORIENTATION_LANDSCAPE ){
+        if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE ){
             strR = "转换为竖屏";
             return R.layout.activity_device_link_1_h;
         }else {
@@ -181,8 +180,7 @@ public class DeviceLink1Activity extends BaseActivity {
 
 
     public void getScreenMessage(){
-        Configuration cfg = getResources().getConfiguration();
-        if (cfg.orientation == Configuration.ORIENTATION_LANDSCAPE ){
+        if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE ){
             setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         }else {
             setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE );

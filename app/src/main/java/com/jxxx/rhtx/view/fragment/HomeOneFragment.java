@@ -33,11 +33,11 @@ import com.jxxx.rhtx.utils.ToastUtil;
 import com.jxxx.rhtx.utils.view.ChartHelper;
 import com.jxxx.rhtx.utils.view.ChartHelperHome;
 import com.jxxx.rhtx.view.activity.DeviceHistroyActivity;
+import com.jxxx.rhtx.view.activity.DeviceLinkActivity;
+import com.jxxx.rhtx.view.activity.SetUserInfoActivity;
 import com.jxxx.rhtx.view.activity.device.DeviceLink1Activity;
 import com.jxxx.rhtx.view.activity.device.DeviceLink2Activity;
 import com.jxxx.rhtx.view.activity.device.DeviceLink8Activity;
-import com.jxxx.rhtx.view.activity.DeviceLinkActivity;
-import com.jxxx.rhtx.view.activity.SetUserInfoActivity;
 import com.jxxx.rhtx.view.adapter.HomeBelowAdapter;
 import com.jxxx.rhtx.view.adapter.HomeCenAdapter;
 

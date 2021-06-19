@@ -36,7 +36,6 @@ public class ConstValues {
     public static final String IS_REALNAME = "is_realname";
     public static final String INTEGRALJUMP = "integral_jump";
     public static final String OPENSTART = "openstart";
-    public static final String AGREEMENT = "agreement";
 
     /**
      * 服务器后台地址

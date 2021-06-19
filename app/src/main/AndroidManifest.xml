@@ -82,9 +82,12 @@
             android:screenOrientation="portrait" />
         <activity android:name=".view.activity.SetUserInfoActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".view.activity.device.DeviceLink1Activity" />
-        <activity android:name=".view.activity.device.DeviceLink2Activity" />
-        <activity android:name=".view.activity.device.DeviceLink8Activity" />
+        <activity android:name=".view.activity.device.DeviceLink1Activity"
+            android:screenOrientation="portrait" />
+        <activity android:name=".view.activity.device.DeviceLink2Activity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".view.activity.device.DeviceLink8Activity"
+            android:screenOrientation="portrait"/>
         <activity android:name=".view.activity.SetUserWebActivity"
             android:screenOrientation="portrait" />
         <activity
