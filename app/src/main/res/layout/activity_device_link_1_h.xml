@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/color_ffffff"
@@ -12,27 +13,28 @@
         android:layout_height="match_parent"
         android:orientation="horizontal">
 
-        <androidx.core.widget.NestedScrollView
+
+        <LinearLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="1.5"
-            android:background="@color/color_ffffff"
-            android:scrollbars="none">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical"
-                android:paddingBottom="@dimen/dp_10">
+            android:layout_weight="1"
+            android:gravity="center_horizontal"
+            android:orientation="vertical"
+            android:paddingBottom="@dimen/dp_10">
 
 
-                <include layout="@layout/include_device_link1_top" />
+            <include
+                layout="@layout/include_device_link1_top_h"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:layout_marginTop="15dp"
+                android:layout_weight="1"
+                tools:ignore="NestedWeights" />
 
-                <include layout="@layout/include_device_link_bnt" />
+            <include layout="@layout/include_device_link_bnt_h" />
 
-                <include layout="@layout/include_bnt_start_h" />
-            </LinearLayout>
-        </androidx.core.widget.NestedScrollView>
+            <include layout="@layout/include_bnt_start_h" />
+        </LinearLayout>
 
 
         <androidx.core.widget.NestedScrollView
@@ -51,7 +53,7 @@
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp"
+                    android:layout_marginTop="10dp"
                     android:orientation="vertical">
 
                     <View
@@ -59,6 +61,7 @@
                         android:layout_height="5dp"
                         android:layout_below="@id/tv_sb_type"
                         android:layout_alignEnd="@id/tv_sb_type"
+                        android:layout_marginTop="-8dp"
                         android:background="@drawable/shape_radius_th" />
 
                     <TextView
@@ -74,34 +77,34 @@
                         android:id="@+id/tv_details"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_below="@id/tv_sb_type"
+                        android:layout_alignBottom="@id/tv_sb_type"
+                        android:layout_marginStart="@dimen/dp_10"
                         android:layout_marginTop="8dp"
+                        android:layout_toEndOf="@id/tv_sb_type"
                         android:text="弯曲角度（度°） 丨 测试时间（s）"
                         android:textColor="@color/color_text_theme"
-                        android:textSize="12sp" />
+                        android:textSize="12sp"
+                        android:visibility="invisible" />
 
                 </RelativeLayout>
 
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/dp_10"
-                    android:background="@drawable/ic_shade_img"
-                    android:orientation="vertical"
-                    android:padding="@dimen/dp_10">
+                    android:background="@drawable/shape_yy_ff_all_6"
+                    android:orientation="vertical">
 
                     <RelativeLayout
                         android:id="@+id/rl1"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerVertical="true">
+                        android:padding="@dimen/dp_10"
+                        android:layout_height="wrap_content">
 
                         <ImageView
                             android:id="@+id/iv_icon1"
                             android:layout_width="45dp"
                             android:layout_height="45dp"
                             android:layout_centerHorizontal="true"
-                            android:layout_marginHorizontal="5dp"
                             android:background="#F7F7F7"
                             android:scaleType="fitXY"
                             android:src="@mipmap/ic_logo_1" />
@@ -111,19 +114,16 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_below="@id/iv_icon1"
-                            android:layout_marginHorizontal="@dimen/dp_10"
-                            android:layout_marginTop="@dimen/dp_10"
                             android:text="大拇指"
                             android:textColor="@color/color_000000"
-                            android:textSize="@dimen/sp_12" />
+                            android:textSize="@dimen/sp_12"
+                            android:visibility="gone" />
 
                         <TextView
                             android:id="@+id/tv_v1"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_below="@id/tv_title1"
-                            android:layout_centerHorizontal="true"
-                            android:layout_marginBottom="@dimen/dp_10"
                             android:text="度数:0°"
                             android:textColor="@color/color_text_theme"
                             android:textSize="@dimen/sp_12" />
@@ -134,7 +134,9 @@
                     <com.github.mikephil.charting.charts.LineChart
                         android:id="@+id/line_chart_1"
                         android:layout_width="match_parent"
-                        android:layout_height="90dp"
+                        android:layout_height="wrap_content"
+                        android:layout_alignTop="@id/rl1"
+                        android:layout_alignBottom="@id/rl1"
                         android:layout_toEndOf="@id/rl1" />
 
 
@@ -143,15 +145,14 @@
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/dp_10"
-                    android:background="@drawable/ic_shade_img"
-                    android:orientation="vertical"
-                    android:padding="@dimen/dp_10">
+                    android:background="@drawable/shape_yy_ff_all_6"
+                    android:orientation="vertical">
 
                     <RelativeLayout
                         android:id="@+id/rl2"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:padding="@dimen/dp_10"
                         android:layout_centerVertical="true">
 
                         <ImageView
@@ -159,7 +160,6 @@
                             android:layout_width="45dp"
                             android:layout_height="45dp"
                             android:layout_centerHorizontal="true"
-                            android:layout_marginHorizontal="5dp"
                             android:background="#F7F7F7"
                             android:scaleType="fitXY"
                             android:src="@mipmap/ic_logo_2" />
@@ -169,8 +169,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_below="@id/iv_icon2"
-                            android:layout_marginHorizontal="@dimen/dp_10"
-                            android:layout_marginTop="@dimen/dp_10"
+                            android:visibility="gone"
                             android:text="食指"
                             android:textColor="@color/color_000000"
                             android:textSize="@dimen/sp_12" />
@@ -181,7 +180,6 @@
                             android:layout_height="wrap_content"
                             android:layout_below="@id/tv_title2"
                             android:layout_centerHorizontal="true"
-                            android:layout_marginBottom="@dimen/dp_10"
                             android:text="度数:0°"
                             android:textColor="@color/color_text_theme"
                             android:textSize="@dimen/sp_12" />
@@ -192,7 +190,9 @@
                     <com.github.mikephil.charting.charts.LineChart
                         android:id="@+id/line_chart_2"
                         android:layout_width="match_parent"
-                        android:layout_height="90dp"
+                        android:layout_height="wrap_content"
+                        android:layout_alignTop="@id/rl2"
+                        android:layout_alignBottom="@id/rl2"
                         android:layout_toEndOf="@id/rl2" />
 
 
@@ -201,23 +201,20 @@
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/dp_10"
-                    android:background="@drawable/ic_shade_img"
-                    android:orientation="vertical"
-                    android:padding="@dimen/dp_10">
+                    android:background="@drawable/shape_yy_ff_all_6"
+                    android:orientation="vertical">
 
                     <RelativeLayout
                         android:id="@+id/rl3"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerVertical="true">
+                        android:padding="@dimen/dp_10"
+                        android:layout_height="wrap_content">
 
                         <ImageView
                             android:id="@+id/iv_icon3"
                             android:layout_width="45dp"
                             android:layout_height="45dp"
                             android:layout_centerHorizontal="true"
-                            android:layout_marginHorizontal="5dp"
                             android:background="#F7F7F7"
                             android:scaleType="fitXY"
                             android:src="@mipmap/ic_logo_3" />
@@ -227,30 +224,30 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_below="@id/iv_icon3"
-                            android:layout_marginHorizontal="@dimen/dp_10"
-                            android:layout_marginTop="@dimen/dp_10"
-                            android:text="中指"
+                            android:text="食指"
                             android:textColor="@color/color_000000"
-                            android:textSize="@dimen/sp_12" />
+                            android:textSize="@dimen/sp_12"
+                            android:visibility="gone" />
 
                         <TextView
                             android:id="@+id/tv_v3"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_below="@id/tv_title3"
-                            android:layout_centerHorizontal="true"
-                            android:layout_marginBottom="@dimen/dp_10"
                             android:text="度数:0°"
                             android:textColor="@color/color_text_theme"
                             android:textSize="@dimen/sp_12" />
+
                     </RelativeLayout>
 
 
                     <com.github.mikephil.charting.charts.LineChart
                         android:id="@+id/line_chart_3"
                         android:layout_width="match_parent"
-                        android:layout_height="90dp"
-                        android:layout_toEndOf="@id/rl3" />
+                        android:layout_height="wrap_content"
+                        android:layout_alignTop="@id/rl3"
+                        android:layout_alignBottom="@id/rl3"
+                        android:layout_toEndOf="@id/rl3"  />
 
 
                 </RelativeLayout>
@@ -258,23 +255,20 @@
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/dp_10"
-                    android:background="@drawable/ic_shade_img"
-                    android:orientation="vertical"
-                    android:padding="@dimen/dp_10">
+                    android:background="@drawable/shape_yy_ff_all_6"
+                    android:orientation="vertical">
 
                     <RelativeLayout
                         android:id="@+id/rl4"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerVertical="true">
+                        android:padding="@dimen/dp_10"
+                        android:layout_height="wrap_content">
 
                         <ImageView
                             android:id="@+id/iv_icon4"
                             android:layout_width="45dp"
                             android:layout_height="45dp"
                             android:layout_centerHorizontal="true"
-                            android:layout_marginHorizontal="5dp"
                             android:background="#F7F7F7"
                             android:scaleType="fitXY"
                             android:src="@mipmap/ic_logo_4" />
@@ -284,29 +278,29 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_below="@id/iv_icon4"
-                            android:layout_marginHorizontal="@dimen/dp_10"
-                            android:layout_marginTop="@dimen/dp_10"
                             android:text="无名指"
                             android:textColor="@color/color_000000"
-                            android:textSize="@dimen/sp_12" />
+                            android:textSize="@dimen/sp_12"
+                            android:visibility="gone" />
 
                         <TextView
                             android:id="@+id/tv_v4"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_below="@id/tv_title4"
-                            android:layout_centerHorizontal="true"
-                            android:layout_marginBottom="@dimen/dp_10"
                             android:text="度数:0°"
                             android:textColor="@color/color_text_theme"
                             android:textSize="@dimen/sp_12" />
+
                     </RelativeLayout>
 
 
                     <com.github.mikephil.charting.charts.LineChart
                         android:id="@+id/line_chart_4"
                         android:layout_width="match_parent"
-                        android:layout_height="90dp"
+                        android:layout_height="wrap_content"
+                        android:layout_alignTop="@id/rl4"
+                        android:layout_alignBottom="@id/rl4"
                         android:layout_toEndOf="@id/rl4" />
 
 
@@ -315,23 +309,20 @@
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/dp_10"
-                    android:background="@drawable/ic_shade_img"
-                    android:orientation="vertical"
-                    android:padding="@dimen/dp_10">
+                    android:background="@drawable/shape_yy_ff_all_6"
+                    android:orientation="vertical">
 
                     <RelativeLayout
                         android:id="@+id/rl5"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerVertical="true">
+                        android:padding="@dimen/dp_10"
+                        android:layout_height="wrap_content">
 
                         <ImageView
                             android:id="@+id/iv_icon5"
                             android:layout_width="45dp"
                             android:layout_height="45dp"
                             android:layout_centerHorizontal="true"
-                            android:layout_marginHorizontal="5dp"
                             android:background="#F7F7F7"
                             android:scaleType="fitXY"
                             android:src="@mipmap/ic_logo_5" />
@@ -341,28 +332,28 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_below="@id/iv_icon5"
-                            android:layout_marginHorizontal="@dimen/dp_10"
-                            android:layout_marginTop="@dimen/dp_10"
-                            android:text="小拇指"
+                            android:text="大拇指"
                             android:textColor="@color/color_000000"
-                            android:textSize="@dimen/sp_12" />
+                            android:textSize="@dimen/sp_12"
+                            android:visibility="gone" />
 
                         <TextView
                             android:id="@+id/tv_v5"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_below="@id/tv_title5"
-                            android:layout_centerHorizontal="true"
-                            android:layout_marginBottom="@dimen/dp_10"
                             android:text="度数:0°"
                             android:textColor="@color/color_text_theme"
                             android:textSize="@dimen/sp_12" />
+
                     </RelativeLayout>
 
                     <com.github.mikephil.charting.charts.LineChart
                         android:id="@+id/line_chart_5"
                         android:layout_width="match_parent"
-                        android:layout_height="90dp"
+                        android:layout_height="wrap_content"
+                        android:layout_alignTop="@id/rl5"
+                        android:layout_alignBottom="@id/rl5"
                         android:layout_toEndOf="@id/rl5" />
 
                 </RelativeLayout>
