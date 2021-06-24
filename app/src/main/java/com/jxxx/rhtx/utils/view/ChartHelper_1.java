@@ -12,6 +12,7 @@ import com.github.mikephil.charting.utils.EntryXComparator;
 import com.jxxx.rhtx.utils.StringUtil;
 
 import java.text.DecimalFormat;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Random;
@@ -28,7 +29,7 @@ public class ChartHelper_1 {
     }
 
     private static int maxCount = 1000; //集合最大存储数量
-
+    public static List<Float> list = new ArrayList<>();
     public static void addEntry(List<Entry> mData, LineChart lineChart, float yValues) {
         if (lineChart != null
                 && lineChart.getData() != null &&
@@ -53,8 +54,13 @@ public class ChartHelper_1 {
                 mData.add(entry);
             }
             LineData lineData = new LineData(getSet(mData));
+            list.clear();
+            for(int i = 0;i<mData.size();i++){
+                list.add(mData.get(i).getY());
+            }
             lineData.setDrawValues(false);
             lineChart.setData(lineData);
+            lineChart.getAxisLeft().setAxisMinimum(Collections.min(list)-10);
             lineChart.invalidate();
         }
     }
@@ -80,7 +86,7 @@ public class ChartHelper_1 {
         lineChart.getXAxis().setEnabled(false);
 
         YAxis axisLeft = lineChart.getAxisLeft();
-        axisLeft.setAxisMinimum(900);
+        axisLeft.setAxisMinimum(0);
         axisLeft.setLabelCount(5);
         if(maxYValue>0){
             maxCount = 50;

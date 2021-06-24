@@ -330,10 +330,10 @@ public class DeviceLink2Activity extends BaseActivity {
                 isZ = false;
                 long aa = System.currentTimeMillis() - time;
                 double bb = aa;
-                String cc = String.format("%.2f", 1000 / bb);
+                String cc = String.format("%.2f", bb/1000);
                 time = System.currentTimeMillis();
-                tv_details.setText("呼吸频率:"+(int)(Double.valueOf(cc)*60)+"次/min");
-                ChartHelper.addEntry(mData2, mLineChart2, (int) (Float.parseFloat(cc) * 60));
+                tv_details.setText("呼吸频率:"+(int)(60/Double.valueOf(cc))+"次/min");
+                ChartHelper.addEntry(mData2, mLineChart2, (int) (60/Float.parseFloat(cc)));
                 dataSz.add((int) (Float.parseFloat(cc) * 100));
                 if (state_jl == 1) {
                     AddChangeList.ChangeListBean bean = new AddChangeList.ChangeListBean();
