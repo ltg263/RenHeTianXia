@@ -94,5 +94,4 @@
             android:name=".MainActivity"
             android:launchMode="singleTask" />
     </application>
-
 </manifest>
