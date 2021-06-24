@@ -21,6 +21,7 @@ import java.util.Random;
  * create by hj on 2020/4/25
  **/
 public class ChartHelper_1 {
+    
 
     public static float getRandom(Float seed) {
         DecimalFormat mDecimalFormat = new DecimalFormat("#.00");
