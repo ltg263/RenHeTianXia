@@ -3,11 +3,13 @@ package com.jxxx.rhtx.utils.view;
 import android.Manifest;
 import android.app.Activity;
 
+import com.jxxx.rhtx.R;
 import com.luck.picture.lib.PictureSelector;
 import com.luck.picture.lib.config.PictureConfig;
 import com.luck.picture.lib.config.PictureMimeType;
 
 import pub.devrel.easypermissions.EasyPermissions;
+import pub.devrel.easypermissions.PermissionRequest;
 
 public class MatisseUtils {
 
@@ -20,14 +22,24 @@ public class MatisseUtils {
             MatisseUtils.selectImg(mActivity, selectedNum,isEnableCrop);
         } else {
             //权限拒绝 申请权限
-            EasyPermissions.requestPermissions(mActivity, "为了您更好使用本应用，请允许应用获取以下权限", PERMISSION_CAMERA, params);
+            EasyPermissions.requestPermissions(new PermissionRequest.Builder(mActivity, PERMISSION_CAMERA, params)
+                    .setRationale("为了您更好使用本应用，请允许应用获取以下权限")
+                    .setPositiveButtonText("确定")
+                    .setNegativeButtonText("取消")
+                    .setTheme(R.style.my_fancy_style)
+                    .build());
         }
     }
 
     public static boolean filePermissions(Activity mActivity) {
         if (!EasyPermissions.hasPermissions(mActivity, params)) {
             //权限拒绝 申请权限
-            EasyPermissions.requestPermissions(mActivity, "为了您更好使用本应用，请允许应用获取以下权限", PERMISSION_CAMERA, params);
+            EasyPermissions.requestPermissions(new PermissionRequest.Builder(mActivity, PERMISSION_CAMERA, params)
+                    .setRationale("为了您更好使用本应用，请允许应用获取以下权限")
+                    .setPositiveButtonText("确定")
+                    .setNegativeButtonText("取消")
+                    .setTheme(R.style.my_fancy_style)
+                    .build());
             return false;
         }
         return true;
@@ -61,7 +73,12 @@ public class MatisseUtils {
             MatisseUtils.selectImgBl(mActivity, selectedNum,isEnableCrop);
         } else {
             //权限拒绝 申请权限
-            EasyPermissions.requestPermissions(mActivity, "为了您更好使用本应用，请允许应用获取以下权限", PERMISSION_CAMERA, params);
+            EasyPermissions.requestPermissions(new PermissionRequest.Builder(mActivity, PERMISSION_CAMERA, params)
+                    .setRationale("为了您更好使用本应用，请允许应用获取以下权限")
+                    .setPositiveButtonText("确定")
+                    .setNegativeButtonText("取消")
+                    .setTheme(R.style.my_fancy_style)
+                    .build());
         }
     }
 

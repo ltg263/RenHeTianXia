@@ -34,14 +34,13 @@ public class ExcelUtil {
             Toast.makeText(context, "SD卡不可用", Toast.LENGTH_LONG).show();
             return;
         }//+ StringUtil.getTimeToYMD(System.currentTimeMillis(), "yyyy-MM-dd HH:mm:ss")
-        String path = fileName+"_"+StringUtil.getTimeToYMD(System.currentTimeMillis(), "yyyy-MM-dd HH:mm:ss");
         File file;
-        File dir = new File(Environment.getExternalStorageDirectory()+ File.separator+ ConstValues.APPNAME_ENGLISH);
-        file = new File(dir, path+ ".xls");
-        Log.w("dir","dir"+dir.getPath());
+        File dir = new File(context.getExternalFilesDir(null)+ File.separator+ ConstValues.APPNAME_ENGLISH);
         if (!dir.exists()) {
             dir.mkdirs();
         }
+        String path = fileName+"_"+StringUtil.getTimeToYMD(System.currentTimeMillis(), "yyyy-MM-dd HH:mm:ss");
+        file = new File(dir, path+ ".xls");
         // 创建Excel工作表
         WritableWorkbook wwb;
         OutputStream os = new FileOutputStream(file);

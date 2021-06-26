@@ -60,7 +60,7 @@ public class ChartHelper_1 {
             }
             lineData.setDrawValues(false);
             lineChart.setData(lineData);
-            lineChart.getAxisLeft().setAxisMinimum(Collections.min(list)-10);
+            lineChart.getAxisLeft().setAxisMinimum(Collections.min(list)-5);
             lineChart.invalidate();
         }
     }
