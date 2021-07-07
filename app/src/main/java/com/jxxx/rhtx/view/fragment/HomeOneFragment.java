@@ -334,7 +334,11 @@ public class HomeOneFragment extends BaseFragment {
             for (int j=0;j<changeList.size();j++){
                 String value_z = changeList.get(j).getValue().replace("[", "").replace("]", "");
                 String[] value_arr = value_z.split(",");
-                mData.add(new Entry(j, Float.valueOf(value_arr[i])));
+                value_arr[i] = value_arr[i].replace("[", "").replace("]", "");
+                Log.w("value_arr","value_arr[i] :"+value_arr[i] );
+                if(StringUtil.isNotBlank(value_arr[i])){
+                    mData.add(new Entry(j, Float.valueOf(value_arr[i])));
+                }
             }
             lineData.addDataSet(getSet(mData,i));
         }

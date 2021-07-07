@@ -156,7 +156,9 @@ public class DeviceLinkJcActivity extends BaseActivity {
                             switch (state) {
                                 case 0:
                                     isLianJie = false;
-                                    BluetoothLjUtils.ble4Util.disconnect();
+                                    if(BluetoothLjUtils.ble4Util!=null){
+                                        BluetoothLjUtils.ble4Util.disconnect();
+                                    }
                                     lianjieTime = 30;
                                     iv_lj_s.clearAnimation();
                                     iv_lj_n.clearAnimation();

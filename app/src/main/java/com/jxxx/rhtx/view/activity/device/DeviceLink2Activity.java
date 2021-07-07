@@ -128,7 +128,9 @@ public class DeviceLink2Activity extends BaseActivity {
                 for (int i = 0; i < mChangeList.size(); i++) {
                     String[] resultSrt = mChangeList.get(i).getValue().replace("[", "").replace("]", "").split(",");
                     if (resultSrt.length == 1) {
-                        ChartHelper.addEntry(mData2, mLineChart2, Float.parseFloat(resultSrt[0]));
+                        if(StringUtil.isNotBlank(resultSrt[0])){
+                            ChartHelper.addEntry(mData2, mLineChart2, Float.parseFloat(resultSrt[0]));
+                        }
                     }
 
                 }
@@ -330,7 +332,6 @@ public class DeviceLink2Activity extends BaseActivity {
     int state = 1;//1 开始 2停止中
     int state_jl = 2;//1 开始 2停止中
     boolean isStart = true;
-
     List<AddChangeList.ChangeListBean> changeList = new ArrayList<>();
 
     public void initUIData(byte[] strData) {
@@ -359,26 +360,32 @@ public class DeviceLink2Activity extends BaseActivity {
                 startTimeS();
             }
             int v = Integer.parseInt(dataLists.get(1) + dataLists.get(2), 16);
-            Log.w("---》》》", "v:" + v);
+            tv_drz.setText("当前电容值:" + v + "pF");
+            ChartHelper_1.addEntry(mData1, mLineChart1, v);
+            Log.w("---》》》", "v:" + getX(v));
+            v = getX(v);
             if (v < mixV || mixV == 0) {
                 mixV = v;
             }
             jsq++;
-            if (v < zuiG && isZ && jsq > 20) {//50  60
+            if (v < zuiG && isZ && jsq > 5) {//50  60
                 jsq = 0;
                 isZ = false;
                 long aa = System.currentTimeMillis() - time;
                 double bb = aa;
                 String cc = String.format("%.2f", bb / 1000);
                 time = System.currentTimeMillis();
-                tv_details.setText("呼吸频率:" + (int) (60 / Double.valueOf(cc)) + "次/min");
-                ChartHelper.addEntry(mData2, mLineChart2, (int) (60 / Float.parseFloat(cc)));
-                dataSz.add((int) (Float.parseFloat(cc) * 100));
-                if (state_jl == 1) {
-                    AddChangeList.ChangeListBean bean = new AddChangeList.ChangeListBean();
-                    bean.setValue(dataSz.toString());
-                    bean.setChangeTime(StringUtil.getTimeToYMD(System.currentTimeMillis(), "yyyy-MM-dd HH:mm:ss"));
-                    changeList.add(bean);
+                int hxpl = (int) (60 / Double.valueOf(cc));
+                if(hxpl < 50){
+                    tv_details.setText("呼吸频率:" +hxpl + "次/min");
+                    ChartHelper.addEntry(mData2, mLineChart2, (int) (60 / Float.parseFloat(cc)));
+                    dataSz.add(hxpl);
+                    if (state_jl == 1) {
+                        AddChangeList.ChangeListBean bean = new AddChangeList.ChangeListBean();
+                        bean.setValue(dataSz.toString());
+                        bean.setChangeTime(StringUtil.getTimeToYMD(System.currentTimeMillis(), "yyyy-MM-dd HH:mm:ss"));
+                        changeList.add(bean);
+                    }
                 }
             }
 
@@ -392,18 +399,21 @@ public class DeviceLink2Activity extends BaseActivity {
                 js++;
             }
             Log.w("---》》》"+totalTimeS, "mixV:" + mTvTime1.getText().toString());
-            tv_drz.setText("当前电容值:" + v + "pF");
             if(mTvTime2.getText().toString().equals("0s")&& js==500){
                 mTvTime2.setText(totalTimeS+"s");
             }
             if(mTvTime1.getText().toString().equals("0s")&& js==1000){
                 mTvTime1.setText(totalTimeS+"s");
             }
-            ChartHelper_1.addEntry(mData1, mLineChart1, v);
         }
     }
     int js = 0;
+    public  int getX(int x){
+        if(x%10 != 0)
+            x = x + (10 - x%10);
 
+        return x;
+    }
     private void endUseDevice() {
         RetrofitUtil.getInstance().apiService()
                 .endUseDevice(data.getId())
