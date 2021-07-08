@@ -128,6 +128,12 @@ public class HomeOneFragment extends BaseFragment {
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+        initData();
+    }
+
+    @Override
     protected void initData() {
         GlideImgLoader.setViewImg(getContext(), SharedUtils.singleton().get(ConstValues.USER_BACK_IMG_SB, ""), ll_bj);
         RetrofitUtil.getInstance().apiService()
@@ -154,6 +160,7 @@ public class HomeOneFragment extends BaseFragment {
                                 mTvUserXb.setText(userInfo.getSex()==1?"性别 丨 男":"性别 丨 女");
                                 mTvUserSg.setText("身高 丨 "+userInfo.getHeight()+"cm");
                                 mTvUserTz.setText("体重 丨 "+userInfo.getWeight()+"kg");
+                                mTvUserNl.setText("年龄 丨 "+StringUtil.getAgeFromBirthTime(userInfo.getBirthday()));
                             }
 
                             HomeInfoBean.DeviceBean device = result.getData().getDevice();

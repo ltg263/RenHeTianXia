@@ -148,7 +148,7 @@ public class SetUserXbActivity extends BaseActivity {
                     mm = "0"+mm;
                 }
                 String dd = day+"";
-                if(month + 1<10){
+                if(day + 1<10){
                     dd = "0"+day;
                 }
                 age=year + "-" + mm + "-" + dd;
