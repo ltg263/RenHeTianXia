@@ -353,13 +353,13 @@ public class DeviceLink1Activity extends BaseActivity {
             dataSz.add(Integer.parseInt(dataLists.get(4), 16));
             dataSz.add(Integer.parseInt(dataLists.get(5), 16));
         }
-        if (lsStr.equals(dataSz.toString()) || dataSz.size() != 5) {
+        if (dataSz.size() != 5) {
             Log.w("---》》》111", "最终角度:" + lsStr);
             return;
         }
         lsStr = dataSz.toString();
-        Log.w("---》》》", "最终角度:" + lsStr);
         if (dataSz.size() == 5) {
+            Log.w("---》》》", "最终角度:" + lsStr);
             setImages(dataSz.get(0), dataSz.get(1), dataSz.get(2), dataSz.get(3), dataSz.get(4));
             ChartHelper.addEntry(mData1, mLineChart1, dataSz.get(0));
             ChartHelper.addEntry(mData2, mLineChart2, dataSz.get(1));

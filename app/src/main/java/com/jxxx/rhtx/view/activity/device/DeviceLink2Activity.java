@@ -129,7 +129,7 @@ public class DeviceLink2Activity extends BaseActivity {
                     String[] resultSrt = mChangeList.get(i).getValue().replace("[", "").replace("]", "").split(",");
                     if (resultSrt.length == 1) {
                         if(StringUtil.isNotBlank(resultSrt[0])){
-                            ChartHelper.addEntry(mData2, mLineChart2, Float.parseFloat(resultSrt[0]));
+                            ChartHelper.addEntry(mData1, mLineChart1, Float.parseFloat(resultSrt[0]));
                         }
                     }
 
@@ -363,6 +363,13 @@ public class DeviceLink2Activity extends BaseActivity {
             tv_drz.setText("当前电容值:" + v + "pF");
             ChartHelper_1.addEntry(mData1, mLineChart1, v);
             Log.w("---》》》", "v:" + getX(v));
+
+            if (state_jl == 1) {
+                AddChangeList.ChangeListBean bean = new AddChangeList.ChangeListBean();
+                bean.setValue(v+"");
+                bean.setChangeTime(StringUtil.getTimeToYMD(System.currentTimeMillis(), "yyyy-MM-dd HH:mm:ss"));
+                changeList.add(bean);
+            }
             v = getX(v);
             if (v < mixV || mixV == 0) {
                 mixV = v;
@@ -380,12 +387,6 @@ public class DeviceLink2Activity extends BaseActivity {
                     tv_details.setText("呼吸频率:" +hxpl + "次/min");
                     ChartHelper.addEntry(mData2, mLineChart2, (int) (60 / Float.parseFloat(cc)));
                     dataSz.add(hxpl);
-                    if (state_jl == 1) {
-                        AddChangeList.ChangeListBean bean = new AddChangeList.ChangeListBean();
-                        bean.setValue(dataSz.toString());
-                        bean.setChangeTime(StringUtil.getTimeToYMD(System.currentTimeMillis(), "yyyy-MM-dd HH:mm:ss"));
-                        changeList.add(bean);
-                    }
                 }
             }
 
